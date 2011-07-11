@@ -1,0 +1,17 @@
+[user]
+	name = Richard Wallace
+	email = rwallace@thewallacepack.net
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	interactive = auto
+[alias]
+	st = status
+	ci = commit
+	co = checkout
+	br = branch
+[merge]
+	summary = true
+[core]
+	excludesfile = /home/rwallace/.gitignore

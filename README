@@ -1,0 +1,1 @@
+Run the setup.sh script to have links setup for each file in the "dot" directory to the $HOME directory.  If files already exist in the home directory, they are copied to .bck files before the link is created.  If a link already exists in the home directory, nothing is done.

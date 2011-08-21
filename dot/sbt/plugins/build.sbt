@@ -5,5 +5,6 @@ resolvers += {
 }
 
 libraryDependencies <<= (libraryDependencies, sbtVersion) { (deps, version) => 
-  deps :+ ("com.typesafe.sbteclipse" %% "sbteclipse" % "1.1" extra("sbtversion" -> version))
+  val sbtEclipseVersion = Map("0.10" -> "1.1").get(version).getOrElse("1.3-RC3")
+  deps :+ ("com.typesafe.sbteclipse" %% "sbteclipse" % sbtEclipseVersion extra("sbtversion" -> version))
 }

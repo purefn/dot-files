@@ -3,4 +3,6 @@ dot/ssh/id_dsa
 dot/ssh/id_dsa.pub
 dot/ssh/id_rsa
 dot/ssh/known_hosts
+dot/sbt/plugins/project/
+dot/sbt/plugins/target/
 

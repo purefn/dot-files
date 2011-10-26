@@ -81,6 +81,10 @@ printMemInfo() {
 }
 
 printBattery() {
+	HasBat=$(acpi -b 2>&1 | grep -c power_supply)
+	if [[ $HasBat == "1" ]]; then
+		return
+	fi
 	BatPresent=$(acpi -b | wc -l)
 	ACPresent=$(acpi -a | grep -c on-line)
 	if [[ $ACPresent == "1" ]]; then

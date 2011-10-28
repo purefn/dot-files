@@ -1,0 +1,18 @@
+#!/bin/bash
+ 
+# Load resources
+ 
+xrdb -merge .Xresources
+ 
+# Set the background color<
+ 
+xsetroot -solid midnightblue
+ 
+xscreensaver -no-splash &
+ 
+urxvtcd &
+
+.xmonad/trayer.sh
+ 
+exec xmonad
+

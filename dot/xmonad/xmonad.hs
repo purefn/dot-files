@@ -36,7 +36,7 @@ main = do
   trayerBar    <- spawnPipe myTrayerBar
   topStatusBar <- spawnPipe $ myTopStatusBar sw sh
   xmonad $ withUrgencyHook NoUrgencyHook $ defaultConfig
-    { terminal           = "urxvtc -e tmux"
+   { terminal           = "urxvtc"
     , modMask            = mod4Mask -- Rebind Mod to the Windows key
     , focusFollowsMouse  = True
     , borderWidth        = 1

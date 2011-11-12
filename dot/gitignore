@@ -1,4 +1,5 @@
 *.project
+*.cache
 *.classpath
 *.settings
 *.target

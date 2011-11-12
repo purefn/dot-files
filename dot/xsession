@@ -12,7 +12,5 @@ xscreensaver -no-splash &
  
 urxvtcd &
 
-.xmonad/trayer.sh
- 
 exec xmonad
 

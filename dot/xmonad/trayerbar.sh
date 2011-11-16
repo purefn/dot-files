@@ -17,9 +17,9 @@ if [ $EXECPIDGIN = 0 ]; then
     pidgin &
 fi
 
-EXECTOMBOY=$(ps -A | grep tomboy | wc -l)
-if [ $EXECTOMBOY = 0 ]; then
-    tomboy &
+EXECGNOTE=$(ps -A | grep gnote | wc -l)
+if [ $EXECGNOTE = 0 ]; then
+    gnote &
 fi
 
 EXECSHUTTER=$(ps -A | grep shutter | wc -l)

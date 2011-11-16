@@ -3,6 +3,7 @@
 import XMonad
 import XMonad.Core
 import XMonad.Actions.GridSelect
+import XMonad.Actions.Volume
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
@@ -15,6 +16,7 @@ import XMonad.Layout.Named
 import XMonad.Layout.IM
 import XMonad.Layout.Master
 import XMonad.Layout.Minimize
+import XMonad.StackSet (RationalRect (..), currentTag)
 import XMonad.Layout.MultiToggle
 import XMonad.Layout.MultiToggle.Instances
 import XMonad.Layout.NoBorders (noBorders,smartBorders,withBorder)
@@ -23,12 +25,18 @@ import XMonad.Layout.Reflect
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.Tabbed
 import XMonad.Prompt
+import XMonad.Prompt.Shell
+import XMonad.Prompt.XMonad
 import XMonad.Util.NamedScratchpad
+import XMonad.Actions.CycleWS (nextWS, prevWS, toggleWS, toggleOrView)
 import XMonad.Util.Run (spawnPipe)
 import XMonad.Util.Scratchpad (scratchpadManageHook, scratchpadSpawnActionCustom)
 import Data.Monoid
-import System.IO
+import Graphics.X11.ExtraTypes.XF86
+import System.Exit
+import System.IO (Handle, hPutStrLn)
 import qualified XMonad.StackSet as W
+import qualified Data.Map as M
 
 main = do
   (sw, sh)     <- getScreenDim
@@ -46,6 +54,7 @@ main = do
     , workspaces         = myWorkspaces
     , manageHook         = manageDocks <+> myManageHook
     , logHook            = dynamicLogWithPP $ myDzenPP workspaceBar
+    , keys               = myKeys
     , startupHook        = ewmhDesktopsStartup >> setWMName "LG3D"
     }
 
@@ -262,4 +271,77 @@ myDzenPP h = defaultPP
 --      "Minimize ReflectX ReflectY C"  -> " ^fg(#d74b73)^i(/home/nnoell/.icons/xbm8x8/mtall.xbm) "
 --    )
   }
+
+-- Key bindings
+myKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
+myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
+	[ ((modMask .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)                       --Launch a terminal
+	, ((modMask, xK_p), spawn "dmenu_run")                                                     --Launch dmenu
+	, ((mod1Mask, xK_F2), shellPrompt myXPConfig)                                              --Launch Xmonad shell prompt
+	, ((modMask .|. shiftMask, xK_F2), xmonadPrompt myXPConfig)                                --Launch Xmonad prompt
+	, ((modMask, xK_g), goToSelected $ myGSConfig myColorizer)                                 --Launch GridSelect
+	, ((modMask, xK_masculine), scratchPad)                                                    --Scratchpad
+	, ((modMask, xK_o), spawn "gksu halt")                                                     --Power off
+	, ((modMask .|. shiftMask, xK_o), spawn "gksu reboot")                                     --Reboot
+	, ((mod1Mask, xK_F3), spawn "chromium")                                                    --Launch chromium
+	, ((modMask, xK_c), kill)                                                                  --Close focused window
+	, ((mod1Mask, xK_F4), kill)
+	, ((modMask, xK_space), sendMessage NextLayout)                                            --Rotate through the available layout algorithms
+	, ((modMask .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf)                 --Reset the layouts on the current workspace to default
+	, ((modMask, xK_n), refresh)                                                               --Resize viewed windows to the correct size
+	, ((modMask, xK_Tab), windows W.focusDown)												   --Move focus to the next window
+	, ((modMask, xK_j), windows W.focusDown)
+	, ((mod1Mask, xK_Tab), windows W.focusDown)
+	, ((modMask, xK_k), windows W.focusUp)                                                     --Move focus to the previous window
+	, ((modMask, xK_a), windows W.focusMaster)                                                 --Move focus to the master window
+	, ((modMask .|. shiftMask, xK_a), windows W.swapMaster)                                    --Swap the focused window and the master window
+	, ((modMask .|. shiftMask, xK_j), windows W.swapDown  )                                    --Swap the focused window with the next window
+	, ((modMask .|. shiftMask, xK_k), windows W.swapUp    )                                    --Swap the focused window with the previous window
+	, ((modMask, xK_h), sendMessage Shrink)                                                    --Shrink the master area
+	, ((modMask .|. shiftMask, xK_Left), sendMessage Shrink)
+	, ((modMask, xK_l), sendMessage Expand)                                                    --Expand the master area
+	, ((modMask .|. shiftMask, xK_Right), sendMessage Expand)
+	, ((modMask .|. shiftMask, xK_h), sendMessage MirrorShrink)                                --MirrorShrink the master area
+	, ((modMask .|. shiftMask, xK_Down), sendMessage MirrorShrink)
+	, ((modMask .|. shiftMask, xK_l), sendMessage MirrorExpand)                                --MirrorExpand the master area
+	, ((modMask .|. shiftMask, xK_Up), sendMessage MirrorExpand)
+	, ((modMask, xK_t), withFocused $ windows . W.sink)                                        --Push window back into tiling
+	, ((modMask .|. shiftMask, xK_t), rectFloatFocused)                                        --Push window into float
+	, ((modMask, xK_f), sendMessage $ XMonad.Layout.MultiToggle.Toggle TABBED)                 --Push layout into tabbed
+	, ((modMask .|. shiftMask, xK_x), sendMessage $ XMonad.Layout.MultiToggle.Toggle REFLECTX) --Reflect layout by X
+	, ((modMask .|. shiftMask, xK_y), sendMessage $ XMonad.Layout.MultiToggle.Toggle REFLECTY) --Reflect layout by Y
+	, ((modMask, xK_m), withFocused minimizeWindow)                                            --Minimize window
+	, ((modMask .|. shiftMask, xK_m), sendMessage RestoreNextMinimizedWin)                     --Restore window
+	, ((modMask .|. shiftMask, xK_f), fullFloatFocused)                                        --Push window into full screen
+	, ((modMask, xK_comma), sendMessage (IncMasterN 1))                                        --Increment the number of windows in the master area
+	, ((modMask, xK_period), sendMessage (IncMasterN (-1)))                                    --Deincrement the number of windows in the master area
+	, ((modMask , xK_d), spawn "killall dzen2 trayer")                                         --Kill dzen2 and trayer
+	, ((modMask , xK_s), spawn "xscreensaver-command -lock")                                   --Lock screen
+	, ((modMask .|. shiftMask, xK_q), io (exitWith ExitSuccess))                               --Quit xmonad
+	, ((modMask, xK_q), restart "xmonad" True)                                                 --Restart xmonad
+	, ((modMask, xK_comma), toggleWS)                                                          --Toggle to the workspace displayed previously
+	, ((mod1Mask, xK_masculine), toggleOrView (myWorkspaces !! 0))                             --Move to Workspace 0
+	, ((mod1Mask .|. controlMask, xK_Left),  prevWS)                                           --Move to previous Workspace
+	, ((modMask, xK_Left), prevWS)
+	, ((modMask, xK_Right), nextWS)                                                            --Move to next Workspace
+	, ((mod1Mask .|. controlMask, xK_Right), nextWS)
+	, ((0, xF86XK_AudioMute), toggleMute >> return ())                                         --Mute/unmute volume
+	, ((0, xF86XK_AudioRaiseVolume), setMute False >> raiseVolume 10 >> return ())              --Raise volume
+	, ((0, xF86XK_AudioLowerVolume), setMute False >> lowerVolume 10 >> return ())              --Lower volume
+	, ((0, xF86XK_MonBrightnessUp), spawn "sh /home/nnoell/.scripts/briosd.sh")                --Raise brightness
+	, ((0, xF86XK_MonBrightnessDown), spawn "sh /home/nnoell/.scripts/briosd.sh")              --Lower brightness
+	, ((0, xF86XK_ScreenSaver), spawn "xscreensaver-command -lock")                            --Lock screen
+	, ((0, xK_Print), spawn "scrot")                                                           --Take a screenshot
+	]
+	++
+	[((m .|. modMask, k), windows $ f i)                                                       --Switch to n workspaces and send client to n workspaces
+	  | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
+	  , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
+	++
+	[((m .|. modMask, key), screenWorkspace sc >>= flip whenJust (windows . f))                --Switch to n screens and send client to n screens
+	  | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
+	  , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
+	where
+		fullFloatFocused = withFocused $ \f -> windows =<< appEndo `fmap` runQuery doFullFloat f
+		rectFloatFocused = withFocused $ \f -> windows =<< appEndo `fmap` runQuery (doRectFloat $ RationalRect 0.05 0.05 0.9 0.9) f
 

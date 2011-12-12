@@ -6,3 +6,4 @@
 */.*.swp
 *.scala_dependencies
 *.cache
+*.lib

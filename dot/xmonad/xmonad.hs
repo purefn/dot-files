@@ -8,6 +8,7 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
+import XMonad.Hooks.Minimize
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.UrgencyHook
 import XMonad.Layout
@@ -44,7 +45,7 @@ main = do
   trayerBar    <- spawnPipe myTrayerBar
   topStatusBar <- spawnPipe $ myTopStatusBar sw sh
   xmonad $ withUrgencyHook NoUrgencyHook $ defaultConfig
-   { terminal           = "urxvtc"
+   {  terminal           = "urxvtc"
     , modMask            = mod4Mask -- Rebind Mod to the Windows key
     , focusFollowsMouse  = True
     , borderWidth        = 1
@@ -56,6 +57,7 @@ main = do
     , logHook            = dynamicLogWithPP $ myDzenPP workspaceBar
     , keys               = myKeys
     , startupHook        = ewmhDesktopsStartup >> setWMName "LG3D"
+    , handleEventHook    = minimizeEventHook
     }
 
 getScreenDim = do

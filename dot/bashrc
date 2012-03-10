@@ -107,7 +107,7 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-export JAVA_HOME=/usr/lib/jvm/java-6-sun
+export JAVA_HOME=/usr/lib/jvm/java-7-oracle
 export JAVA_OPTS="-Djava.security.egd=file:/dev/./urandom"
 export MAVEN_OPTS="-XX:PermSize=64M -XX:MaxPermSize=256M -Xms1024M -Xmx2048M $JAVA_OPTS"
 export PATH=$PATH:~/Development/atlassian-plugin-sdk/bin:~/.cabal/bin

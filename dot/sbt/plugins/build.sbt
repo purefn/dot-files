@@ -1,9 +1,15 @@
 resolvers += Classpaths.typesafeResolver
 
-addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse" % "1.5.0")
+addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse-plugin" % "2.0.0")
 
-resolvers += Resolver.url("scalasbt", new URL("http://scalasbt.artifactoryonline.com/scalasbt/sbt-plugin-releases"))(Resolver.ivyStylePatterns)
+resolvers += "less is" at "http://repo.lessis.me"
 
-resolvers += "jgit-repo" at "http://download.eclipse.org/jgit/maven"
+//addSbtPlugin("me.lessis" % "sbt-growl-plugin" % "0.1.3")
 
-addSbtPlugin("com.jsuereth" % "sbt-git-plugin" % "0.2")
+//addSbtPlugin("me.lessis" % "jot" % "0.1.0")
+
+//resolvers += Resolver.url("scalasbt", new URL("http://scalasbt.artifactoryonline.com/scalasbt/sbt-plugin-releases"))(Resolver.ivyStylePatterns)
+
+//resolvers += "jgit-repo" at "http://download.eclipse.org/jgit/maven"
+
+//addSbtPlugin("com.jsuereth" % "sbt-git-plugin" % "0.2")

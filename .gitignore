@@ -6,6 +6,7 @@ dot/ssh/known_hosts
 dot/sbt/plugins/project/
 dot/sbt/plugins/target/
 dot/sbt/boot
+dot/sbt/target
 dot/xmonad/xmonad-x86_64-linux
 dot/xmonad/xmonad.errors
 dot/xmonad/xmonad.hi

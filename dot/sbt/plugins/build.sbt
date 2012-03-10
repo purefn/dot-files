@@ -8,3 +8,8 @@ resolvers += "less is" at "http://repo.lessis.me"
 
 //addSbtPlugin("me.lessis" % "jot" % "0.1.0")
 
+//resolvers += Resolver.url("scalasbt", new URL("http://scalasbt.artifactoryonline.com/scalasbt/sbt-plugin-releases"))(Resolver.ivyStylePatterns)
+
+//resolvers += "jgit-repo" at "http://download.eclipse.org/jgit/maven"
+
+//addSbtPlugin("com.jsuereth" % "sbt-git-plugin" % "0.2")

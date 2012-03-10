@@ -59,9 +59,9 @@ printCPUInfo() {
 }
 
 printTempInfo() {
-	CPUTemp=$(acpi --thermal | awk '{print substr($4,0,2)}')
+	CPUTemp=$(acpi --thermal -f | awk '{print $4}' | awk -F . '{print $1}')
 	GPUTemp=$(nvidia-settings -q gpucoretemp | grep 'Attribute' | awk '{print $4}' | tr -d '.')
-	if [[ $CPUTemp -gt 70 ]]; then
+	if [[ $CPUTemp -gt 176 ]]; then
 		CPUTemp="^fg($CRIT)$CPUTemp^fg()"
 	fi
 	if [[ $GPUTemp -gt 70 ]]; then

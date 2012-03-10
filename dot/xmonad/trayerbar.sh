@@ -39,3 +39,6 @@ if [ -x /usr/bin/gnome-power-manager ] ; then
    gnome-power-manager &
 fi
  
+if [ -x /usr/bin/dropbox ] ; then
+   dropbox start
+fi

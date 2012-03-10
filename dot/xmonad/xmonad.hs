@@ -281,6 +281,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 	, ((modMask .|. shiftMask, xK_F2), xmonadPrompt myXPConfig)                                --Launch Xmonad prompt
 	, ((modMask, xK_g), goToSelected $ myGSConfig myColorizer)                                 --Launch GridSelect
 	, ((modMask, xK_masculine), scratchPad)                                                    --Scratchpad
+        , ((modMask .|. shiftMask, xK_s), spawn "gksu ~/bin/suspend")                                            --Suspend
 	, ((modMask, xK_o), spawn "gksu halt")                                                     --Power off
 	, ((modMask .|. shiftMask, xK_o), spawn "gksu reboot")                                     --Reboot
 	, ((mod1Mask, xK_F3), spawn "chromium")                                                    --Launch chromium

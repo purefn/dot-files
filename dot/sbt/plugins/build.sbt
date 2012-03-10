@@ -1,7 +1,10 @@
 resolvers += Classpaths.typesafeResolver
 
-addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse" % "1.4.0")
+addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse-plugin" % "2.0.0")
 
-//resolvers += "less is" at "http://repo.lessis.me"
+resolvers += "less is" at "http://repo.lessis.me"
 
-//libraryDependencies <+= sbtVersion(v => "me.lessis" %% "sbt-growl-plugin" % "0.1.2-%s".format(v))
+//addSbtPlugin("me.lessis" % "sbt-growl-plugin" % "0.1.3")
+
+//addSbtPlugin("me.lessis" % "jot" % "0.1.0")
+

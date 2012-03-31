@@ -12,5 +12,7 @@ xscreensaver -no-splash &
  
 urxvtcd &
 
+export GTK_IM_MODULE="xim"
+
 exec xmonad
 

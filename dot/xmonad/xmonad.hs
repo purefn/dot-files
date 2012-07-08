@@ -70,9 +70,11 @@ getScreenDim = do
     return (toInteger w, toInteger h)
 
 -- Colors
-myFont              = "-misc-fixed-medium-r-semicondensed-*-12-110-75-75-c-60-*-*"
+--myFont              = "-misc-fixed-medium-r-semicondensed-*-12-110-75-75-c-60-*-*"
+myFont              = "inconsolata:size=11"
 --dzenFont            = "-*-montecarlo-medium-r-normal-*-11-*-*-*-*-*-*-*"
-dzenFont            = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
+--dzenFont            = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
+dzenFont            = "inconsolata:size=11"
 colorBlack          = "#000000"
 colorBlackAlt       = "#050505"
 colorGray           = "#484848"
@@ -191,14 +193,14 @@ myLayoutHook = id
 
 myWorkspaces ::[WorkspaceId]
 myWorkspaces = clickable $
-        [" ^i(" ++ icons ++ "terminal.xbm) term "    --0
-        ," ^i(" ++ icons ++ "world.xbm) web "        --1
-        ," ^i(" ++ icons ++ "binder.xbm) code "      --2
-        ," ^i(" ++ icons ++ "mouse.xbm) gfx "        --3
-        ," ^i(" ++ icons ++ "balloon.xbm) chat "     --4
-        ," ^i(" ++ icons ++ "headphones.xbm) music " --5
-        ," ^i(" ++ icons ++ "screen.xbm) video "     --6
-        ," ^i(" ++ icons ++ "ghost.xbm) other "      --7
+        ["^i(" ++ icons ++ "terminal.xbm) term"    --0
+        ,"^i(" ++ icons ++ "world.xbm) web"        --1
+        ,"^i(" ++ icons ++ "binder.xbm) code"      --2
+        ,"^i(" ++ icons ++ "mouse.xbm) gfx"        --3
+        ,"^i(" ++ icons ++ "balloon.xbm) chat"     --4
+        ,"^i(" ++ icons ++ "headphones.xbm) music" --5
+        ,"^i(" ++ icons ++ "screen.xbm) video"     --6
+        ,"^i(" ++ icons ++ "ghost.xbm) other"      --7
         ]
         where clickable l = [ " ^ca(1,xdotool key super+" ++ show (n) ++ ")" ++ ws ++ "^ca() " |
         --where clickable l = [ show (n) ++ ws |

@@ -126,7 +126,7 @@ printBar() {
 	while true; do
 		#read CPULoad0 CPULoad1 CPUFreq MemUsed MemPerc Uptime
 		read CPULoad0 CPUFreq MemUsed MemPerc Uptime
-		echo -n "^pa(1250)"
+		echo -n "^pa(1100)"
 		printSpace
 		printCPUInfo
 		printSpace

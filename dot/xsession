@@ -9,6 +9,8 @@ xrdb -merge .Xresources
 xsetroot -solid midnightblue
  
 xscreensaver -no-splash &
+
+xmodmap .Xmodmap
  
 urxvtcd &
 

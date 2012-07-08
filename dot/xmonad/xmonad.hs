@@ -3,7 +3,7 @@
 import XMonad
 import XMonad.Core
 import XMonad.Actions.GridSelect
-import XMonad.Actions.Volume
+--import XMonad.Actions.Volume
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
@@ -17,6 +17,7 @@ import XMonad.Layout.Named
 import XMonad.Layout.IM
 import XMonad.Layout.Master
 import XMonad.Layout.Minimize
+import XMonad.Layout.Simplest
 import XMonad.StackSet (RationalRect (..), currentTag)
 import XMonad.Layout.MultiToggle
 import XMonad.Layout.MultiToggle.Instances
@@ -164,6 +165,7 @@ myLayoutHook = id
 	$ onWorkspace (myWorkspaces !! 2) codeLayouts  --Workspace 2 layouts
 	$ onWorkspace (myWorkspaces !! 3) gimpLayouts  --Workspace 3 layouts
 	$ onWorkspace (myWorkspaces !! 4) chatLayouts  --Workspace 4 layouts
+        $ onWorkspace (myWorkspaces !! 6) (noBorders Simplest)
         $ allLayouts
 	where
 		allLayouts  = myTile ||| myTabS ||| myTabM ||| myTabC
@@ -328,9 +330,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 	, ((modMask, xK_Left), prevWS)
 	, ((modMask, xK_Right), nextWS)                                                            --Move to next Workspace
 	, ((mod1Mask .|. controlMask, xK_Right), nextWS)
-	, ((0, xF86XK_AudioMute), toggleMute >> return ())                                         --Mute/unmute volume
-	, ((0, xF86XK_AudioRaiseVolume), setMute False >> raiseVolume 10 >> return ())              --Raise volume
-	, ((0, xF86XK_AudioLowerVolume), setMute False >> lowerVolume 10 >> return ())              --Lower volume
+--	, ((0, xF86XK_AudioMute), toggleMute >> return ())                                         --Mute/unmute volume
+--	, ((0, xF86XK_AudioRaiseVolume), setMute False >> raiseVolume 10 >> return ())              --Raise volume
+--	, ((0, xF86XK_AudioLowerVolume), setMute False >> lowerVolume 10 >> return ())              --Lower volume
 	, ((0, xF86XK_MonBrightnessUp), spawn "sh /home/nnoell/.scripts/briosd.sh")                --Raise brightness
 	, ((0, xF86XK_MonBrightnessDown), spawn "sh /home/nnoell/.scripts/briosd.sh")              --Lower brightness
 	, ((0, xF86XK_ScreenSaver), spawn "xscreensaver-command -lock")                            --Lock screen

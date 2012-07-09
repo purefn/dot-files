@@ -3,7 +3,7 @@
 import XMonad
 import XMonad.Core
 import XMonad.Actions.GridSelect
---import XMonad.Actions.Volume
+import XMonad.Actions.Volume
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
@@ -332,9 +332,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 	, ((modMask, xK_Left), prevWS)
 	, ((modMask, xK_Right), nextWS)                                                            --Move to next Workspace
 	, ((mod1Mask .|. controlMask, xK_Right), nextWS)
---	, ((0, xF86XK_AudioMute), toggleMute >> return ())                                         --Mute/unmute volume
---	, ((0, xF86XK_AudioRaiseVolume), setMute False >> raiseVolume 10 >> return ())              --Raise volume
---	, ((0, xF86XK_AudioLowerVolume), setMute False >> lowerVolume 10 >> return ())              --Lower volume
+	, ((0, xF86XK_AudioMute), toggleMute >> return ())                                         --Mute/unmute volume
+	, ((0, xF86XK_AudioRaiseVolume), setMute False >> raiseVolume 10 >> return ())              --Raise volume
+	, ((0, xF86XK_AudioLowerVolume), setMute False >> lowerVolume 10 >> return ())              --Lower volume
 	, ((0, xF86XK_MonBrightnessUp), spawn "sh /home/nnoell/.scripts/briosd.sh")                --Raise brightness
 	, ((0, xF86XK_MonBrightnessDown), spawn "sh /home/nnoell/.scripts/briosd.sh")              --Lower brightness
 	, ((0, xF86XK_ScreenSaver), spawn "xscreensaver-command -lock")                            --Lock screen

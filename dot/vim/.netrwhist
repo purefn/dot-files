@@ -1,0 +1,7 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_1='/home/rwallace/Development/atlassian/STRM/streams-core'
+let g:netrw_dirhist_2='/home/rwallace/Development/scalaz/project/build'
+let g:netrw_dirhist_3='/home/rwallace'
+let g:netrw_dirhist_4='/home/rwallace/bin'
+let g:netrw_dirhist_5='/home/rwallace/.vim'

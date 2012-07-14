@@ -1,0 +1,21 @@
+" Mappings fuer plugin/ToggleComment.vim
+
+noremap <silent> ,# :call CommentLineToEnd('# ')<CR>+
+noremap <silent> ;# :call CommentLineToEnd('### ')<CR>+
+noremap <silent> ,/ :call CommentLineToEnd('// ')<CR>+
+noremap <silent> ," :call CommentLineToEnd('" ')<CR>+
+noremap <silent> ,; :call CommentLineToEnd('; ')<CR>+
+noremap <silent> ,- :call CommentLineToEnd('-- ')<CR>+
+noremap <silent> ,* :call CommentLinePincer('/* ', ' */')<CR>+
+noremap <silent> ,< :call CommentLinePincer('<!-- ', ' -->')<CR>+
+
+" and/or Filetype specific mappings: Meta-c (Alt-c) and Meta-Shift-C
+
+autocmd FileType c     noremap <silent> <buffer> <C-c> :call CommentLineToEnd ('// ')<CR>+
+autocmd FileType c     noremap <silent> <buffer> <C-C> :call CommentLinePincer('/* ', ' */')<CR>+
+autocmd FileType make  noremap <silent> <buffer> <C-c> :call CommentLineToEnd ('# ')<CR>+
+autocmd FileType html  noremap <silent> <buffer> <C-c> :call CommentLinePincer('<!-- ', ' -->')<CR>+
+autocmd FileType xml   noremap <silent> <buffer> <C-c> :call CommentLinePincer('<!-- ', ' -->')<CR>+
+autocmd FileType scala noremap <silent> <buffer> <C-c> :call CommentLineToEnd ('// ')<CR>+
+autocmd FileType scala noremap <silent> <buffer> <C-C> :call CommentLinePincer('/* ', ' */')<CR>+
+

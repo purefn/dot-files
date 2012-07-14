@@ -71,10 +71,11 @@ getScreenDim = do
 
 -- Colors
 --myFont              = "-misc-fixed-medium-r-semicondensed-*-12-110-75-75-c-60-*-*"
-myFont              = "inconsolata:size=11"
+myFont              = "DejaVu Sans Mono:pixelsize=12:antialias=true:hinting=true"
 --dzenFont            = "-*-montecarlo-medium-r-normal-*-11-*-*-*-*-*-*-*"
+dzenFont            = "DejaVu Sans Mono:pixelsize=12:antialias=true:hinting=true"
 --dzenFont            = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
-dzenFont            = "inconsolata:size=11"
+--dzenFont            = "Anonymous Pro:size=11"
 colorBlack          = "#000000"
 colorBlackAlt       = "#050505"
 colorGray           = "#484848"
@@ -156,7 +157,7 @@ myTopStatusBar w h = "/home/rwallace/.xmonad/topstatusbar.sh '" ++ show w ++ "' 
 myTrayerBar    = "/home/rwallace/.xmonad/trayerbar.sh"
 
 myLayoutHook = id
-        $ gaps [(U,16), (D,16), (L,0), (R,0)]
+        $ gaps [(U,12), (D,12), (L,0), (R,0)]
         $ avoidStruts
         $ minimize
         $ mkToggle (single TABBED)

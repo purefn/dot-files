@@ -152,7 +152,7 @@ instance Transformer TABBED Window where
  
 -- StatusBars
 myWorkspaceBar, myTopStatusBar :: Integer -> Integer -> String 
-myWorkspaceBar w h = "dzen2 -x '0' -y '" ++ show (h - 16) ++ "' -h '16' -w '" ++ show (floor $ toRational w * 0.9) ++ "' -ta 'l' -fg '" ++ colorWhite ++ "' -bg '" ++ colorBlackAlt ++ "' -fn '" ++ dzenFont ++ "' -p -e ''"
+myWorkspaceBar w h = "dzen2 -x '0' -y '" ++ show (h - 16) ++ "' -h '18' -w '" ++ show (floor $ toRational w * 0.9) ++ "' -ta 'l' -fg '" ++ colorWhite ++ "' -bg '" ++ colorBlackAlt ++ "' -fn '" ++ dzenFont ++ "' -p -e ''"
 myTopStatusBar w h = "/home/rwallace/.xmonad/topstatusbar.sh '" ++ show w ++ "' '" ++ dzenFont ++ "'"
 myTrayerBar    = "/home/rwallace/.xmonad/trayerbar.sh"
 

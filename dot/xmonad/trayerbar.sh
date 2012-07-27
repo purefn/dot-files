@@ -34,9 +34,8 @@ if [ -x /usr/bin/nm-applet ] ; then
     fi
 fi
  
-if [ -x /usr/bin/gnome-power-manager ] ; then
-   sleep 3
-   gnome-power-manager &
+if [ -x /usr/bin/keepassx ] ; then
+   keepassx &
 fi
  
 if [ -x /usr/bin/dropbox ] ; then

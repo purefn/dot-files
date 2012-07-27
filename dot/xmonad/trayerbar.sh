@@ -7,7 +7,7 @@ if [ $EXECTRAYER != 0 ]; then
 	killall trayer
 fi
 trayer --edge bottom --align right --SetDockType true --SetPartialStrut true \
- --expand true --width 10 --transparent true --alpha 0 --tint 0x000000 --height 12 &
+ --expand true --width 10 --transparent true --alpha 0 --tint 0x050505 --height 18 &
  
 # Fire up apps
  

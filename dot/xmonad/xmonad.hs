@@ -152,7 +152,7 @@ instance Transformer TABBED Window where
  
 -- StatusBars
 myWorkspaceBar, myTopStatusBar :: Integer -> Integer -> String 
-myWorkspaceBar w h = "dzen2 -x '0' -y '" ++ show (h - 16) ++ "' -h '16' -w '" ++ show (floor $ toRational w * 0.9) ++ "' -ta 'l' -fg '" ++ colorWhite ++ "' -bg '" ++ colorBlackAlt ++ "' -fn '" ++ dzenFont ++ "' -p -e ''"
+myWorkspaceBar w h = "dzen2 -x '0' -y '" ++ show (h - 16) ++ "' -h '18' -w '" ++ show (floor $ toRational w * 0.9) ++ "' -ta 'l' -fg '" ++ colorWhite ++ "' -bg '" ++ colorBlackAlt ++ "' -fn '" ++ dzenFont ++ "' -p -e ''"
 myTopStatusBar w h = "/home/rwallace/.xmonad/topstatusbar.sh '" ++ show w ++ "' '" ++ dzenFont ++ "'"
 myTrayerBar    = "/home/rwallace/.xmonad/trayerbar.sh"
 
@@ -212,8 +212,8 @@ myManageHook :: ManageHook
 myManageHook = (composeAll . concat $
         [ [resource     =? r --> doIgnore                    | r <- myIgnores] --ignore desktop
         , [className    =? c --> doShift (myWorkspaces !! 1) | c <- myWebS   ] --move myWebS windows to workspace 1 by classname
+	, [className    =? c --> doShift (myWorkspaces !! 3) | c <- myGfxS   ] --move myGfxS windows to workspace 3 by classname
 	, [className    =? c --> doShift (myWorkspaces !! 4) | c <- myChatS  ] --move myChatS windows to workspace 4 by classname
-	, [className    =? c --> doShift (myWorkspaces !! 3) | c <- myGfxS   ] --move myGfxS windows to workspace 4 by classname
 	, [className    =? c --> doShift (myWorkspaces !! 5) | c <- myMusicS ] --move myMusiS windows to workspace 5 by classname
 	, [className    =? c --> doCenterFloat               | c <- myFloatCC] --float center geometry by classname
 	, [name         =? n --> doCenterFloat               | n <- myFloatCN] --float center geometry by name
@@ -237,7 +237,7 @@ myManageHook = (composeAll . concat $
 -- myWorkspaceBar config
 myDzenPP h = defaultPP
   { ppOutput          = hPutStrLn h
-  , ppSep             = ""
+  , ppSep             = " "
   , ppWsSep           = ""
   , ppCurrent         = wrap ("^fg(" ++ colorWhite ++ ")^bg(" ++ colorBlue ++ ")") ("^fg()^bg()")
   , ppUrgent          = wrap ("^fg(" ++ colorWhite ++ ")^bg(" ++ colorRed ++ ")") ("^fg()^bg()")
@@ -336,8 +336,8 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 	, ((0, xF86XK_AudioMute), toggleMute >> return ())                                         --Mute/unmute volume
 	, ((0, xF86XK_AudioRaiseVolume), setMute False >> raiseVolume 10 >> return ())              --Raise volume
 	, ((0, xF86XK_AudioLowerVolume), setMute False >> lowerVolume 10 >> return ())              --Lower volume
-	, ((0, xF86XK_MonBrightnessUp), spawn "sh /home/nnoell/.scripts/briosd.sh")                --Raise brightness
-	, ((0, xF86XK_MonBrightnessDown), spawn "sh /home/nnoell/.scripts/briosd.sh")              --Lower brightness
+	--, ((0, xF86XK_MonBrightnessUp), spawn "sh /home/nnoell/.scripts/briosd.sh")                --Raise brightness
+	--, ((0, xF86XK_MonBrightnessDown), spawn "sh /home/nnoell/.scripts/briosd.sh")              --Lower brightness
 	, ((0, xF86XK_ScreenSaver), spawn "xscreensaver-command -lock")                            --Lock screen
 	, ((0, xK_Print), spawn "scrot")                                                           --Take a screenshot
 	]

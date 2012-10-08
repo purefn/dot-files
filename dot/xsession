@@ -1,20 +1,10 @@
-#!/bin/bash
- 
-# Load resources
- 
-xrdb -merge .Xresources
- 
-# Set the background color<
- 
-xsetroot -solid midnightblue
- 
-xscreensaver -no-splash &
+#!/bin/sh
 
-xmodmap .Xmodmap
- 
-urxvtcd &
+#
+# ~/.xsession
+#
+# Executed by xdm/gdm/kdm at login
+#
 
-export GTK_IM_MODULE="xim"
-
-exec xmonad
+/bin/bash --login -i ~/.xinitrc
 

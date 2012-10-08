@@ -34,8 +34,8 @@ NetUp=0
 NetDown=0
 
 printVolInfo() {
-	Perc=$(amixer get Master | grep "Mono:" | awk '{print $4}' | tr -d '[]%')
-	Mute=$(amixer get Master | grep "Mono:" | awk '{print $6}')
+	Perc=$(amixer get Master | grep "Front Left:" | awk '{print $5}' | tr -d '[]%')
+	Mute=$(amixer get Master | grep "Front Left:" | awk '{print $6}')
 	if [[ $Mute == "[off]" ]]; then
 		echo -n "^fg($COLOR_ICON)^i($ICONPATH/volume_off.xbm) "
 		echo -n "^fg()"
@@ -126,7 +126,7 @@ printBar() {
 	while true; do
 		#read CPULoad0 CPULoad1 CPUFreq MemUsed MemPerc Uptime
 		read CPULoad0 CPUFreq MemUsed MemPerc Uptime
-		echo -n "^pa(1100)"
+		echo -n "^pa(1075)"
 		printSpace
 		printCPUInfo
 		printSpace

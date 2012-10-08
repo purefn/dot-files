@@ -3,7 +3,7 @@
 *.classpath
 *.settings
 *.target
-*/.*.swp
+.*.swp
 *.scala_dependencies
 *.cache
 *.lib

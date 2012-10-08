@@ -37,6 +37,10 @@ fi
 if [ -x /usr/bin/xfce4-power-manager ] ; then
   xfce4-power-manager &
 fi
+
+if [ -x /usr/bin/keepassx ] ; then
+   keepassx &
+fi
  
 if [ -x /usr/bin/dropbox ] ; then
   dropbox start

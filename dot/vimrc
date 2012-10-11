@@ -20,3 +20,10 @@ autocmd FileType scala noremap <silent> <buffer> <C-c> :call CommentLineToEnd ('
 autocmd FileType scala noremap <silent> <buffer> <C-C> :call CommentLinePincer('/* ', ' */')<CR>+
 
 set sw=2
+syntax on
+filetype plugin on
+
+" haskellmode settings
+au Bufenter *.hs compiler ghc
+let g:haddock_browser = "/usr/bin/chromium"
+

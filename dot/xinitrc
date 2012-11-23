@@ -25,6 +25,8 @@ xsetroot -cursor_name left_ptr
 
 urxvtcd &
 
+xcompmgr -c &
+
 export GTK_IM_MODULE="xim"
 
 exec dbus-launch xmonad

@@ -42,8 +42,8 @@ if [ -x /usr/bin/keepassx ] ; then
    keepassx &
 fi
  
-if [ -x /usr/bin/dropbox ] ; then
-  dropbox start
+if [ -x /usr/bin/dropboxd ] ; then
+  dropboxd &
 fi
 
 if [ -x /usr/bin/pasystray ] ; then

@@ -20,8 +20,12 @@ autocmd FileType scala noremap <silent> <buffer> <C-c> :call CommentLineToEnd ('
 autocmd FileType scala noremap <silent> <buffer> <C-C> :call CommentLinePincer('/* ', ' */')<CR>+
 
 set sw=2
+set incsearch
+set hlsearch
 syntax on
+filetype on
 filetype plugin on
+filetype indent on
 
 " haskellmode settings
 au Bufenter *.hs compiler ghc

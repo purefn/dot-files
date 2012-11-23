@@ -16,3 +16,5 @@
 [core]
 	excludesfile = /home/rwallace/.gitignore
 	editor = vim
+[push]
+	default = simple

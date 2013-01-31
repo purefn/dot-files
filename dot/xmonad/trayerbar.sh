@@ -12,19 +12,25 @@ trayer --edge bottom --align right --SetDockType true --SetPartialStrut true \
 # Fire up apps
  
 
-EXECPIDGIN=$(ps -A | grep pidgin | wc -l)
-if [ $EXECPIDGIN = 0 ]; then
-  pidgin &
+if [ -x /usr/bin/pidgin ] ; then
+  EXECPIDGIN=$(ps -A | grep pidgin | wc -l)
+  if [ $EXECPIDGIN = 0 ]; then
+    pidgin &
+  fi
 fi
 
-EXECGNOTE=$(ps -A | grep gnote | wc -l)
-if [ $EXECGNOTE = 0 ]; then
-  gnote &
+if [ -x /usr/bin/gnote ] ; then
+  EXECGNOTE=$(ps -A | grep gnote | wc -l)
+  if [ $EXECGNOTE = 0 ]; then
+    gnote &
+  fi
 fi
 
-EXECSHUTTER=$(ps -A | grep shutter | wc -l)
-if [ $EXECSHUTTER = 0 ]; then
-  shutter --min_at_startup &
+if [ -x /usr/bin/shutter ] ; then
+  EXECSHUTTER=$(ps -A | grep shutter | wc -l)
+  if [ $EXECSHUTTER = 0 ]; then
+    shutter --min_at_startup &
+  fi
 fi
  
 if [ -x /usr/bin/nm-applet ] ; then
@@ -35,7 +41,10 @@ if [ -x /usr/bin/nm-applet ] ; then
 fi
  
 if [ -x /usr/bin/xfce4-power-manager ] ; then
-  xfce4-power-manager &
+  EXECPM=$(ps -A | grep xfce4-power-manager | wc -l)
+  if [ $EXECPM = 0 ]; then
+    xfce4-power-manager &
+  fi
 fi
 
 if [ -x /usr/bin/keepassx ] ; then

@@ -70,12 +70,25 @@ getScreenDim = do
     return (toInteger w, toInteger h)
 
 -- Colors
---myFont              = "-misc-fixed-medium-r-semicondensed-*-12-110-75-75-c-60-*-*"
-myFont              = "DejaVu Sans Mono:pixelsize=12:antialias=true:hinting=true"
---dzenFont            = "-*-montecarlo-medium-r-normal-*-11-*-*-*-*-*-*-*"
-dzenFont            = "DejaVu Sans Mono:pixelsize=12:antialias=true:hinting=true"
---dzenFont            = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
---dzenFont            = "Anonymous Pro:size=11"
+-- myFont              = "Ubuntu Mono:pixelsize=12:antialias=true:hinting=true"
+-- dzenFont            = "Ubuntu Mono:pixelsize=12:antialias=true:hinting=true"
+-- myFont              = "Unifont:pixelsize=14"
+-- dzenFont            = "Unifont:pixelsize=14"
+-- myFont              = "Inconsolata:pixelsize=12:antialias=true:hinting=true"
+-- dzenFont            = "Inconsolata:pixelsize=12:antialias=true:hinting=true"
+-- myFont              = "DejaVu Sans Mono:pixelsize=12:antialias=true:hinting=true"
+-- dzenFont            = "DejaVu Sans Mono:pixelsize=12:antialias=true:hinting=true"
+-- myFont              = "monofur:pixelsize=12:antialias=true:hinting=true"
+-- dzenFont            = "monofur:pixelsize=12:antialias=true:hinting=true"
+myFont              = "Consolas:pixelsize=12:antialias=true:autohinting=true,Unifont:pixelsize=12"
+dzenFont            = "Consolas:pixelsize=12:antialias=true:autohinting=true,Unifont:pixelsize=12"
+-- myFont              = "Monaco:pixelsize=12:antialias=true:hinting=true"
+-- dzenFont            = "Monaco:pixelsize=12:antialias=true:hinting=true"
+-- myFont              = "Anonymous Pro:pixelsize=12:antialias=true:hinting=true"
+-- dzenFont            = "Anonymous Pro:pixelsize=12:antialias=true:hinting=true"
+-- myFont              = "Droid Sans Mono:pixelsize=12:antialias=true:hinting=true"
+-- dzenFont            = "Droid Sans Mono:pixelsize=12:antialias=true:hinting=true"
+
 colorBlack          = "#000000"
 colorBlackAlt       = "#050505"
 colorGray           = "#484848"
@@ -245,7 +258,7 @@ myDzenPP h = defaultPP
   , ppHidden          = wrap ("^fg(" ++ colorGrayAlt ++ ")^bg(" ++ colorGray ++ ")") ("^fg()^bg()")
   , ppSort            = fmap (namedScratchpadFilterOutWorkspace.) (ppSort xmobarPP) -- hide "NSP" from the workspace list
   , ppHiddenNoWindows = wrap ("^fg(" ++ colorGray ++ ")^bg(" ++ colorBlackAlt ++ ")") ("^fg()^bg()")
-  , ppTitle           = wrap ("^fg(" ++ colorWhiteAlt ++ ")^bg(" ++ colorBlackAlt ++ ")") ("^fg()^bg()") . wrap "" " ^fg(#a488d9)>^fg(#007b8c)>^fg(#444444)>"
+  , ppTitle           = wrap ("^fg(" ++ colorWhiteAlt ++ ")^bg(" ++ colorBlackAlt ++ ")") ("^fg()^bg()") . wrap "" " ^fg(#a488d9)>^fg(#007b8c)>^fg(#444444)> ⋙ ⋘ ⊛ ∗ ≟ λ"
 --  , ppLayout          = wrap ("^fg(" ++ colorBlue ++ ")^bg(" ++ colorBlackAlt ++ ")") ("^fg()^bg()") .
 --    (\x -> case x of
 --      "Minimize T"                    -> " ^i(/home/nnoell/.icons/xbm8x8/tall.xbm) "

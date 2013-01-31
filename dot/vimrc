@@ -19,7 +19,7 @@ autocmd FileType xml   noremap <silent> <buffer> <C-c> :call CommentLinePincer('
 autocmd FileType scala noremap <silent> <buffer> <C-c> :call CommentLineToEnd ('// ')<CR>+
 autocmd FileType scala noremap <silent> <buffer> <C-C> :call CommentLinePincer('/* ', ' */')<CR>+
 
-set sw=2
+
 set incsearch
 set hlsearch
 syntax on
@@ -31,3 +31,4 @@ filetype indent on
 au Bufenter *.hs compiler ghc
 let g:haddock_browser = "/usr/bin/chromium"
 
+autocmd Filetype javascript setlocal tabstop=4 shiftwidth=4 expandtab

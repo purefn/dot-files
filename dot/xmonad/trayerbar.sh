@@ -48,13 +48,21 @@ if [ -x /usr/bin/xfce4-power-manager ] ; then
 fi
 
 if [ -x /usr/bin/keepassx ] ; then
+  EXECKEEPASSX=$(ps -A | grep keepassx | wc -l)
+  if [ $EXECKEEPASSX = 0 ]; then
    keepassx &
 fi
  
 if [ -x /usr/bin/dropboxd ] ; then
-  dropboxd &
+  EXECDROPBOX=$(ps -A | grep dropboxd | wc -l)
+  if [ $EXECDROPBOX = 0 ]; then
+    dropboxd &
+  fi
 fi
 
 if [ -x /usr/bin/pasystray ] ; then
-  pasystray &
+  EXECPA=$(ps -A | grep pasystray | wc -l)
+  if [ $EXECPA = 0 ]; then
+    pasystray &
+  fi
 fi

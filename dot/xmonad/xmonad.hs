@@ -346,9 +346,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 	, ((modMask, xK_Left), prevWS)
 	, ((modMask, xK_Right), nextWS)                                                            --Move to next Workspace
 	, ((mod1Mask .|. controlMask, xK_Right), nextWS)
--- 	, ((0, xF86XK_AudioMute), toggleMute >> return ())                                         --Mute/unmute volume
--- 	, ((0, xF86XK_AudioRaiseVolume), setMute False >> raiseVolume 10 >> return ())              --Raise volume
--- 	, ((0, xF86XK_AudioLowerVolume), setMute False >> lowerVolume 10 >> return ())              --Lower volume
+	, ((0, xF86XK_AudioMute), toggleMute >> return ())                                         --Mute/unmute volume
+	, ((0, xF86XK_AudioRaiseVolume), setMute False >> raiseVolume >> return ())              --Raise volume
+	, ((0, xF86XK_AudioLowerVolume), setMute False >> lowerVolume >> return ())              --Lower volume
 	--, ((0, xF86XK_MonBrightnessUp), spawn "sh /home/nnoell/.scripts/briosd.sh")                --Raise brightness
 	--, ((0, xF86XK_MonBrightnessDown), spawn "sh /home/nnoell/.scripts/briosd.sh")              --Lower brightness
 	, ((0, xF86XK_ScreenSaver), spawn "xscreensaver-command -lock")                            --Lock screen
@@ -366,3 +366,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 		fullFloatFocused = withFocused $ \f -> windows =<< appEndo `fmap` runQuery doFullFloat f
 		rectFloatFocused = withFocused $ \f -> windows =<< appEndo `fmap` runQuery (doRectFloat $ RationalRect 0.05 0.05 0.9 0.9) f
 
+toggleMute = spawn "/usr/bin/mute_toggle"
+raiseVolume = spawn "/usr/bin/vol_up"
+lowerVolume = spawn "/usr/bin/vol_down"
+setMute b = spawn ("pacmd set-sink-mute \"`pacmd info|grep 'Default sink name'|awk '{print $4}'`\" " ++ if b then "1" else "0")

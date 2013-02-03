@@ -13,15 +13,18 @@ noremap <silent> ,< :call CommentLinePincer('<!-- ', ' -->')<CR>+
 
 autocmd FileType c     noremap <silent> <buffer> <C-c> :call CommentLineToEnd ('// ')<CR>+
 autocmd FileType c     noremap <silent> <buffer> <C-C> :call CommentLinePincer('/* ', ' */')<CR>+
+autocmd Filetype javascript setlocal tabstop=4 shiftwidth=4 expandtab
 autocmd FileType make  noremap <silent> <buffer> <C-c> :call CommentLineToEnd ('# ')<CR>+
 autocmd FileType html  noremap <silent> <buffer> <C-c> :call CommentLinePincer('<!-- ', ' -->')<CR>+
 autocmd FileType xml   noremap <silent> <buffer> <C-c> :call CommentLinePincer('<!-- ', ' -->')<CR>+
 autocmd FileType scala noremap <silent> <buffer> <C-c> :call CommentLineToEnd ('// ')<CR>+
 autocmd FileType scala noremap <silent> <buffer> <C-C> :call CommentLinePincer('/* ', ' */')<CR>+
-
+au FileType haskell let b:ghc_staticoptions = '-isrc -idist/build/autogen'
+au FileType haskell setlocal path+=src
 
 set incsearch
 set hlsearch
+set encoding=utf-8
 syntax on
 filetype on
 filetype plugin on
@@ -31,4 +34,4 @@ filetype indent on
 au Bufenter *.hs compiler ghc
 let g:haddock_browser = "/usr/bin/chromium"
 
-autocmd Filetype javascript setlocal tabstop=4 shiftwidth=4 expandtab
+

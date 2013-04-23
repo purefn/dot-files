@@ -113,3 +113,14 @@ export MAVEN_OPTS="-XX:PermSize=64M -XX:MaxPermSize=256M -Xms1024M -Xmx2048M $JA
 export PATH=$PATH:/opt/haskell/bin:~/.cabal/bin:~/Development/atlassian-plugin-sdk/bin
 export auto_proxy=http://gateway.atlassian.com/proxy.pac
 
+function activate_hsenv() {
+  if [[ -z $HSENV ]]; then
+    NUMBER_OF_ENVS=$(find . -maxdepth 1 -type d -name ".hsenv_*" | wc -l)
+    case ${NUMBER_OF_ENVS} in
+      "0") ;;
+      "1") source .hsenv_*/bin/activate;;
+      *) echo multiple hsenv environments, manual activaton required;;
+    esac
+  fi
+}
+export PROMPT_COMMAND=activate_hsenv

@@ -1,6 +1,7 @@
 *.project
 *.cache
 *.classpath
+.hsenv*
 *.settings
 *.target
 .*.swp
@@ -8,3 +9,4 @@
 *.cache
 *.lib
 *.vim
+dist_*

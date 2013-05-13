@@ -110,7 +110,7 @@ fi
 export JAVA_HOME=/opt/java6
 export JAVA_OPTS="-Djava.security.egd=file:/dev/./urandom"
 export MAVEN_OPTS="-XX:PermSize=64M -XX:MaxPermSize=256M -Xms1024M -Xmx2048M $JAVA_OPTS"
-export PATH=$PATH:/opt/haskell/bin:~/.cabal/bin:~/Development/atlassian-plugin-sdk/bin
+export PATH=$PATH:~/.cabal/bin:~/Development/atlassian-plugin-sdk/bin:$JAVA_HOME/bin
 export auto_proxy=http://gateway.atlassian.com/proxy.pac
 
 function activate_hsenv() {

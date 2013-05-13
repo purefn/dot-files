@@ -10,3 +10,4 @@
 *.lib
 *.vim
 dist_*
+notest.sbt

@@ -36,7 +36,7 @@ fi
 if [ -x /usr/bin/nm-applet ] ; then
   EXECNMAPPLET=$(ps -A | grep nm-applet | wc -l)
   if [ $EXECNMAPPLET = 0 ]; then
-      nm-applet --sm-disable &
+    nm-applet --sm-disable &
   fi
 fi
  
@@ -67,3 +67,4 @@ if [ -x /usr/bin/pasystray ] ; then
     pasystray &
   fi
 fi
+

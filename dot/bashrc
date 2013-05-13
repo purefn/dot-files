@@ -115,3 +115,15 @@ export auto_proxy=http://gateway.atlassian.com/proxy.pac
 
 export WINEARCH=win32
 export WINEPREFIX=~/win32
+
+function activate_hsenv() {
+  if [[ -z $HSENV ]]; then
+    NUMBER_OF_ENVS=$(find . -maxdepth 1 -type d -name ".hsenv_*" | wc -l)
+    case ${NUMBER_OF_ENVS} in
+      "0") ;;
+      "1") source .hsenv_*/bin/activate;;
+      *) echo multiple hsenv environments, manual activaton required;;
+    esac
+  fi
+}
+export PROMPT_COMMAND=activate_hsenv

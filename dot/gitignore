@@ -1,6 +1,7 @@
 *.project
 *.cache
 *.classpath
+.hsenv*
 *.settings
 *.target
 .*.swp
@@ -9,3 +10,4 @@
 *.lib
 *.vim
 notest.sbt
+dist_*

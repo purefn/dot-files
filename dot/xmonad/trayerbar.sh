@@ -50,7 +50,7 @@ fi
 if [ -x /usr/bin/keepassx ] ; then
   EXECKEEPASSX=$(ps -A | grep keepassx | wc -l)
   if [ $EXECKEEPASSX = 0 ]; then
-   keepassx &
+    keepassx &
   fi
 fi
  

@@ -60,16 +60,16 @@ printCPUInfo() {
 
 printTempInfo() {
 	CPUTemp=$(acpi --thermal -f | awk '{print $4}' | awk -F . '{print $1}')
-#	GPUTemp=$(nvidia-settings -q gpucoretemp | grep 'Attribute' | awk '{print $4}' | tr -d '.')
+	GPUTemp=$(nvidia-settings -q gpucoretemp | grep 'Attribute' | awk '{print $4}' | tr -d '.')
 	if [[ $CPUTemp -gt 176 ]]; then
 		CPUTemp="^fg($CRIT)$CPUTemp^fg()"
 	fi
-#	if [[ $GPUTemp -gt 70 ]]; then
-#		GPUTemp="^fg($CRIT)$GPUTemp^fg()"
-#	fi
+	if [[ $GPUTemp -gt 70 ]]; then
+		GPUTemp="^fg($CRIT)$GPUTemp^fg()"
+	fi
 	echo -n "^fg($COLOR_ICON)^i($ICONPATH/temp.xbm) "
 	echo -n "^fg($DZEN_FG2)cpu ^fg()${CPUTemp}f "
-#	echo -n "^fg($DZEN_FG2)gpu ^fg()${GPUTemp}f"
+	echo -n "^fg($DZEN_FG2)gpu ^fg()${GPUTemp}f"
 	return
 }
 

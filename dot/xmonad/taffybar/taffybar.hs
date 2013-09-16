@@ -1,3 +1,4 @@
+{-# LANGUAGE ScopedTypeVariables #-}
 --
 -- Volume widget taken from https://github.com/teleshoes/wolke-home-config
 -- 
@@ -10,8 +11,6 @@ import System.Taffybar.SimpleClock
 import System.Taffybar.FreedesktopNotifications
 import System.Taffybar.NetMonitor
 import System.Taffybar.Weather
-import System.Taffybar.Battery
-import System.Taffybar.MPRIS
 import System.Taffybar.TaffyPager
 
 import System.Taffybar.Widgets.PollingBar
@@ -21,16 +20,32 @@ import System.Information.Memory
 import System.Information.CPU
 
 import Color (Color(..), hexColor)
-import Volume(volumeW)
 
 import Graphics.UI.Gtk.General.RcStyle (rcParseString)
+import System.Process (readProcess)
+import Control.Applicative ((<$>))
+import Control.Exception
+
+data HostConfig = HostConfig
+  { nic :: String
+  }
+
+tealc = HostConfig { nic = "eth0" }
+ronin = HostConfig { nic = "wlp3s0" }
+
+font = "Consolas medium 10"
+fgColor = hexColor $ RGB (0x93/0xff, 0xa1/0xff, 0xa1/0xff)
+bgColor = hexColor $ RGB (0x00/0xff, 0x2b/0xff, 0x36/0xff)
+textColor = hexColor Black
 
 memCallback = do
   mi <- parseMeminfo
   return [memoryUsedRatio mi]
 
-main = parseRc >> defaultTaffybar cfg where
-  parseRc = rcParseString $ concat
+main = parseRc >> taffybarConfig >>= defaultTaffybar
+
+parseRc = go where
+  go = rcParseString $ concat
     [ "style \"default\" {"
     , "  font_name = \"", font, "\""
     , "  bg[NORMAL] = \"", bgColor, "\""
@@ -38,24 +53,24 @@ main = parseRc >> defaultTaffybar cfg where
     , "  text[NORMAL] = \"", textColor, "\""
     , "}"
     ]
-  font = "Consolas medium 10"
-  fgColor = hexColor $ RGB (0x93/0xff, 0xa1/0xff, 0xa1/0xff)
-  bgColor = hexColor $ RGB (0x00/0xff, 0x2b/0xff, 0x36/0xff)
-  textColor = hexColor $ Black
-  cfg = defaultTaffybarConfig 
+
+taffybarConfig = cfg where
+  cfg = do
+    h <- readProcess "hostname" [] "" 
+    let c = if h == "ronin" then ronin else tealc
+    return $ cfg' c
+  cfg' c = defaultTaffybarConfig 
     { startWidgets = start
-    , endWidgets = end
+    , endWidgets = end c
     }
   start = [ taffyPagerNew defaultPagerConfig ]
-  end = reverse
-    [ netMonitorNew 0.5 "wlp3s0"
+  end c = reverse
+    [ netMonitorNew 0.5 (nic c)
     , cpuMonitorNew cpuCfg 1 "cpu"
     , pollingGraphNew memCfg 1 memCallback
---     , batteryBarNew defaultBatteryConfig 30
---     , volumeW
     , systrayNew
     , textClockNew Nothing "<span fgcolor='orange'>%a %b %_d %H:%M</span>" 1
-    , weatherNew (defaultWeatherConfig "KPHX") 10
+    , weatherNew (defaultWeatherConfig "KIWA") 10
     ]
   memCfg = defaultGraphConfig 
     { graphDataColors = [(1, 0, 0, 1)]

@@ -1,37 +1,105 @@
-" Mappings fuer plugin/ToggleComment.vim
-
-noremap <silent> ,# :call CommentLineToEnd('# ')<CR>+
-noremap <silent> ;# :call CommentLineToEnd('### ')<CR>+
-noremap <silent> ,/ :call CommentLineToEnd('// ')<CR>+
-noremap <silent> ," :call CommentLineToEnd('" ')<CR>+
-noremap <silent> ,; :call CommentLineToEnd('; ')<CR>+
-noremap <silent> ,- :call CommentLineToEnd('-- ')<CR>+
-noremap <silent> ,* :call CommentLinePincer('/* ', ' */')<CR>+
-noremap <silent> ,< :call CommentLinePincer('<!-- ', ' -->')<CR>+
-
-" and/or Filetype specific mappings: Meta-c (Alt-c) and Meta-Shift-C
-
-autocmd FileType c     noremap <silent> <buffer> <C-c> :call CommentLineToEnd ('// ')<CR>+
-autocmd FileType c     noremap <silent> <buffer> <C-C> :call CommentLinePincer('/* ', ' */')<CR>+
-autocmd Filetype javascript setlocal tabstop=4 shiftwidth=4 expandtab
-autocmd FileType make  noremap <silent> <buffer> <C-c> :call CommentLineToEnd ('# ')<CR>+
-autocmd FileType html  noremap <silent> <buffer> <C-c> :call CommentLinePincer('<!-- ', ' -->')<CR>+
-autocmd FileType xml   noremap <silent> <buffer> <C-c> :call CommentLinePincer('<!-- ', ' -->')<CR>+
-autocmd FileType scala noremap <silent> <buffer> <C-c> :call CommentLineToEnd ('// ')<CR>+
-autocmd FileType scala noremap <silent> <buffer> <C-C> :call CommentLinePincer('/* ', ' */')<CR>+
-au FileType haskell let b:ghc_staticoptions = '-isrc -idist/build/autogen'
-au FileType haskell setlocal path+=src
-
-set incsearch
-set hlsearch
-set encoding=utf-8
 syntax on
-filetype on
-filetype plugin on
-filetype indent on
 
-" haskellmode settings
+set showmode
+set showcmd
+set hidden
+set wildmenu
+set wildmode=list:longest
+" set visualbell
+" set cursorline
+set ttyfast
+set ruler
+set backspace=indent,eol,start
+set laststatus=2
+" set relativenumber
+set undofile
+
+let mapleader = ","
+
+" indent settings
+set autoindent
+set smartindent
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set expandtab
+set smarttab
+
+" search
+nnoremap / /\v
+vnoremap / /\v
+set ignorecase
+set smartcase
+set gdefault
+set incsearch
+set showmatch
+set hlsearch
+set scrolloff=3
+nnoremap <leader><space> :noh<cr>
+nnoremap <tab> %
+vnoremap <tab> %
+
+" file encoding
+set encoding=utf-8
+
+" leader mappings
+
+" reselect just pasted text
+nnoremap <leader>v V`]
+
+" navigate windows
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" NeoBundle setup
+set nocompatible               " Be iMproved
+
+if has('vim_starting')
+  set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
+
+call neobundle#rc(expand('~/.vim/bundle/'))
+
+" Let NeoBundle manage NeoBundle
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+NeoBundle 'Shougo/vimproc', {
+      \ 'build' : {
+      \     'windows' : 'make -f make_mingw32.mak',
+      \     'cygwin' : 'make -f make_cygwin.mak',
+      \     'mac' : 'make -f make_mac.mak',
+      \     'unix' : 'make -f make_unix.mak',
+      \   },
+      \ }
+
+NeoBundle 'scrooloose/nerdcommenter'
+let g:NERDCustomDelimiters = {'haskell': { 'left': '--', 'leftAlt': '{-', 'rightAlt': '-}' }}
+let g:NERDSpaceDelims = 1
+let g:NERDRemoveExtraSpaces = 1
+
+" haskell bundles
+NeoBundle 'eagletmt/ghcmod-vim'
+autocmd BufWritePost *.hs GhcModCheckAndLintAsync
+
+nnoremap <leader>/ :GhcModTypeClear<cr>
+nnoremap <leader>. :GhcModType<cr>
+nnoremap <leader>T :GhcModTypeInsert<cr>
+nnoremap <leader>c :wa<cr>:GhcModCheckAsync<cr>
+
+NeoBundle 'dag/vim2hs'
+let g:haskell_conceal = 0
+
+NeoBundle 'lukerandall/haskellmode-vim'
 au Bufenter *.hs compiler ghc
-let g:haddock_browser = "/usr/bin/chromium"
+:let g:haddock_browser="/usr/bin/chromium"
 
+" scala bundles
+NeoBundle 'derekwyatt/vim-scala'
+
+filetype plugin indent on
+
+" Installation check.
+NeoBundleCheck
 

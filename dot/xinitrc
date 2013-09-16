@@ -29,5 +29,7 @@ xcompmgr -c &
 
 export GTK_IM_MODULE="xim"
 
+~/.xmonad/taffybar
+
 exec dbus-launch xmonad
 

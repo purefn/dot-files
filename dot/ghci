@@ -1,0 +1,52 @@
+--- my settings
+:set +t
+:set -XOverloadedStrings
+:set -XNoMonomorphismRestriction
+
+--- HLint integration <http://www.haskell.org/haskellwiki/GHC/GHCi#Hlint>
+:{
+:def redir \varcmd -> return $
+        case break Data.Char.isSpace varcmd of
+            (var,_:cmd) -> unlines
+                [":set -fno-print-bind-result"
+                ,"tmp <- System.Directory.getTemporaryDirectory"
+                ,"(f,h) <- System.IO.openTempFile tmp \"ghci\""
+                ,"sto <- GHC.Handle.hDuplicate System.IO.stdout"
+                ,"GHC.Handle.hDuplicateTo h System.IO.stdout"
+                ,"System.IO.hClose h"
+                ,cmd
+                ,"GHC.Handle.hDuplicateTo sto System.IO.stdout"
+                ,"let readFileNow f = readFile f >>= \\t->Data.List.length t `seq` return t"
+                ,var++" <- readFileNow f"
+                ,"System.Directory.removeFile f"
+                ]
+            _ -> "putStrLn \"usage: :redir <var> <cmd>\""
+:}
+
+:{
+:def hlint \extra -> return $ unlines
+        [":unset +t +s"
+        ,":set -w"
+        ,":redir hlintvar1 :show modules"
+        ,":cmd return $ \":! hlint \" ++ unwords (map (takeWhile (/=',') . drop 2 . dropWhile (/= '(')) $ lines hlintvar1) ++ \" \" ++ " ++ show extra
+        ,":set +t +s -Wall"
+        ]
+:}
+
+--- GHCi on acid <http://www.haskell.org/haskellwiki/GHC/GHCi#GHCi_on_Acid>
+:m - Prelude
+:m + GOA
+setLambdabotHome "/home/rwallace/.cabal/bin"
+:def bs        lambdabot "botsnack"
+:def pl        lambdabot "pl"
+:def unpl      lambdabot "unpl"
+:def redo      lambdabot "redo"
+:def undo      lambdabot "undo"
+:def index     lambdabot "index"
+:def docs      lambdabot "docs"
+:def instances lambdabot "instances"
+:def hoogle    lambdabot "hoogle"
+:def source    lambdabot "fptools"
+:def where     lambdabot "where"
+:def version   lambdabot "version"
+:def src       lambdabot "src"

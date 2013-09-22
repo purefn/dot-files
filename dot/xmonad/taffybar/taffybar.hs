@@ -30,8 +30,8 @@ data HostConfig = HostConfig
   { nic :: String
   }
 
-tealc = HostConfig { nic = "eth0" }
-ronin = HostConfig { nic = "wlp3s0" }
+ronin = HostConfig { nic = "eth0" }
+tealc = HostConfig { nic = "wlp3s0" }
 
 font = "Consolas medium 10"
 fgColor = hexColor $ RGB (0x93/0xff, 0xa1/0xff, 0xa1/0xff)

@@ -31,5 +31,5 @@ export GTK_IM_MODULE="xim"
 
 ~/.xmonad/taffybar
 
-exec dbus-launch xmonad
+exec dbus-launch --exit-with-session xmonad
 

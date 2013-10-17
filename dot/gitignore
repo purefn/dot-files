@@ -10,6 +10,8 @@
 *.cache
 *.lib
 *.vim
-notest.sbt
 dist_*
 notest.sbt
+
+.cabal-sandbox
+cabal.sandbox.config

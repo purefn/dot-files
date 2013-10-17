@@ -131,20 +131,20 @@ myGSConfig colorizer = (buildDefaultGSConfig myColorizer)
  
 -- Scratchpad
 manageScratchPad :: ManageHook
-manageScratchPad = scratchpadManageHook (W.RationalRect (0) (1/50) (1) (3/4))
+manageScratchPad = scratchpadManageHook (W.RationalRect 0 (1/50) 1 (3/4))
 scratchPad = scratchpadSpawnActionCustom "urxvtc -name scratchpad -e tmux"
 
 -- Transformers
 data TABBED = TABBED deriving (Read, Show, Eq, Typeable)
 instance Transformer TABBED Window where
-  transform TABBED x k = k (named "TS" (smartBorders (tabbedAlways shrinkText myTabTheme))) (\_ -> x)
+  transform TABBED x k = k (named "TS" (smartBorders (tabbedAlways shrinkText myTabTheme))) (const x)
  
 myLayoutHook = minimize layouts where
   basicLayout = Tall nmaster delta ratio where
     nmaster = 1
     delta   = 3/100
     ratio   = 1/2 
-  tallLayout       = named "tall"     $ avoidStruts $ basicLayout
+  tallLayout       = named "tall"     $ avoidStruts basicLayout
   wideLayout       = named "wide"     $ avoidStruts $ Mirror basicLayout
   singleLayout     = named "single"   $ avoidStruts $ tabbed shrinkText myTabTheme
   layouts = tallLayout 
@@ -253,13 +253,13 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask .|. shiftMask, xK_m), sendMessage RestoreNextMinimizedWin)                     --Restore window
   , ((modMask .|. shiftMask, xK_f), fullFloatFocused)                                        --Push window into full screen
   , ((modMask, xK_s), spawn "xscreensaver-command -lock")                                   --Lock screen
-  , ((modMask .|. shiftMask, xK_q), io (exitWith ExitSuccess))                               --Quit xmonad
+  , ((modMask .|. shiftMask, xK_q), io exitSuccess)                               --Quit xmonad
   , ((modMask, xK_q), restart "xmonad" True)                                                 --Restart xmonad
   , ((modMask, xK_Left), prevWS)
   , ((modMask, xK_Right), nextWS)                                                            --Move to next Workspace
-  , ((0, xF86XK_AudioMute), toggleMute')
-  , ((0, xF86XK_AudioRaiseVolume), raiseVolume')
-  , ((0, xF86XK_AudioLowerVolume), lowerVolume')
+  -- , ((0, xF86XK_AudioMute), toggleMute')
+  -- , ((0, xF86XK_AudioRaiseVolume), raiseVolume')
+  -- , ((0, xF86XK_AudioLowerVolume), lowerVolume')
   , ((0, xF86XK_ScreenSaver), spawn "xscreensaver-command -lock")                            --Lock screen
   ]
   ++

@@ -27,9 +27,9 @@ urxvtcd &
 
 xcompmgr -c &
 
-export GTK_IM_MODULE="xim"
+pulseaudio --start
 
-~/.xmonad/taffybar
+export GTK_IM_MODULE="xim"
 
 exec dbus-launch --exit-with-session xmonad
 

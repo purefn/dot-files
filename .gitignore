@@ -8,6 +8,7 @@ dot/sbt/*/plugins/target/
 dot/sbt/*/boot
 dot/sbt/*/target
 dot/vim/.netrwhist
+dot/xmonad/history
 dot/xmonad/xmonad-x86_64-linux
 dot/xmonad/xmonad.errors
 dot/xmonad/xmonad.hi

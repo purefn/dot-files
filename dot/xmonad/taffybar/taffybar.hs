@@ -25,6 +25,7 @@ import Graphics.UI.Gtk.General.RcStyle (rcParseString)
 import System.Process (readProcess)
 import Control.Applicative ((<$>))
 import Control.Exception
+import Data.List (isPrefixOf)
 
 data HostConfig = HostConfig
   { nic :: String
@@ -57,7 +58,7 @@ parseRc = go where
 taffybarConfig = cfg where
   cfg = do
     h <- readProcess "hostname" [] "" 
-    let c = if h == "ronin" then ronin else tealc
+    let c = if "ronin" `isPrefixOf` h then ronin else tealc
     return $ cfg' c
   cfg' c = defaultTaffybarConfig 
     { startWidgets = start

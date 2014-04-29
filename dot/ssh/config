@@ -1,3 +1,68 @@
 Host *.private.atlassian.com
     ProxyCommand nohup ssh sfvpn.atlassian.com nc %h %p
 
+Host rainicorn
+    HostName 172.26.67.30
+    ProxyCommand nohup ssh mpac-1.dev.internal.atlassian.com nc %h %p
+    User svc_marketplace_stg
+
+Host mpac-5.dev.internal.atlassian.com
+    ProxyCommand nohup ssh mpac-1.dev.internal.atlassian.com nc %h %p
+    User ubuntu
+    IdentityFile ~/.ssh/mpac-dev.pem
+
+Host mpac-6.dev.internal.atlassian.com
+    ProxyCommand nohup ssh mpac-1.dev.internal.atlassian.com nc %h %p
+    User ubuntu
+    IdentityFile ~/.ssh/mpac-dev.pem
+
+Host mpac-7.dev.internal.atlassian.com
+    ProxyCommand nohup ssh mpac-1.dev.internal.atlassian.com nc %h %p
+    User ubuntu
+    IdentityFile ~/.ssh/mpac-dev.pem
+
+Host mpac-8.dev.internal.atlassian.com
+    ProxyCommand nohup ssh mpac-1.dev.internal.atlassian.com nc %h %p
+    User ubuntu
+    IdentityFile ~/.ssh/mpac-dev.pem
+
+Host mpac-9.dev.internal.atlassian.com
+    ProxyCommand nohup ssh mpac-1.dev.internal.atlassian.com nc %h %p
+    User ubuntu
+    IdentityFile ~/.ssh/mpac-dev.pem
+
+Host mpac-10.dev.internal.atlassian.com
+    ProxyCommand nohup ssh mpac-1.dev.internal.atlassian.com nc %h %p
+    User ubuntu
+    IdentityFile ~/.ssh/mpac-dev.pem
+
+Host mpac-11.dev.internal.atlassian.com
+    ProxyCommand nohup ssh mpac-1.dev.internal.atlassian.com nc %h %p
+    User ubuntu
+    IdentityFile ~/.ssh/mpac-dev.pem
+
+Host mpac-12.dev.internal.atlassian.com
+    ProxyCommand nohup ssh mpac-1.dev.internal.atlassian.com nc %h %p
+    User ubuntu
+    IdentityFile ~/.ssh/mpac-dev.pem
+
+Host mpac-13.dev.internal.atlassian.com
+    ProxyCommand nohup ssh mpac-1.dev.internal.atlassian.com nc %h %p
+    User ubuntu
+    IdentityFile ~/.ssh/mpac-dev.pem
+
+Host mpac-14.dev.internal.atlassian.com
+    ProxyCommand nohup ssh mpac-1.dev.internal.atlassian.com nc %h %p
+    User ubuntu
+    IdentityFile ~/.ssh/mpac-dev.pem
+
+Host mpac-15.dev.internal.atlassian.com
+    ProxyCommand nohup ssh mpac-1.dev.internal.atlassian.com nc %h %p
+    User ubuntu
+    IdentityFile ~/.ssh/mpac-dev.pem
+
+Host mpac-16.dev.internal.atlassian.com
+    ProxyCommand nohup ssh mpac-1.dev.internal.atlassian.com nc %h %p
+    User ubuntu
+    IdentityFile ~/.ssh/mpac-dev.pem
+

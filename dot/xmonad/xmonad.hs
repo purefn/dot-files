@@ -257,9 +257,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask, xK_q), restart "xmonad" True)                                                 --Restart xmonad
   , ((modMask, xK_Left), prevWS)
   , ((modMask, xK_Right), nextWS)                                                            --Move to next Workspace
-  -- , ((0, xF86XK_AudioMute), toggleMute')
-  -- , ((0, xF86XK_AudioRaiseVolume), raiseVolume')
-  -- , ((0, xF86XK_AudioLowerVolume), lowerVolume')
+  , ((0, xF86XK_AudioMute), toggleMute')
+  , ((0, xF86XK_AudioRaiseVolume), raiseVolume')
+  , ((0, xF86XK_AudioLowerVolume), lowerVolume')
   , ((0, xF86XK_ScreenSaver), spawn "xscreensaver-command -lock")                            --Lock screen
   ]
   ++

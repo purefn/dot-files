@@ -5,7 +5,9 @@
 .hsenv*
 *.settings
 *.target
+.*.swn
 .*.swp
+.*.swo
 *.scala_dependencies
 *.cache
 *.lib
@@ -15,3 +17,5 @@ notest.sbt
 
 .cabal-sandbox
 cabal.sandbox.config
+
+.vagrant

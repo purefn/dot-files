@@ -4,7 +4,7 @@ EXECTAFFYBAR=$(ps -A | grep '[t]affybar' | wc -l)
 if [ $EXECTAFFYBAR != 0 ]; then
   exit
 fi
-~/.cabal/bin/taffybar &
+taffybar &
 
 # Fire up apps
  
@@ -65,3 +65,6 @@ if [ -x /usr/bin/pasystray ] ; then
   fi
 fi
 
+if [ -x /usr/bin/pasystray ] ; then
+  deluge &
+fi

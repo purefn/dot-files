@@ -25,7 +25,7 @@ xsetroot -cursor_name left_ptr
 
 urxvtcd &
 
-xcompmgr -c &
+xcompmgr -n &
 
 pulseaudio --start
 

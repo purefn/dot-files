@@ -127,3 +127,4 @@ function activate_hsenv() {
   fi
 }
 export PROMPT_COMMAND=activate_hsenv
+

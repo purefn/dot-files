@@ -1,12 +1,12 @@
 Host *.stg.inf.atlassian.com
-    ProxyCommand nohup ssh sfvpn.atlassian.com nc %h %p
+    #ProxyCommand nohup ssh sfvpn.atlassian.com nc %h %p
 
 Host *.prod.inf.atlassian.com
     ProxyCommand nohup ssh sfvpn.atlassian.com nc %h %p
 
 Host rainicorn
     HostName 172.26.67.30
-    ProxyCommand nohup ssh sfvpn.atlassian.com nc %h %p
+#    ProxyCommand nohup ssh sfvpn.atlassian.com nc %h %p
     User svc_marketplace_stg
 
 Host wallboard
@@ -14,8 +14,8 @@ Host wallboard
     ProxyCommand nohup ssh sfvpn.atlassian.com nc %h %p
     User integration
 
-Host mpac-*.dev.internal.atlassian.com
-    ProxyCommand nohup ssh sfvpn.atlassian.com nc %h %p
+Host mpac-*.dev.inf.atlassian.com
+#    ProxyCommand nohup ssh sfvpn.atlassian.com nc %h %p
     User ubuntu
     IdentityFile ~/.ssh/mpac-dev.pem
 

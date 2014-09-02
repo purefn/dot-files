@@ -15,6 +15,6 @@
 	summary = true
 [core]
 	excludesfile = /home/rwallace/.gitignore
-	editor = vim
+	editor = /usr/bin/vim
 [push]
 	default = simple

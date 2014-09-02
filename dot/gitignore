@@ -19,3 +19,5 @@ notest.sbt
 cabal.sandbox.config
 
 .vagrant
+codex.tags
+hscope.out

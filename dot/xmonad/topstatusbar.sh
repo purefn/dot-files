@@ -44,13 +44,6 @@ if [ -x /usr/bin/xfce4-power-manager ] ; then
   fi
 fi
 
-if [ -x /usr/bin/keepassx ] ; then
-  EXECKEEPASSX=$(ps -A | grep keepassx | wc -l)
-  if [ $EXECKEEPASSX = 0 ]; then
-    keepassx &
-  fi
-fi
- 
 if [ -x /usr/bin/dropboxd ] ; then
   EXECDROPBOX=$(ps -A | grep dropboxd | wc -l)
   if [ $EXECDROPBOX = 0 ]; then

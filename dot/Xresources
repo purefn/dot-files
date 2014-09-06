@@ -8,3 +8,4 @@ URxvt*scrollBar_right: true
 URxvt*scrollstyle: plain
 URxvt.perl-ext-common: default,tabbed
 Xcursor.theme: Vanilla-DMZ
+

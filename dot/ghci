@@ -6,7 +6,6 @@ import Data.String
 import Data.Char
 import Data.List
 import Data.Monoid
-import Control.Monad.IO.Class
 
 :set prompt "λ> "
 :set editor vim
@@ -21,7 +20,6 @@ import Control.Monad.IO.Class
 :m + Control.Arrow
 :m + Control.Applicative
 :m + Control.Monad
-:m + Data.List.Split
 :m + Data.Maybe
 :m + Data.Function
 :m + Data.Monoid

@@ -1,8 +1,8 @@
 URxvt*saveLines: 12000
 URxvt*foreground: White
 URxvt*background: Black
-URxvt*font: xft:Consolas:pixelsize=12:antialias=true:autohinting=true,\
-            xft:Code2000:pixelsize=12
+URxvt*font: xft:DejaVu Sans Mono:pixelsize=15:antialias=true:autohinting=true,\
+            xft:Code2000:pixelsize=15:antialias=true:autohinting=true
 URxvt*scrollBar: true
 URxvt*scrollBar_right: true
 URxvt*scrollstyle: plain

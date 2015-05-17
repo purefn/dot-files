@@ -1,13 +1,8 @@
-au BufEnter * inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-au BufEnter * inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 autocmd BufWritePost *.hs GhcModCheckAndLintAsync
 
-Bundle "flazz/vim-colorschemes"
-
-Bundle "derekwyatt/vim-scala"
-" for some reason ftdetect from vim-scala isn't work, putting it here forces it
-au BufRead,BufNewFile *.scala,*.sbt set filetype=scala
-
-Bundle "plasticboy/vim-markdown"
+let g:no_haskell_conceal = 1
 
 set mouse=
+
+set csprg=hscope
+

@@ -12,24 +12,31 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
 fi
 
 # Load resources
-xrdb -merge .Xresources
- 
+#xrdb -merge .Xresources
+
 # Set the background color<
-xsetroot -solid midnightblue
- 
-xscreensaver -no-splash &
+#xsetroot -solid midnightblue
 
-xmodmap .Xmodmap
- 
-xsetroot -cursor_name left_ptr
+#xscreensaver -no-splash &
 
-urxvtcd &
+#xmodmap .Xmodmap
 
-xcompmgr -n &
+#xsetroot -cursor_name left_ptr
 
-pulseaudio --start
+#urxvtd -q -o -f
+
+#xcompmgr -n &
+
+taffybar &
+
+nm-applet --sm-disable &
+
+xfce4-power-manager &
+
+pasystray &
+
+deluge &
 
 export GTK_IM_MODULE="xim"
 
 exec dbus-launch --exit-with-session xmonad
-

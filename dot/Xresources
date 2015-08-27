@@ -1,11 +1,15 @@
-URxvt*saveLines: 12000
-URxvt*foreground: White
-URxvt*background: Black
-URxvt*font: xft:Consolas:pixelsize=12:antialias=true:autohinting=true,\
-            xft:Code2000:pixelsize=12
+Rxvt*saveLines: 12000
+Rxvt*foreground: White
+Rxvt*background: Black
+URxvt*font: xft:DejaVu Sans Mono:pixelsize=14,xft:Symbola:pixelsize=13
 URxvt*scrollBar: true
 URxvt*scrollBar_right: true
 URxvt*scrollstyle: plain
 URxvt.perl-ext-common: default,tabbed
 Xcursor.theme: Vanilla-DMZ
-
+! do not scroll with output
+URxvt*scrollTtyOutput: false
+! scroll in relation to buffer (with mouse scroll or Shift+Page Up)
+URxvt*scrollWithBuffer: true
+! scroll back to the bottom on keypress
+URxvt*scrollTtyKeypress: true

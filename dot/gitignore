@@ -23,4 +23,5 @@ hscope.out
 .vagrant
 codex.tags
 hscope.out
-
+shell-dev.nix
+dev.nix

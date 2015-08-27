@@ -107,12 +107,17 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-export JAVA_HOME=/opt/java6
 export JAVA_OPTS="-Djava.security.egd=file:/dev/./urandom"
-export MAVEN_OPTS="-XX:PermSize=64M -XX:MaxPermSize=256M -Xms1024M -Xmx2048M $JAVA_OPTS"
+export MAVEN_OPTS="-Xms1024M -Xmx2048M $JAVA_OPTS"
 export PATH=~/.cabal/bin:$PATH:~/Development/atlassian-plugin-sdk/bin:$JAVA_HOME/bin:~/Development/atlassian/play
 #export auto_proxy=http://gateway.atlassian.com/proxy.pac
 
 export WINEARCH=win32
 export WINEPREFIX=~/win32
+
+export TERM=rxvt
+export EDITOR=vim
+export BROWSER=chromium
+
+alias vi=nvim
 

@@ -56,6 +56,7 @@ import Control.Monad
 import Control.Monad.Trans
 import Data.List.Split (splitOn)
 import Data.Maybe
+import Prelude hiding ((<*))
 import System.IO
 import System.Process
 import Text.ParserCombinators.Parsec

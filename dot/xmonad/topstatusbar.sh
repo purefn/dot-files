@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
  
 EXECTAFFYBAR=$(ps -A | grep '[t]affybar' | wc -l)
 if [ $EXECTAFFYBAR != 0 ]; then
@@ -58,6 +58,6 @@ if [ -x /usr/bin/pasystray ] ; then
   fi
 fi
 
-if [ -x /usr/bin/pasystray ] ; then
+if [ -x `which deluge` ] ; then
   deluge &
 fi

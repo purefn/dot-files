@@ -1,4 +1,8 @@
-{-# LANGUAGE DeriveDataTypeable, NoMonomorphismRestriction, TypeSynonymInstances, MultiParamTypeClasses #-}
+{-# LANGUAGE DeriveDataTypeable #-}
+{-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE NoMonomorphismRestriction #-}
+{-# LANGUAGE TypeSynonymInstances #-}
 
 import XMonad
 import XMonad.Core
@@ -8,6 +12,7 @@ import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.Minimize
+import XMonad.Hooks.SetWMName
 import XMonad.Layout
 import XMonad.Layout.Gaps
 import XMonad.Layout.Named
@@ -39,17 +44,18 @@ import qualified Data.Map as M
 
 import System.Taffybar.Hooks.PagerHints (pagerHints)
 
-main = xmonad $ ewmh $ defaultConfig
+main = xmonad $ defaultConfig
   { borderWidth        = 1
   , focusedBorderColor = colorBlue
   , focusFollowsMouse  = True
-  , handleEventHook    = minimizeEventHook
+  , handleEventHook    = minimizeEventHook <> ewmhDesktopsEventHook
   , keys               = myKeys
   , layoutHook         = myLayoutHook
+  , logHook            = ewmhDesktopsLogHook
   , manageHook         = manageDocks <+> myManageHook
   , modMask            = mod4Mask -- Rebind Mod to the Windows key
   , normalBorderColor  = colorGray
-  , startupHook        = spawn "/home/rwallace/.xmonad/topstatusbar.sh"
+  , startupHook        = spawn "/home/rwallace/.xmonad/topstatusbar.sh" <> ewmhDesktopsStartup <> setWMName "LG3D"
   , terminal           = "urxvtc"
   , workspaces         = myWorkspaces
   }
@@ -60,7 +66,7 @@ main = xmonad $ ewmh $ defaultConfig
 -- myFont              = "Inconsolata:pixelsize=12:antialias=true:hinting=true"
 -- myFont              = "DejaVu Sans Mono:pixelsize=12:antialias=true:hinting=true"
 -- myFont              = "monofur:pixelsize=12:antialias=true:hinting=true"
-myFont              = "Consolas:pixelsize=12:antialias=true:autohinting=true,Unifont:pixelsize=12"
+myFont              = "monospace:pixelsize=12:antialias=true:hinting=true"
 -- myFont              = "Monaco:pixelsize=12:antialias=true:hinting=true"
 -- myFont              = "Anonymous Pro:pixelsize=12:antialias=true:hinting=true"
 -- myFont              = "Droid Sans Mono:pixelsize=12:antialias=true:hinting=true"
@@ -120,7 +126,7 @@ myColorizer = colorRangeFromClassName
 --  where
 --      black = minBound
 --      white = maxBound
- 
+
 -- GridSelect theme
 myGSConfig colorizer = (buildDefaultGSConfig myColorizer)
     { gs_cellheight   = 50
@@ -128,7 +134,7 @@ myGSConfig colorizer = (buildDefaultGSConfig myColorizer)
     , gs_cellpadding  = 10
     , gs_font         = myFont
     }
- 
+
 -- Scratchpad
 manageScratchPad :: ManageHook
 manageScratchPad = scratchpadManageHook (W.RationalRect 0 (1/50) 1 (3/4))
@@ -138,20 +144,20 @@ scratchPad = scratchpadSpawnActionCustom "urxvtc -name scratchpad -e tmux"
 data TABBED = TABBED deriving (Read, Show, Eq, Typeable)
 instance Transformer TABBED Window where
   transform TABBED x k = k (named "TS" (smartBorders (tabbedAlways shrinkText myTabTheme))) (const x)
- 
+
 myLayoutHook = minimize layouts where
   basicLayout = Tall nmaster delta ratio where
     nmaster = 1
     delta   = 3/100
-    ratio   = 1/2 
+    ratio   = 1/2
   tallLayout       = named "tall"     $ avoidStruts basicLayout
   wideLayout       = named "wide"     $ avoidStruts $ Mirror basicLayout
   singleLayout     = named "single"   $ avoidStruts $ tabbed shrinkText myTabTheme
-  layouts = tallLayout 
+  layouts = tallLayout
         ||| wideLayout
         ||| singleLayout
---         ||| circleLayout 
---         ||| twoPaneLayout 
+--         ||| circleLayout
+--         ||| twoPaneLayout
 --         ||| mosaicLayout
 --         ||| gridLayout
 --         ||| spiralLayout
@@ -204,7 +210,7 @@ myManageHook = hooks <+> manageScratchPad where
     , [name         =? n --> doSideFloat NW              | n <- myFloatSN] --float side NW geometry by name
     , [className    =? c --> doF W.focusDown             | c <- myFocusDC] --dont focus on launching by classname
     , [isFullscreen      --> doF W.focusDown <+> doFullFloat]
-    ] 
+    ]
   role      = stringProperty "WM_WINDOW_ROLE"
   name      = stringProperty "WM_NAME"
   myIgnores = ["desktop","desktop_window"]

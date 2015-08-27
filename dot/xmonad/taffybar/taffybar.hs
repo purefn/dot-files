@@ -1,12 +1,11 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 --
 -- Volume widget taken from https://github.com/teleshoes/wolke-home-config
--- 
+--
 import System.Taffybar
 
 import System.Taffybar.CPUMonitor
 import System.Taffybar.Systray
-import System.Taffybar.XMonadLog
 import System.Taffybar.SimpleClock
 import System.Taffybar.FreedesktopNotifications
 import System.Taffybar.NetMonitor
@@ -31,10 +30,10 @@ data HostConfig = HostConfig
   { nic :: String
   }
 
-ronin = HostConfig { nic = "eth0" }
+ronin = HostConfig { nic = "enp7s0f0" }
 tealc = HostConfig { nic = "wlp3s0" }
 
-font = "Consolas medium 10"
+font = "monospace"
 fgColor = hexColor $ RGB (0x93/0xff, 0xa1/0xff, 0xa1/0xff)
 bgColor = hexColor $ RGB (0x00/0xff, 0x2b/0xff, 0x36/0xff)
 textColor = hexColor Black
@@ -57,10 +56,10 @@ parseRc = go where
 
 taffybarConfig = cfg where
   cfg = do
-    h <- readProcess "hostname" [] "" 
+    h <- readProcess "hostname" [] ""
     let c = if "ronin" `isPrefixOf` h then ronin else tealc
     return $ cfg' c
-  cfg' c = defaultTaffybarConfig 
+  cfg' c = defaultTaffybarConfig
     { startWidgets = start
     , endWidgets = end c
     }
@@ -73,12 +72,12 @@ taffybarConfig = cfg where
     , textClockNew Nothing "<span fgcolor='orange'>%a %b %_d %H:%M</span>" 1
     , weatherNew (defaultWeatherConfig "KIWA") 10
     ]
-  memCfg = defaultGraphConfig 
+  memCfg = defaultGraphConfig
     { graphDataColors = [(1, 0, 0, 1)]
     , graphLabel = Just "mem"
     }
-  cpuCfg = defaultGraphConfig 
-    { graphDataColors = 
+  cpuCfg = defaultGraphConfig
+    { graphDataColors =
         [ (0, 1, 0, 1)
         , (1, 0, 1, 0.5)
         ]

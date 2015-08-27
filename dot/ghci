@@ -21,7 +21,6 @@ import Data.Monoid
 :m + Control.Applicative
 :m + Control.Monad
 :m + Data.Maybe
-:m + Data.Function
 :m + Data.Monoid
 :m + Text.Printf
 

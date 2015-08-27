@@ -27,7 +27,7 @@ data HostConfig = HostConfig
   { nic :: String
   }
 
-ronin = HostConfig { nic = "eth0" }
+ronin = HostConfig { nic = "enp7s0f0" }
 tealc = HostConfig { nic = "wlp3s0" }
 
 font = "DejaVu Sans medium 10"

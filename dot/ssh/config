@@ -13,6 +13,10 @@ Host wallboard-2
     HostName integration-wallboard-2.staff.sf.atlassian.com
     User integration
 
+Host wallboard-3
+    HostName integration-wallboard-3.staff.sf.atlassian.com
+    User integration
+
 Host mpac-*.dev.inf.atlassian.com
     User ubuntu
     IdentityFile ~/.ssh/mpac-dev.pem

@@ -2,29 +2,26 @@
 --
 -- Volume widget taken from https://github.com/teleshoes/wolke-home-config
 --
-import System.Taffybar
-
-import System.Taffybar.CPUMonitor
-import System.Taffybar.Systray
-import System.Taffybar.SimpleClock
-import System.Taffybar.FreedesktopNotifications
-import System.Taffybar.NetMonitor
-import System.Taffybar.Weather
-import System.Taffybar.TaffyPager
-
-import System.Taffybar.Widgets.PollingBar
-import System.Taffybar.Widgets.PollingGraph
-
-import System.Information.Memory
-import System.Information.CPU
 
 import Color (Color(..), hexColor)
-
-import Graphics.UI.Gtk.General.RcStyle (rcParseString)
-import System.Process (readProcess)
 import Control.Applicative ((<$>))
 import Control.Exception
 import Data.List (isPrefixOf)
+import Graphics.UI.Gtk.General.RcStyle (rcParseString)
+import System.Information.Memory
+import System.Information.CPU
+import System.Process (readProcess)
+import System.Taffybar
+import System.Taffybar.Battery
+import System.Taffybar.CPUMonitor
+import System.Taffybar.FreedesktopNotifications
+import System.Taffybar.NetMonitor
+import System.Taffybar.TaffyPager
+import System.Taffybar.Systray
+import System.Taffybar.SimpleClock
+import System.Taffybar.Weather
+import System.Taffybar.Widgets.PollingBar
+import System.Taffybar.Widgets.PollingGraph
 
 data HostConfig = HostConfig
   { nic :: String
@@ -33,7 +30,7 @@ data HostConfig = HostConfig
 ronin = HostConfig { nic = "enp7s0f0" }
 tealc = HostConfig { nic = "wlp3s0" }
 
-font = "monospace"
+font = "DejaVu Sans medium 10"
 fgColor = hexColor $ RGB (0x93/0xff, 0xa1/0xff, 0xa1/0xff)
 bgColor = hexColor $ RGB (0x00/0xff, 0x2b/0xff, 0x36/0xff)
 textColor = hexColor Black
@@ -68,6 +65,7 @@ taffybarConfig = cfg where
     [ netMonitorNew 0.5 (nic c)
     , cpuMonitorNew cpuCfg 1 "cpu"
     , pollingGraphNew memCfg 1 memCallback
+    , batteryBarNew defaultBatteryConfig 0.5
     , systrayNew
     , textClockNew Nothing "<span fgcolor='orange'>%a %b %_d %H:%M</span>" 1
     , weatherNew (defaultWeatherConfig "KIWA") 10

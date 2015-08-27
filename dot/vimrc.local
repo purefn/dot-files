@@ -1,11 +1,10 @@
 autocmd BufWritePost *.hs GhcModCheckAndLintAsync
 
 set mouse=
+set csprg=hscope
 
 let g:hscoptions="tB-"
-
-let g:no_haskell_conceal=0
-
 let g:syntastic_scala_checkers=['']
 let g:syntastic_java_checkers=['']
+let g:no_haskell_conceal = 1
 

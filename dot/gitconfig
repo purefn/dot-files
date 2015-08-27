@@ -15,5 +15,6 @@
 	summary = true
 [core]
 	excludesfile = /home/rwallace/.gitignore
+	editor = /home/rwallace/.nix-profile/bin/nvim
 [push]
 	default = simple

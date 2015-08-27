@@ -1,3 +1,6 @@
+Host *
+    Compression yes
+
 Host rainicorn
     HostName 172.26.67.30
     User svc_marketplace_stg

@@ -118,7 +118,7 @@ export WINEARCH=win32
 export WINEPREFIX=~/win32
 
 export TERM=rxvt
-export EDITOR=vim
+export EDITOR=nvim
 export BROWSER=chromium
 
 alias vi=nvim

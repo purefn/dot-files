@@ -18,6 +18,7 @@ import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.Minimize
+import XMonad.Hooks.SetWMName
 import XMonad.Layout
 import XMonad.Layout.Gaps
 import XMonad.Layout.Named
@@ -41,8 +42,7 @@ import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run (spawnPipe)
 import XMonad.Util.Scratchpad (scratchpadManageHook, scratchpadSpawnActionCustom)
 
-main = xmonad $ ewmh $ pagerHints $ defaultConfig
--- main = xmonad $ ewmh $ defaultConfig
+main = xmonad . swingFix . ewmh . pagerHints $ defaultConfig
   { borderWidth        = 1
   , focusedBorderColor = colorBlue
   , focusFollowsMouse  = True
@@ -55,6 +55,9 @@ main = xmonad $ ewmh $ pagerHints $ defaultConfig
   , terminal           = "urxvtc"
   , workspaces         = myWorkspaces
   }
+
+-- Java swing apps will just display a grey screen without this
+swingFix c = c { startupHook = startupHook c <> setWMName "LG3D" }
 
 -- Colors
 -- myFont              = "Ubuntu Mono:pixelsize=12:antialias=true:hinting=true"

@@ -42,6 +42,9 @@
         pavucontrol
 
         # desktop
+        (callPackage ./adjust-volume.nix { 
+          inherit (haskellPackages) ghcWithPackages;
+        })
         dmenu
         gnome3.adwaita-icon-theme
         gnome3.eog

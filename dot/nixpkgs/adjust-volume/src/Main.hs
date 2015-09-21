@@ -1,12 +1,11 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i runghc ./adjust-volume.nix 
-
 {-# LANGUAGE OverloadedStrings #-}
 
+import Data.Int
 import Data.Maybe
 import qualified Data.Text as T
 import Options.Applicative
 import Turtle hiding (option)
+import Libnotify
 
 data Command
   = Inc Int
@@ -34,6 +33,12 @@ opts = subparser . mconcat $
   , command "toggle" . info (pure Toggle) $ idm
   ]
 
+getVolume :: Shell Int32
+getVolume = read . T.unpack . T.strip <$> pamixer ["--get-volume"]
+
+getMuted :: Shell Bool
+getMuted = (== "true") . T.unpack . T.strip <$> pamixer ["--get-mute"]
+
 main :: IO ()
 main = sh $ do
   command <- liftIO . execParser . info (helper <*> opts) $ idm
@@ -43,21 +48,19 @@ main = sh $ do
     Dec s -> pamixer' ["--decrease", T.pack .show $ s]
     Toggle -> pamixer' ["--toggle-mute"]
 
-  vol <- pamixer ["--get-volume"]
-  muted <- T.strip <$> pamixer ["--get-mute"]
+  vol <- getVolume
+  muted <- getMuted
   let
-    vol' = if muted == "true" then "0" else vol
-    icon = case read . T.unpack $ vol' of
+    vol' = if muted then 0 else vol
+    vicon = case vol' of
       x | x == 0 -> "muted"
-      x | x < 25 -> "off"
-      x | x < 50 -> "low"
-      x | x < 75 -> "medium"
+      x | x < 33 -> "low"
+      x | x < 67 -> "medium"
       _          -> "high"
-    nargs =
-      [ "Volume"
-      , "-i", "audio-volume-" <> icon
-      , "-h", "int:value:" <> vol'
-      , "-h", "string:x-canonical-private-synchronous:1"
-      ]
-  void . strict . inproc "notify-send" nargs $ empty
+  liftIO . display_ . mconcat $
+    [ summary "Volume"
+    , icon ("audio-volume-" <> vicon)
+    , hint "value" vol'
+    , hint "x-canonical-private-synchronous" ("1" :: String)
+    ]
 

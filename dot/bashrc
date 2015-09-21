@@ -120,6 +120,8 @@ export TERM=rxvt
 export EDITOR=nvim
 export BROWSER=chromium
 
+export GTK_THEME=Adwaita:dark
+
 alias vi=nvim
 
 function nix-try { 

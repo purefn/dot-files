@@ -1,0 +1,63 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i runghc ./adjust-volume.nix 
+
+{-# LANGUAGE OverloadedStrings #-}
+
+import Data.Maybe
+import qualified Data.Text as T
+import Options.Applicative
+import Turtle hiding (option)
+
+data Command
+  = Inc Int
+  | Dec Int
+  | Toggle
+
+stepOption :: Parser Int
+stepOption = fmap (fromMaybe 5) . optional . option auto . mconcat $
+  [ long "step"
+  , short 's'
+  , metavar "PERCENT"
+  , help "Amount to change the volume, default is 5"
+  ]
+
+pamixer :: [Text] -> Shell Text
+pamixer args = strict . inproc "pamixer" args $ empty
+
+pamixer' :: [Text] -> Shell ()
+pamixer' = void . pamixer
+
+opts:: Parser Command
+opts = subparser . mconcat $
+  [ command "increase" . info (Inc <$> stepOption) $ idm
+  , command "decrease" . info (Dec <$> stepOption) $ idm
+  , command "toggle" . info (pure Toggle) $ idm
+  ]
+
+main :: IO ()
+main = sh $ do
+  command <- liftIO . execParser . info (helper <*> opts) $ idm
+
+  case command of
+    Inc s -> pamixer' ["--increase", T.pack .show $ s]
+    Dec s -> pamixer' ["--decrease", T.pack .show $ s]
+    Toggle -> pamixer' ["--toggle-mute"]
+
+  vol <- pamixer ["--get-volume"]
+  muted <- T.strip <$> pamixer ["--get-mute"]
+  let
+    vol' = if muted == "true" then "0" else vol
+    icon = case read . T.unpack $ vol' of
+      x | x == 0 -> "muted"
+      x | x < 25 -> "off"
+      x | x < 50 -> "low"
+      x | x < 75 -> "medium"
+      _          -> "high"
+    nargs =
+      [ "Volume"
+      , "-i", "audio-volume-" <> icon
+      , "-h", "int:value:" <> vol'
+      , "-h", "string:x-canonical-private-synchronous:1"
+      ]
+  void . strict . inproc "notify-send" nargs $ empty
+

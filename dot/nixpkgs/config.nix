@@ -17,13 +17,8 @@
   };
 
   packageOverrides = pkgs: {
-    jdk = pkgs.oraclejdk8;
-    jre = pkgs.oraclejdk8;
-
-    # necessary to make the above work, for now.
-    # https://github.com/NixOS/nixpkgs/issues/9786
-    jython = null;
-    yed = null;
+    jdk = pkgs.openjdk8;
+    jre = pkgs.openjdk8;
 
     all = with pkgs; buildEnv {
       name = "all";
@@ -48,12 +43,14 @@
 
         # desktop
         dmenu
+        gnome3.adwaita-icon-theme
         gnome3.eog
         gnome3.evince
         gnome3.file-roller
         gnome3.gnome_keyring
         gnome3.networkmanagerapplet
         gnome3.networkmanager_openconnect
+        libnotify
         notify-osd
         rxvt_unicode-with-plugins
         taffybar

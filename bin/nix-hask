@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+TOOLS="ghc-mod cabal-install"
+# TOOLS="cabal-install"
+
+name=$(basename $(ls *.cabal) .cabal)
+
+if [ "$1" == "" ]
+then
+  hpkgs="pkgs.haskellPackages"
+  compiler=""
+  inherit="inherit "
+else
+  hpkgs="pkgs.haskell.packages.$1"
+  compiler="compiler=\"$1\";"
+  inherit="inherit compiler"
+fi
+
+EXPR=$(cat <<NIX
+let
+  nixpkgs = import <nixpkgs> {};
+  pkgs = nixpkgs.pkgs;
+  hlib = import <nixpkgs/pkgs/development/haskell-modules/lib.nix> { inherit pkgs; };
+  $compiler
+  pkg = import ./default.nix { $inherit nixpkgs; };
+  ghc = $hpkgs.ghcWithPackages(ps: with ps; pkg.buildInputs ++ pkg.nativeBuildInputs ++ pkg.propagatedNativeBuildInputs ++ pkg.propagatedBuildInputs ++ [ $TOOLS ]);
+in
+  pkgs.stdenv.mkDerivation {
+    name = "$name-haskell-env";
+    buildInputs = [ ghc ];
+    shellHook = "eval \$(egrep ^export \${ghc}/bin/ghc)";
+  }
+NIX
+)
+
+echo $EXPR
+nix-shell -E "$EXPR"
+

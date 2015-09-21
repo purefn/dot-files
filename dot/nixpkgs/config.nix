@@ -55,7 +55,7 @@
         gnome3.networkmanagerapplet
         gnome3.networkmanager_openconnect
         notify-osd
-        rxvt_unicode
+        rxvt_unicode-with-plugins
         taffybar
         xbindkeys
         xcompmgr

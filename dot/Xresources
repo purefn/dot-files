@@ -5,7 +5,7 @@ URxvt*font: xft:DejaVu Sans Mono:pixelsize=15:antialias=true:autohinting=true
 URxvt*scrollBar: true
 URxvt*scrollBar_right: true
 URxvt*scrollstyle: plain
-URxvt.perl-ext-common: default,tabbed
+URxvt.perl-ext-common: default,tabbed,font-size
 Xcursor.theme: Vanilla-DMZ
 ! do not scroll with output
 URxvt*scrollTtyOutput: false
@@ -13,3 +13,7 @@ URxvt*scrollTtyOutput: false
 URxvt*scrollWithBuffer: true
 ! scroll back to the bottom on keypress
 URxvt*scrollTtyKeypress: true
+URxvt.keysym.C-Up:     perl:font-size:increase
+URxvt.keysym.C-Down:   perl:font-size:decrease
+URxvt.keysym.C-S-Up:   perl:font-size:incglobal
+URxvt.keysym.C-S-Down: perl:font-size:decglobal

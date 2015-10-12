@@ -1,4 +1,4 @@
-{ stdenv, ghcWithPackages, makeWrapper }:
+{ stdenv, ghcWithPackages }:
 
 let
   adjustVolumeEnv = ghcWithPackages (self: [ 
@@ -7,10 +7,8 @@ let
 in stdenv.mkDerivation {
   name = "adjust-volume";
 
-  nativeBuildInputs = [ makeWrapper ];
-
   buildCommand = ''
     mkdir -p $out/bin
-    makeWrapper ${adjustVolumeEnv}/bin/adjust-volume $out/bin/adjust-volume
+    cp ${adjustVolumeEnv}/bin/adjust-volume $out/bin/adjust-volume
   '';
 }

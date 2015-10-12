@@ -115,6 +115,7 @@
         # javascript dev
         haskellPackages.purescript
         nodejs
+        phantomjs
       ];
     };
   };

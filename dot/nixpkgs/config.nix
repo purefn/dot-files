@@ -26,6 +26,7 @@
         # basics
         aspell
         aspellDicts.en
+        direnv
         gnupg
         neovim
         nix-repl

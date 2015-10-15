@@ -1,38 +1,87 @@
 #!/usr/bin/env bash
 
-TOOLS="ghc-mod cabal-install"
-# TOOLS="cabal-install"
+DEFAULT_TOOLS="ghc-mod cabal-install"
 
-name=$(basename $(ls *.cabal) .cabal)
+usage()
+{
+cat << EOF
+usage: $0 <options>
 
-if [ "$1" == "" ]
-then
-  hpkgs="pkgs.haskellPackages"
-  compiler=""
-  inherit="inherit "
-else
-  hpkgs="pkgs.haskell.packages.$1"
-  compiler="compiler=\"$1\";"
-  inherit="inherit compiler"
-fi
+Provides a Haskell development environment via nix-shell.
+
+OPTIONS:
+   -h      Show this message
+   -c      Compiler to use, e.g. "ghc7102". Uses the nixpkgs default if not specified. 
+   -p      Enable profiling in haskell packages. Also adds profiteur,  threadscope, and ghc-prof-flamegraph to the tools list.
+   -t      List of tools to be added to the environment. Defaults to "$DEFAULT_TOOLS"
+   -a      Add a tool to the list of tools added to the environment. Can be specified multiple times. Starts with ghc-mod cabal-install.
+   -v      Verbose
+EOF
+}
+
+HPKGS="pkgs.haskellPackages"
+COMPILER=
+TOOLS=$DEFAULT_TOOLS
+PROFILING=
+VERBOSE=
+INHERIT="inherit"
+
+while getopts “hc:pt:e:v” OPTION
+do
+  case $OPTION in
+    h)
+      usage
+      exit 1
+      ;;
+    c)
+      HPKGS="pkgs.haskell.packages.$OPTARG"
+      COMPILER="compiler=\"$OPTARG\";"
+      INHERIT="$INHERIT compiler"
+      ;;
+    p)
+      PROFILING="profiling=true;"
+      INHERIT="$INHERIT profiling"
+      TOOLS="$TOOLS profiteur threadscope ghc-prof-flamegraph"
+      ;;
+    t)
+      TOOLS=$OPTARG
+      ;;
+    e)
+      TOOLS="$TOOLS $OPTARG"
+      ;;
+    v)
+      VERBOSE=1
+      ;;
+    ?)
+      usage
+      exit
+      ;;
+  esac
+done
+
+NAME=$(basename $(ls *.cabal) .cabal)
 
 EXPR=$(cat <<NIX
 let
   nixpkgs = import <nixpkgs> {};
   pkgs = nixpkgs.pkgs;
   hlib = import <nixpkgs/pkgs/development/haskell-modules/lib.nix> { inherit pkgs; };
-  $compiler
-  pkg = import ./default.nix { $inherit nixpkgs; };
-  ghc = $hpkgs.ghcWithPackages(ps: with ps; pkg.buildInputs ++ pkg.nativeBuildInputs ++ pkg.propagatedNativeBuildInputs ++ pkg.propagatedBuildInputs ++ [ $TOOLS ]);
+  $COMPILER
+  $PROFILING
+  pkg = import ./default.nix { $INHERIT nixpkgs; };
+  ghc = $HPKGS.ghcWithPackages(ps: with ps; pkg.buildInputs ++ pkg.nativeBuildInputs ++ pkg.propagatedNativeBuildInputs ++ pkg.propagatedBuildInputs ++ [ $TOOLS ]);
 in
   pkgs.stdenv.mkDerivation {
-    name = "$name-haskell-env";
+    name = "$NAME-haskell-env";
     buildInputs = [ ghc ];
     shellHook = "eval \$(egrep ^export \${ghc}/bin/ghc)";
   }
 NIX
 )
 
-echo $EXPR
+if [ $VERBOSE ]; then
+  echo $EXPR
+fi
+
 nix-shell -E "$EXPR"
 

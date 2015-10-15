@@ -130,3 +130,5 @@ function nix-try {
   nix-shell -p "$cmd" --run "$cmd $@" 
 }
 
+eval "$(direnv hook bash)"
+

@@ -26,6 +26,7 @@
         # basics
         aspell
         aspellDicts.en
+        awscli
         direnv
         gnupg
         neovim
@@ -115,6 +116,7 @@
 
         # javascript dev
         haskellPackages.purescript
+        jq
         nodejs
         phantomjs
       ];

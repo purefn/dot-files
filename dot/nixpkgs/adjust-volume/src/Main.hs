@@ -44,7 +44,7 @@ main = sh $ do
   command <- liftIO . execParser . info (helper <*> opts) $ idm
 
   case command of
-    Inc s -> pamixer' ["--increase", T.pack .show $ s]
+    Inc s -> pamixer' ["--unmute"] >> pamixer' ["--increase", T.pack .show $ s]
     Dec s -> pamixer' ["--decrease", T.pack .show $ s]
     Toggle -> pamixer' ["--toggle-mute"]
 

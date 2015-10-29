@@ -28,7 +28,7 @@
       desktopManagerHandlesLidAndPower = false;
     };
 
-    videoDrivers = [ "nvidia" ];
+    # videoDrivers = [ "nvidia" ];
 
     screenSection = ''
       Option "NoLogo" "TRUE"

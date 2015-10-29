@@ -116,7 +116,6 @@ export PATH=$PATH:~/Development/atlassian-plugin-sdk/bin:~/Development/atlassian
 export WINEARCH=win32
 export WINEPREFIX=~/win32
 
-export TERM=rxvt
 export EDITOR=nvim
 export BROWSER=chromium
 

@@ -21,4 +21,5 @@ dot/xmonad/xmonad.hi
 dot/xmonad/lib/**/*.hi
 dot/xmonad/lib/**/*.o
 dot/xmonad/xmonad.o
+nixos/configuration.nix
 *.swp

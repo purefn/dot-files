@@ -1,1 +1,0 @@
-machines/MacPro3,1/configuration.nix

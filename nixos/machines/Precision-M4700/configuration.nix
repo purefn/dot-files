@@ -23,5 +23,8 @@
     device = "/dev/sda";
   };
 
-  networking.hostName = "tealc";
+  networking = {
+    hostName = "tealc";
+    networkmanager.enable = true;
+  };
 }

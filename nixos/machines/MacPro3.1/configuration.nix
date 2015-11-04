@@ -25,7 +25,10 @@
     };
   };
 
-  networking.hostName = "ronin";
+  networking = {
+    hostName = "ronin";
+    networkmanager.enable = true;
+  };
 
   nixpkgs.config = {
     packageOverrides = pkgs: {

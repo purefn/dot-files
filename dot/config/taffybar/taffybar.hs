@@ -27,7 +27,7 @@ data HostConfig = HostConfig
   { nic :: String
   } deriving (Eq, Show)
 
-ronin = HostConfig { nic = "enp7s0f0" }
+ronin = HostConfig { nic = "enp7s0f1" }
 tealc = HostConfig { nic = "wlp3s0" }
 
 font = "DejaVu Sans medium 10"

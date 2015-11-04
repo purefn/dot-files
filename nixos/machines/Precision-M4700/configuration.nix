@@ -23,9 +23,12 @@
     device = "/dev/sda";
   };
 
-  networking.hostName = "tealc";
-
   services = {
     xserver.videoDrivers = [ "nvidia" ];
+  };
+
+  networking = {
+    hostName = "tealc";
+    networkmanager.enable = true;
   };
 }

@@ -86,6 +86,8 @@
         # shutter
         sshfsFuse
         steam
+        linuxPackages.virtualbox
+        vagrant
         wireshark
 
         # general dev

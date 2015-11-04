@@ -39,7 +39,13 @@
   powerManagement.enable = false;
 
   services = {
-    mediatomb.enable = true;
+    mediatomb = {
+      enable = true;
+      ps3Support = true;
+      transcoding = true;
+      port = 50500;
+      interface = "enp7s0f1";
+    };
 
     xserver.videoDrivers = [ "nvidiaLegacy340" ];
   };

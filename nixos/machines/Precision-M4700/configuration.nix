@@ -7,13 +7,13 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./machines/dell-laptop/hardware-configuration.nix
-      ./modules/audio.nix
-      ./modules/desktop.nix
-      ./modules/laptop.nix
-      ./modules/networking.nix
-      ./modules/services.nix
-      ./modules/system.nix
+      ./hardware-configuration.nix
+      ../../modules/audio.nix
+      ../../modules/desktop.nix
+      ../../modules/laptop.nix
+      ../../modules/networking.nix
+      ../../modules/services.nix
+      ../../modules/system.nix
     ];
 
   # Use the GRUB 2 boot loader.
@@ -24,4 +24,8 @@
   };
 
   networking.hostName = "tealc";
+
+  services = {
+    xserver.videoDrivers = [ "nvidia" ];
+  };
 }

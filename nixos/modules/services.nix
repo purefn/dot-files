@@ -19,7 +19,6 @@
       enable = true;
       package = pkgs.postgresql93;
     };
-
   };
 
   virtualisation.virtualbox.host.enable = true;

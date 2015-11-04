@@ -18,6 +18,8 @@
     defaultLocale = "en_US.UTF-8";
   };
 
+  time.timeZone = "US/Arizona";
+
   environment = {
     systemPackages = with pkgs; [
       file
@@ -33,6 +35,8 @@
     };
 
     variables.EDITOR = pkgs.lib.mkForce "nvim";
+
+    etc.timezone.text = "US/Arizona";
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -47,8 +51,6 @@
   };
 
   programs.bash.enableCompletion = true;
-
-  time.timeZone = "US/Arizona";
 
   nixpkgs.config = {
     allowUnfree = true;

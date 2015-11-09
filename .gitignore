@@ -1,5 +1,6 @@
 dot/config/*
 !/dot/config/taffybar
+!/dot/config/nvim/
 dot/ssh/authorized_keys
 dot/ssh/id_dsa
 dot/ssh/id_dsa.pub

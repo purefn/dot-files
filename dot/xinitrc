@@ -35,8 +35,6 @@ nm-applet --sm-disable &
 
 pasystray &
 
-deluge &
-
 export GTK_IM_MODULE="xim"
 
 exec dbus-launch --exit-with-session xmonad

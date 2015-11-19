@@ -25,7 +25,9 @@
       file
       gitFull
       pciutils
-      neovim
+      # neovim is currently broken on unstable
+      # neovim 
+      vim
       which # otherwise it's not available from /bin/sh
     ];
 

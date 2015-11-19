@@ -9,7 +9,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../../modules/audio.nix
-      # ../../modules/desktop.nix
+      ../../modules/desktop.nix
       ../../modules/laptop.nix
       ../../modules/networking.nix
       ../../modules/services.nix

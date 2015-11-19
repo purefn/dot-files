@@ -76,7 +76,6 @@
         firefox
 
         # apps
-        deluge
         gimp
         # gnote
         handbrake
@@ -86,6 +85,7 @@
         # shutter
         sshfsFuse
         steam
+        transmission_remote_gtk
         linuxPackages.virtualbox
         vagrant
         wireshark

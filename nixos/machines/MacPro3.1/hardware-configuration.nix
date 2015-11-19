@@ -22,10 +22,11 @@
       fsType = "vfat";
     };
 
-  fileSystems."/home/rwallace" =
-    { device = "/dev/disk/by-label/home";
-      fsType = "ext4";
-    };
+  # not currently using this drive. might want to use it later, but i'm not sure for what yet
+  # fileSystems."/home/rwallace" =
+  #   { device = "/dev/disk/by-label/home";
+  #     fsType = "ext4";
+  #   };
 
   # Not needed, turned automagically by systemd
   # swapDevices = [ { device = "/dev/disk/by-label/swap"; } ];

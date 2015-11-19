@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-DEFAULT_TOOLS="ghc-mod cabal-install"
+DEFAULT_TOOLS="cabal-install ghc-mod hdevtools"
 
 usage()
 {

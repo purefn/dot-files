@@ -1,9 +1,11 @@
+{ pkgs }:
 {
   allowUnfree = true;
 
   chromium = {
     enablePepperFlash = true; # Chromium's non-NSAPI alternative to Adobe Flash
     enablePepperPDF = true;
+    enableWideVine = true;
     pulseSupport = true;
   };
 
@@ -14,6 +16,11 @@
 
   MPlayer = {
     pulseSupport = true;
+  };
+
+  haskellPackageOverrides = with pkgs.haskell.lib; self: super: {
+    hscope = dontCheck super.hscope;
+    adjust-volume = self.callPackage ./adjust-volume/adjust-volume.nix {};
   };
 
   packageOverrides = pkgs: {
@@ -29,9 +36,11 @@
         awscli
         direnv
         gnupg
+        lsof
         neovim
         nix-repl
         nox
+        powerline-fonts
         psmisc
         s3cmd
         unzip
@@ -44,9 +53,6 @@
         pavucontrol
 
         # desktop
-        (callPackage ./adjust-volume.nix { 
-          inherit (haskellPackages) ghcWithPackages;
-        })
         dmenu
         gnome3.adwaita-icon-theme
         gnome3.eog
@@ -55,6 +61,7 @@
         gnome3.gnome_keyring
         gnome3.networkmanagerapplet
         gnome3.networkmanager_openconnect
+        haskellPackages.adjust-volume
         libnotify
         notify-osd
         rxvt_unicode-with-plugins
@@ -121,6 +128,8 @@
         jq
         nodejs
         phantomjs
+
+        python
       ];
     };
   };

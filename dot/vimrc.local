@@ -1,17 +1,22 @@
-" autocmd BufWritePost *.hs GhcModCheckAndLintAsync
-
 set mouse=
-set csprg=hscope
-
-let g:hscoptions="tB-"
 
 let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': [] }
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-
 let g:syntastic_scala_checkers=['']
 let g:syntastic_java_checkers=['']
+
+set csprg=hscope
+let g:hscoptions="tB-"
 let g:no_haskell_conceal = 1
 
+let g:airline#extensions#tabline#enabled = 1
+
+autocmd BufWrite *.scala :call DeleteTrailingWS()
+autocmd BufWrite *.sbt :call DeleteTrailingWS()
+autocmd BufWrite *.cabal :call DeleteTrailingWS()
+autocmd BufWrite *.nix :call DeleteTrailingWS()
+autocmd BufWrite *.md :call DeleteTrailingWS()
+autocmd BufWrite *.groovy :call DeleteTrailingWS()

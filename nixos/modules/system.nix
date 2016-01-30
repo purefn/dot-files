@@ -26,8 +26,8 @@
       gitFull
       pciutils
       # neovim is currently broken on unstable
-      # neovim 
-      vim
+      neovim
+      # vim
       which # otherwise it's not available from /bin/sh
     ];
 
@@ -45,7 +45,18 @@
   users.extraUsers.rwallace = {
     name = "rwallace";
     group = "users";
-    extraGroups = [ "audio" "cdrom" "disk" "libvirtd" "networkmanager" "systemd-journal" "users" "vboxusers" "video" "wheel" ];
+    extraGroups = [
+      "audio"
+      "cdrom"
+      "disk"
+      "docker"
+      "networkmanager"
+      "systemd-journal"
+      "users"
+      "vboxusers"
+      "video"
+      "wheel"
+    ];
     uid = 1000;
     createHome = true;
     home = "/home/rwallace";

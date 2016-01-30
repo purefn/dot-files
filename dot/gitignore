@@ -23,3 +23,5 @@ hscope.out
 codex.tags
 hscope.out
 dev.nix
+
+node_modules

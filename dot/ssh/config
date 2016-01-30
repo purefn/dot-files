@@ -1,4 +1,5 @@
 Host *
+    UseRoaming no
     Compression yes
 
 Host rainicorn

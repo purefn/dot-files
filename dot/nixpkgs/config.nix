@@ -105,6 +105,7 @@
         ngrok
 
         # haskell dev
+        (pkgs.callPackage ./nix-ghci.nix {})
         haskellPackages.cabal2nix
         haskellPackages.codex
         haskellPackages.hasktags

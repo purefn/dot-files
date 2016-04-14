@@ -131,3 +131,5 @@ function nix-try {
 
 eval "$(direnv hook bash)"
 
+set -h # needed for the promptline.vim vcs branch slice
+. ~/.shell_prompt.sh

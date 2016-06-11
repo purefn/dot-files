@@ -22,3 +22,7 @@ Host mpac-*.dev.inf.atlassian.com
     User ubuntu
     IdentityFile ~/.ssh/mpac-dev.pem
 
+Host mpac-*.dev.internal.atlassian.com
+    User ubuntu
+    IdentityFile ~/.ssh/mpac-dev.pem
+

@@ -24,8 +24,8 @@
   };
 
   packageOverrides = pkgs: {
-    jdk = pkgs.openjdk8;
-    jre = pkgs.openjdk8;
+    jdk = pkgs.oraclejdk8;
+    jre = pkgs.oraclejdk8;
 
     all = with pkgs; buildEnv {
       name = "all";
@@ -131,6 +131,8 @@
         phantomjs
 
         python
+
+        mongodb-tools
       ];
     };
   };

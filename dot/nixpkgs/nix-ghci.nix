@@ -1,10 +1,10 @@
-{stdenv, nix, writeScriptBin }:
+{stdenv, writeScriptBin }:
 
 let
   nixGhci = writeScriptBin "nix-ghci" ''
     #!${stdenv.shell}
     args="$@"
-    ${nix}/bin/nix-shell -p "haskellPackages.ghcWithPackages (p: with p; [ $args ])" --command ghci
+    nix-shell -p "haskellPackages.ghcWithPackages (p: with p; [ $args ])" --command ghci
   '';
 in
   stdenv.mkDerivation {

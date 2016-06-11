@@ -19,7 +19,7 @@ let g:promptline_preset = {
         \'b' : [ '\h' ],
         \'c' : [ '\w' ],
         \'y' : [ promptline#slices#git_status() ],
-        \'z' : [ promptline#slices#vcs_branch() ]}
+        \'z' : [ '$(git branch --no-color 2> /dev/null | sed -e "/^[^*]/d" -e "s/* \(.*\)/ \1/")' ]}
 
 autocmd BufWrite *.scala :call DeleteTrailingWS()
 autocmd BufWrite *.sbt :call DeleteTrailingWS()

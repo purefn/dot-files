@@ -15,7 +15,7 @@
       user = "flexget";
       homeDir = "/var/lib/flexget";
       systemScheduler = false;
-      config = builtins.readFile ./flexget/config.yml;
+      config = builtins.replaceStrings ["secrets.yml"] [(toString ./flexget/secrets.yml)] (builtins.readFile ./flexget/config.yml);
     };
 
     mediatomb = {

@@ -1,0 +1,298 @@
+secrets: secrets.yml
+
+templates:
+  global:
+    private_torrents: no
+    regexp:
+      reject:
+        - \btemporada\b: {from: title}
+        - \bsubt\b: {from: title}
+        - (s|d)ub(s|bed|lado)?\b: {from: title}
+        # - \bH?D?TS\b: {from: title}
+        - \bVHS: {from: title}
+        - \b3-?D\b: {from: title}
+        - \btrailer\b: {from: title}
+        - \bscreener\b: {from: title}
+        - \b(hd)?cam(rip)?\b: {from: title}
+        - \bdual\baudio\b: {from: title}
+        - r3mnants: {from: title}
+        - italian
+        - french
+        - german
+        - dutch
+        - hindi
+        - ipod
+    content_filter:
+      require:
+        - '*.avi'
+        - '*.mkv'
+        - '*.mpg'
+        - '*.mp4'
+      reject:
+        - 'password.txt'
+        - '*.wmv'
+        # - '*.r01'
+      require_mainfile: yes
+    # verify_ssl_certificates: no
+    domain_delay:
+      bt-chat.com: 1 seconds
+      ezrss.it: 1 seconds
+      showrss.info: 1 seconds
+      torlock.eu: 1 seconds
+      torrenticity.com: 1 seconds
+      torrentz.eu: 1 seconds
+      torrentz.me: 1 seconds
+    # torrentz' guys banned flexget users
+    headers:
+      User-Agent: "Mozilla/5.0 (Windows NT 5.1; rv:16.0) Gecko/20100101 Firefox/16.0"
+
+  # The sources for series torrents.
+  tvfeed:
+    inputs:
+      # Kickass (Verified only, TV)
+      - rss:
+          url: https://kat.cr/usearch/verified%3A1%20category%3Atv/?rss=1
+          other_fields: ['torrent:magnetURI']
+          link: 'torrent:magnetURI'
+          silent: yes
+      # Kickass (ettv user only, TV)
+      - rss:
+          url: https://kat.cr/usearch/category%3Atv%20user%3Aettv/?rss=1
+          other_fields: ['torrent:magnetURI']
+          link: 'torrent:magnetURI'
+          silent: yes
+      # Kickass (r0b0T user only, TV)
+      - rss:
+          url: https://kat.cr/usearch/category%3Atv%20user%3Ar0b0T/?rss=1
+          other_fields: ['torrent:magnetURI']
+          link: 'torrent:magnetURI'
+          silent: yes
+      # Kickass (VTV user only, TV)
+      - rss:
+          url: https://kat.cr/usearch/category%3Atv%20user%3Avtv/?rss=1
+          other_fields: ['torrent:magnetURI']
+          link: 'torrent:magnetURI'
+          silent: yes
+      # Kickass (kikAssess user only, TV)
+      - rss:
+          url: https://kat.cr/usearch/category%3Atv%20user%3AkikAssess/?rss=1
+          other_fields: ['torrent:magnetURI']
+          link: 'torrent:magnetURI'
+          silent: yes
+      # Kickass (TvTeam user only, TV)
+      - rss:
+          url: https://kat.cr/usearch/category%3Atv%20user%3ATvTeam/?rss=1
+          other_fields: ['torrent:magnetURI']
+          link: 'torrent:magnetURI'
+          silent: yes
+      # torrentz and something else
+      - rss: { url: 'http://torrentz.eu/feed_verified?q=tv', silent: yes }
+      - rss: { url: 'http://torrentz.me/feed_verified?q=tv', silent: yes }
+      - rss: { url: 'http://www.torlock.com/television/rss.xml', silent: yes }
+      - rss: { url: 'http://showrss.info/feeds/all.rss', silent: yes }
+
+  # All the metainfo plugins used by tasks handling series.
+  tvinfo:
+    plugin_priority:
+      # manipulate must fix the titles before metainfo_series.
+      manipulate: 255
+    metainfo_series: yes
+    thetvdb_lookup: yes
+    # Some titles need little corrections to find matches on metainfo sites.
+    manipulate:
+      - title:
+          replace:
+            regexp: '^\[[^\]]*\][^a-z0-9]*'
+            format: ''
+      - title:
+          replace:
+            regexp: '^{[^\]]*}[^a-z0-9]*'
+            format: ''
+      - title:
+          replace:
+            regexp: '^\([^\]]*\)[^a-z0-9]*'
+            format: ''
+
+  # Global filters for series.
+  tvfltr:
+    set:
+      allow_teasers: no
+      propers: 12 hours
+      specials: no
+      tracking: backfill
+
+  # Destination path for series in Transmission (requires "transm" template too).
+  tvtran:
+    transmission:
+      path: /storage/torrents
+
+  # All the metainfo plugins used by tasks handling movies.
+  mvinfo:
+    tmdb_lookup: yes
+
+  # Global filters for movies.
+  mvfltr:
+    content_size:
+      max: 15000
+    movie_queue: accept
+
+  # Destination path for movies in Transmission (requires transm template too).
+  mvtran:
+    transmission:
+      path: /storage/torrents
+
+  # Common Transmission settings.
+  transm:
+    transmission:
+      enabled: yes
+      port: 9091
+      ratio: -1
+
+  # No messages about no input/output/whatever.
+  nosumm:
+    disable:
+      - details
+
+  # Several tasks must not mess up with the seen table...
+  noseen:
+    disable:
+      - seen
+      - seen_info_hash
+      - seen_movies
+
+  # ...and/or with the backlog.
+  nofail:
+    disable:
+      - backlog
+      - remember_rejected
+      - retry_failed
+
+  get_series:
+    template:
+      - tvinfo
+      - tvfeed
+      - tvfltr
+      - tvtran
+      - transm
+    configure_series:
+      from:
+        trakt_list:
+          username: '{{ secrets.trakt.username }}'
+          password: '{{ secrets.trakt.password }}'
+          list: following
+          type: shows
+          strip_dates: yes
+      settings:
+        identified_by: ep
+        tracking: backfill
+    transmission:
+      bandwidthpriority: 1
+    pushover:
+      userkey: "{{ secrets.pushover.userkey }}"
+      apikey: "{{ secrets.pushover.apikey }}"
+      title: "Download started"
+      message: "{{ series_name }} - S{{ series_season|pad(2)}}E{{ series_episode|pad(2) }} downloading in {{ quality }}"
+
+  get_movies:
+    priority: 15
+    interval: 2 hours
+    template:
+      - mvfltr
+      - mvtran
+      - transm
+    movie_queue: accept
+    discover:
+      what:
+        - emit_movie_queue: yes
+        # - trakt_emit:
+        #     username: '{{ secrets.trakt.username }}'
+        #     password: '{{ secrets.trakt.password }}'
+        #     list: watchlist
+        #     type: movies
+      from:
+        - torrentz: verified
+      interval: 0 hour
+    trakt_add:
+      username: '{{ secrets.trakt.username }}'
+      password: '{{ secrets.trakt.password }}'
+      list: collection
+    transmission:
+      bandwidthpriority: 0
+    pushover:
+      userkey: "{{ secrets.pushover.userkey }}"
+      apikey: "{{ secrets.pushover.apikey }}"
+      title: "Download started"
+      message: "{{ tmdb_name }} downloading with quality {{ quality }}"
+    trakt_remove:
+      username: '{{ secrets.trakt.username }}'
+      password: '{{ secrets.trakt.password }}'
+      list: watchlist
+
+tasks:
+  # This is the download task for series.
+  get_series_1080p_hdtv:
+    priority: 3
+    template: get_series
+    quality: 1080p+ hdtv+
+
+  get_series_720p_hdtv:
+    priority: 4
+    template: get_series
+    quality: 720p+ hdtv+
+
+  get_series_720p:
+    priority: 5
+    template: get_series
+    quality: 720p+
+
+  get_series_hdtv:
+    priority: 5
+    template: get_series
+    quality: hdtv
+
+  # This is the search & download task for movies.
+  queue_movies:
+    priority: 20
+    template: no_global
+    trakt_list:
+      username: '{{ secrets.trakt.username }}'
+      password: '{{ secrets.trakt.password }}'
+      list: watchlist
+      type: movies
+    no_entries_ok: yes
+    sort_by:
+      reverse: yes
+    accept_all: yes
+    movie_queue: add
+
+  get_movies_1080p_hdtv:
+    priority: 21 
+    template: get_movies
+    quality: 1080p+ hdtv+
+
+  get_movies_720p_hdtv:
+    priority: 22 
+    template: get_movies
+    quality: 720p+ hdtv+
+
+  get_movies_hdtv:
+    priority: 23 
+    template: get_movies
+    quality: hdtv+
+
+  get_movies_other:
+    priority: 24
+    template: get_movies
+    quality: 480p+
+
+schedules:
+  - tasks: [queue_movies, get_movies_1080p_hdtv, get_movies_720p_hdtv, get_movies_hdtv, get_movies_other]
+    interval:
+      hours: 4
+  - tasks: [get_series_1080p_hdtv, get_series_720p_hdtv, get_series_720p, get_series_hdtv]
+    interval:
+      minutes: 5
+  # - tasks: [RemoveEndedShows]
+  #   interval:
+  #     weeks: 4
+

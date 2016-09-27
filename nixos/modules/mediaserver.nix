@@ -37,14 +37,14 @@
         nobind
         persist-key
         # persist-tun
-        ca /root/.vpn/pia/ca.crt
+        ca ${toString ./vpn/pia/ca.crt}
         tls-client
         remote-cert-tls server
-        auth-user-pass /root/.vpn/pia/auth.txt
+        auth-user-pass ${toString ./vpn/pia/auth.txt}
         comp-lzo
         verb 1
         reneg-sec 0
-        crl-verify /root/.vpn/pia/crl.pem
+        crl-verify ${toString ./vpn/pia/crl.pem}
         dhcp-option DNS 8.8.8.8
       '';
       up = "${pkgs.update-resolv-conf}/libexec/openvpn/update-resolv-conf";

@@ -24,6 +24,8 @@
     systemPackages = with pkgs; [
       file
       gitFull
+      git-crypt
+      gnupg
       pciutils
       # neovim is currently broken on unstable
       # neovim 
@@ -45,7 +47,7 @@
   users.extraUsers.rwallace = {
     name = "rwallace";
     group = "users";
-    extraGroups = [ "audio" "cdrom" "disk" "libvirtd" "networkmanager" "systemd-journal" "users" "vboxusers" "video" "wheel" ];
+    extraGroups = [ "audio" "cdrom" "disk" "libvirtd" "networkmanager" "systemd-journal" "transmission" "users" "vboxusers" "video" "wheel" ];
     uid = 1000;
     createHome = true;
     home = "/home/rwallace";

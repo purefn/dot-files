@@ -1,4 +1,5 @@
 Host *
+    UseRoaming no
     Compression yes
 
 Host rainicorn
@@ -18,6 +19,10 @@ Host wallboard-3
     User integration
 
 Host mpac-*.dev.inf.atlassian.com
+    User ubuntu
+    IdentityFile ~/.ssh/mpac-dev.pem
+
+Host mpac-*.dev.internal.atlassian.com
     User ubuntu
     IdentityFile ~/.ssh/mpac-dev.pem
 

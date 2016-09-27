@@ -2,7 +2,7 @@
 
 {
   services = {
-    locate.enable = true; 
+    locate.enable = true;
 
     mongodb.enable = true;
 
@@ -21,5 +21,14 @@
     };
   };
 
-  virtualisation.virtualbox.host.enable = true;
+  virtualisation = {
+    docker = {
+      enable = true;
+      extraOptions = "--bip=172.17.42.1/16";
+    };
+    virtualbox.host = {
+      enable = true;
+      enableHardening = false;
+    };
+  };
 }

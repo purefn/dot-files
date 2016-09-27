@@ -31,7 +31,7 @@
 
   nixpkgs.config = {
     packageOverrides = pkgs: {
-      linuxPackages = pkgs.linuxPackages_latest;
+      linuxPackages = pkgs.linuxPackages_4_5;
     };
   };
 
@@ -42,6 +42,6 @@
       Type = "oneshot";
       RemainAfterExit = true;
     };
-    script = "echo 1969 e0a1 > /sys/bus/pci/drivers/alx/new_id";
-  }; 
+    script = "echo 1969 e0a1 > /sys/bus/pci/drivers/alx/new_id || true";
+  };
 }

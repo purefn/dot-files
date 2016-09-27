@@ -25,7 +25,6 @@
           sha256 = "0cawq38l8rcgd35vpdx3i1wbs3wrkcrng1c9qch0l4qncw505hv6";
         };
       };
-      desktopManagerHandlesLidAndPower = false;
     };
 
     # videoDrivers = [ "nvidia" ];

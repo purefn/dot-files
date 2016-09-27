@@ -1,7 +1,7 @@
 URxvt*saveLines: 12000
 URxvt*foreground: White
 URxvt*background: Black
-URxvt*font: xft:DejaVu Sans Mono:pixelsize=15:antialias=true:autohinting=true
+URxvt*font: xft:DejaVu Sans Mono for Powerline:pixelsize=15:antialias=true:autohinting=true
 URxvt*scrollBar: true
 URxvt*scrollBar_right: true
 URxvt*scrollstyle: plain

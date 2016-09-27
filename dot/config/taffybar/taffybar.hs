@@ -24,11 +24,11 @@ import System.Taffybar.Widgets.PollingBar
 import System.Taffybar.Widgets.PollingGraph
 
 data HostConfig = HostConfig
-  { nic :: String
+  { nics :: [String]
   } deriving (Eq, Show)
 
-ronin = HostConfig { nic = "enp7s0f1" }
-tealc = HostConfig { nic = "wlp3s0" }
+ronin = HostConfig { nics = [ "enp59s0", "wlp61s0" ] }
+tealc = HostConfig { nics = [ "wlp3s0" ] }
 
 font = "DejaVu Sans medium 10"
 fgColor = hexColor $ RGB (0x93/0xff, 0xa1/0xff, 0xa1/0xff)
@@ -61,13 +61,12 @@ taffybarConfig = cfg where
     , endWidgets = end c
     }
   start = [ taffyPagerNew defaultPagerConfig ]
-  end c = reverse . mconcat $
-    [ [ netMonitorNew 0.5 (nic c)
-      , cpuMonitorNew cpuCfg 1 "cpu"
+  end c = reverse . concat $
+    [ [ netMonitorNew 0.5 nic | nic <- nics c ]
+    , [ cpuMonitorNew cpuCfg 1 "cpu"
       , pollingGraphNew memCfg 1 memCallback
-      ]
-    , if c == tealc then [ batteryBarNew defaultBatteryConfig 0.5 ] else []
-    , [ systrayNew
+      , batteryBarNew defaultBatteryConfig 0.5
+      , systrayNew
       , textClockNew Nothing "<span fgcolor='orange'>%a %b %_d %H:%M</span>" 1
       , weatherNew (defaultWeatherConfig "KIWA") 10
       ]

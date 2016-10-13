@@ -127,7 +127,7 @@
         # javascript dev
         haskellPackages.purescript
         jq
-        nodejs
+        nodejs-6_x
         phantomjs
 
         python

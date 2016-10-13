@@ -108,10 +108,10 @@
         (pkgs.callPackage ./nix-ghci.nix {})
         haskellPackages.cabal2nix
         haskellPackages.codex
-        haskellPackages.hasktags
+        # haskellPackages.hasktags
         haskellPackages.hlint
         haskellPackages.hscope
-        haskellPackages.packunused
+        # haskellPackages.packunused
         haskellPackages.pandoc
         haskellPackages.pointful
         haskellPackages.pointfree

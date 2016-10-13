@@ -84,12 +84,10 @@
 
         # apps
         gimp
-        # gnote
         handbrake
         hipchat
         mplayer
         pithos
-        # shutter
         sshfsFuse
         steam
         transmission_remote_gtk
@@ -108,7 +106,7 @@
         (callPackage ./nix-ghci.nix {})
         haskellPackages.cabal2nix
         haskellPackages.codex
-        # haskellPackages.hasktags
+        haskellPackages.hasktags
         haskellPackages.hlint
         haskellPackages.hscope
         # haskellPackages.packunused

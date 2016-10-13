@@ -105,7 +105,7 @@
         ngrok
 
         # haskell dev
-        (pkgs.callPackage ./nix-ghci.nix {})
+        (callPackage ./nix-ghci.nix {})
         haskellPackages.cabal2nix
         haskellPackages.codex
         # haskellPackages.hasktags
@@ -118,16 +118,16 @@
 
         # scala dev
         scala
-        sbt
+        (callPackage ./sbt-extras.nix {})
 
         # java dev
-        jdk
+        oraclejdk8
         maven
 
         # javascript dev
         haskellPackages.purescript
         jq
-        nodejs
+        nodejs-6_x
         phantomjs
 
         python

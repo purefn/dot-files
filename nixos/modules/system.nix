@@ -24,6 +24,8 @@
     systemPackages = with pkgs; [
       file
       gitFull
+      git-crypt
+      gnupg
       pciutils
       # neovim is currently broken on unstable
       neovim
@@ -50,8 +52,10 @@
       "cdrom"
       "disk"
       "docker"
+      "libvirtd"   
       "networkmanager"
       "systemd-journal"
+      "transmission"
       "users"
       "vboxusers"
       "video"

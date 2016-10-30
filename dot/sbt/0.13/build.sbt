@@ -3,6 +3,8 @@ import sbt.{ProcessBuilder, ProcessLogger}
 
 net.virtualvoid.sbt.graph.Plugin.graphSettings
 
+javaOptions += "-agentpath:/home/rwallace/Development/yjp/bin/linux-x86-64/libyjpagent.so"
+
 // def runCommand(cmd: Seq[String]): (Int, String, String) = {
 //   val stdout = new ByteArrayOutputStream
 //   val stderr = new ByteArrayOutputStream

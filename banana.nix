@@ -1,3 +1,4 @@
+# http://downloads.hipchat.com.s3.amazonaws.com/getdembitz/linux/deb/64/alpha/bananainternal_1.0.0_amd64.deb
 # nix-build banana.nix --arg src ./bananainternal_1.0.0_amd64.deb
 
 { src }:

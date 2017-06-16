@@ -19,8 +19,16 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # fixes docker for now https://github.com/NixOS/nixpkgs/issues/22472
+  # boot.kernelParams = ["systemd.legacy_systemd_cgroup_controller=yes"];
+
   services = {
     xserver.videoDrivers = [ "nvidia" ];
+
+    printing = {
+      enable = true;
+      drivers = [ pkgs.gutenprint pkgs.hplipWithPlugin ];
+    };
   };
 
   networking = {
@@ -28,11 +36,11 @@
     networkmanager.enable = true;
   };
 
-  nixpkgs.config = {
-    packageOverrides = pkgs: {
-      linuxPackages = pkgs.linuxPackages_latest;
-    };
-  };
+  # nixpkgs.config = {
+  #   packageOverrides = pkgs: {
+  #     linuxPackages = pkgs.linuxPackages_latest;
+  #   };
+  # };
 
   systemd.services."fix-alx" = {
     description = "Make the Atheros NIC driver work for the e2400";

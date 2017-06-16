@@ -8,6 +8,9 @@ set mouse=
 " let g:syntastic_scala_checkers=['']
 " let g:syntastic_java_checkers=['']
 
+" source vimrc after saving this file
+autocmd bufwritepost vimrc.local source $MYVIMRC
+
 set csprg=hscope
 let g:hscoptions="tB-"
 let g:no_haskell_conceal = 1
@@ -27,3 +30,14 @@ autocmd BufWrite *.cabal :call DeleteTrailingWS()
 autocmd BufWrite *.nix :call DeleteTrailingWS()
 autocmd BufWrite *.md :call DeleteTrailingWS()
 autocmd BufWrite *.groovy :call DeleteTrailingWS()
+
+autocmd BufWritePost *.scala silent :EnTypeCheck
+autocmd FileType scala nnoremap <buffer> <silent> <leader>t :EnType<CR>
+autocmd FileType scala nnoremap <buffer> <silent> gd :EnDeclaration<CR>
+autocmd FileType scala nnoremap <buffer> <silent> <C-]> :EnDeclaration<CR>
+autocmd FileType scala noremap <buffer> <silent> <C-w>] :EnDeclarationSplit<CR>
+autocmd FileType scala noremap <buffer> <silent> <C-w><C-]> :EnDeclarationSplit<CR>
+autocmd FileType scala noremap <buffer> <silent> <C-v>] :EnDeclarationSplit v<CR>
+autocmd FileType scala noremap <buffer> <silent> <leader>i :EnInspectType<CR>
+autocmd FileType scala noremap <buffer> <silent> <leader>I :EnSuggestImport<CR>
+autocmd FileType scala noremap <buffer> <silent> <leader>rn :EnRename<CR>

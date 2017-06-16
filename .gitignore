@@ -5,11 +5,14 @@ dot/ssh/authorized_keys
 dot/ssh/id_dsa
 dot/ssh/id_dsa.pub
 dot/ssh/id_rsa
+dot/ssh/terraform
+dot/ssh/terraform.pub
 dot/ssh/known_hosts
 dot/ssh/git-annex-*
 dot/sbt/boot
 dot/sbt/launch
 dot/sbt/launchers
+dot/sbt/preloaded
 dot/sbt/*/plugins/project/
 dot/sbt/*/plugins/target/
 dot/sbt/*/boot
@@ -22,5 +25,6 @@ dot/xmonad/xmonad.hi
 dot/xmonad/lib/**/*.hi
 dot/xmonad/lib/**/*.o
 dot/xmonad/xmonad.o
+dot/xmonad/xmonad.state
 nixos/configuration.nix
 *.swp

@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -euf -o pipefail
+
+COMMENT=$(git stash list -1 --pretty=%B)
+
+git stash pop
+
+git commit -a -m "$COMMENT"
+

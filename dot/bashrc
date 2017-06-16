@@ -133,3 +133,7 @@ eval "$(direnv hook bash)"
 
 set -h # needed for the promptline.vim vcs branch slice
 . ~/.shell_prompt.sh
+
+alias awstoken="source $(which setawstoken.sh)"
+alias awsunsettoken="source $(which unsetawstoken.sh)"
+

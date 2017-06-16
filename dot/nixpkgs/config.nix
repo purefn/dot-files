@@ -3,16 +3,16 @@
   allowUnfree = true;
 
   chromium = {
-    enablePepperFlash = true; # Chromium's non-NSAPI alternative to Adobe Flash
+    # enablePepperFlash = true; # Chromium's non-NSAPI alternative to Adobe Flash
     enablePepperPDF = true;
-    enableWideVine = true;
+    # enableWideVine = true;
     pulseSupport = true;
   };
 
-  firefox = {
-    enableGoogleTalkPlugin = true;
-    enableAdobeFlash = true;
-  };
+  # firefox = {
+    # enableGoogleTalkPlugin = true;
+    # enableAdobeFlash = true;
+  # };
 
   MPlayer = {
     pulseSupport = true;
@@ -37,7 +37,14 @@
         direnv
         gnupg
         lsof
-        neovim
+        (neovim.override {
+          extraPythonPackages = [
+            # for ensime-vim
+            pythonPackages.websocket_client
+            pythonPackages.sexpdata
+            pythonPackages.neovim
+          ];
+        })
         nix-repl
         nox
         powerline-fonts
@@ -80,13 +87,14 @@
 
         # browsers
         chromium
-        firefox
+        # firefox
 
         # apps
         gimp
         handbrake
         hipchat
         mplayer
+        (mumble.override { pulseSupport = true; })
         pithos
         sshfsFuse
         steam
@@ -105,17 +113,18 @@
         # haskell dev
         (callPackage ./nix-ghci.nix {})
         haskellPackages.cabal2nix
-        haskellPackages.codex
+        # haskellPackages.codex
         haskellPackages.hasktags
         haskellPackages.hlint
-        haskellPackages.hscope
+        # haskellPackages.hscope
+        haskellPackages.hserv
         # haskellPackages.packunused
         haskellPackages.pandoc
         haskellPackages.pointful
         haskellPackages.pointfree
 
         # scala dev
-        scala
+        # scala
         (callPackage ./sbt-extras.nix {})
 
         # java dev
@@ -123,14 +132,13 @@
         maven
 
         # javascript dev
-        haskellPackages.purescript
+        # haskellPackages.purescript
         jq
-        nodejs-6_x
-        phantomjs
-
-        python
 
         mongodb-tools
+
+        (callPackage ./awscli-saml-auth.nix {})
+        (callPackage ./laas.nix {})
       ];
     };
   };

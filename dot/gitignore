@@ -14,6 +14,8 @@
 dist_*
 notest.sbt
 
+.ensime*
+
 .cabal-sandbox
 cabal.sandbox.config
 codex.tags

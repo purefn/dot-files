@@ -83,5 +83,7 @@ if [ $VERBOSE ]; then
   echo $EXPR
 fi
 
-nix-shell -E "$EXPR"
+# nix-shell -E "$EXPR"
+
+echo $EXPR
 

@@ -1,8 +1,3 @@
-# http://downloads.hipchat.com.s3.amazonaws.com/getdembitz/linux/deb/64/alpha/bananainternal_1.0.0_amd64.deb
-# nix-build banana.nix --arg src ./bananainternal_1.0.0_amd64.deb
-
-{ src }:
-
 with import <nixpkgs> { };
 
 let
@@ -38,10 +33,13 @@ let
   ] + ":${stdenv.cc.cc.lib}/lib64";
 in
 stdenv.mkDerivation rec {
-  version = "1.0.0";
+  version = "1.4.10";
   name = "banana-${version}";
 
-  inherit src;
+  src = fetchurl {
+    url = http://s3.amazonaws.com/downloads.hipchat.com/getdembitz/linux/deb/64/alpha/bananainternal-alpha_amd64.deb;
+    sha256 = "1gd6l17wsrf0d74w6zvb6mdkdn0sdqgr7m6bywf6bdxqg5bfyhzm";
+  };
 
   phases = "unpackPhase installPhase";
 
@@ -52,10 +50,10 @@ stdenv.mkDerivation rec {
   '';
 
   installPhase =''
-    mkdir $out
-    mv usr/* $out/
+    mkdir "$out"
+    mv usr/* "$out/"
     patchelf --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
       --set-rpath "${fullPath}:\$ORIGIN" \
-      "$out/bin/bananainternal"
+      "$out/bin/bananainternal-alpha"
   '';
 }

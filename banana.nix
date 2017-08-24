@@ -33,12 +33,12 @@ let
   ] + ":${stdenv.cc.cc.lib}/lib64";
 in
 stdenv.mkDerivation rec {
-  version = "1.4.10";
+  version = "1.11.31";
   name = "banana-${version}";
 
   src = fetchurl {
     url = http://s3.amazonaws.com/downloads.hipchat.com/getdembitz/linux/deb/64/alpha/bananainternal-alpha_amd64.deb;
-    sha256 = "1gd6l17wsrf0d74w6zvb6mdkdn0sdqgr7m6bywf6bdxqg5bfyhzm";
+    sha256 = "0yfd6fy4y9ssjfyak2d47d6pfacbgzng7r2dm0nfxch75rwyz4ay";
   };
 
   phases = "unpackPhase installPhase";

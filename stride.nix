@@ -33,12 +33,12 @@ let
   ] + ":${stdenv.cc.cc.lib}/lib64";
 in
 stdenv.mkDerivation rec {
-  version = "1.11.31";
-  name = "banana-${version}";
+  version = "0.12.10";
+  name = "stride-${version}";
 
   src = fetchurl {
-    url = http://s3.amazonaws.com/downloads.hipchat.com/getdembitz/linux/deb/64/alpha/bananainternal-alpha_amd64.deb;
-    sha256 = "0yfd6fy4y9ssjfyak2d47d6pfacbgzng7r2dm0nfxch75rwyz4ay";
+    url = https://stride-desktop-downloads.s3.amazonaws.com/releases/linux/deb/64/alpha/stride-alpha_amd64.deb;
+    sha256 = "05x6g6gppkdjdlb5bszrrm134pyrj8a1p0p8w36abghbd8zq6n8v";
   };
 
   phases = "unpackPhase installPhase";
@@ -54,6 +54,6 @@ stdenv.mkDerivation rec {
     mv usr/* "$out/"
     patchelf --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
       --set-rpath "${fullPath}:\$ORIGIN" \
-      "$out/bin/bananainternal-alpha"
+      "$out/bin/stride-alpha"
   '';
 }

@@ -24,8 +24,13 @@
   };
 
   packageOverrides = pkgs: {
-    jdk = pkgs.oraclejdk8;
-    jre = pkgs.oraclejdk8;
+    # jdk = pkgs.oraclejdk8;
+    # jre = pkgs.oraclejdk8;
+
+    # wine = pkgs.winePackages.full.override {
+      # wineRelease = "staging";
+      # wineBuild = "wineWow";
+    # };
 
     all = with pkgs; buildEnv {
       name = "all";
@@ -75,13 +80,30 @@
         taffybar
         xbindkeys
         xcompmgr
-        (xmonad-with-packages.override {
-          ghcWithPackages = haskellPackages.ghcWithPackages;
-          packages = hpkgs: [
-            hpkgs.xmonad-contrib
-            hpkgs.xmonad-extras
-            hpkgs.taffybar
-          ];
+        # (xmonad-with-packages.override {
+          # ghcWithPackages = haskellPackages.ghcWithPackages;
+          # packages = hpkgs: [
+            # hpkgs.xmonad-contrib
+            # hpkgs.xmonad-extras
+            # hpkgs.taffybar
+          # ];
+        # })
+        (let
+          xmonadEnv = haskellPackages.ghcWithPackages (self: [ self.xmonad self.xmonad-contrib self.xmonad-extras self.taffybar] );
+        in stdenv.mkDerivation {
+          name = "xmonad-with-packages";
+
+          nativeBuildInputs = [ makeWrapper ];
+
+          buildCommand = ''
+            makeWrapper ${xmonadEnv}/bin/xmonad $out/bin/xmonad \
+              --set NIX_GHC "${xmonadEnv}/bin/ghc" \
+              --set XMONAD_XMESSAGE "${xorg.xmessage}/bin/xmessage"
+          '';
+
+          # trivial derivation
+          preferLocalBuild = true;
+          allowSubstitutes = false;
         })
         xscreensaver
 
@@ -91,7 +113,7 @@
 
         # apps
         gimp
-        handbrake
+        # handbrake
         hipchat
         mplayer
         (mumble.override { pulseSupport = true; })
@@ -125,11 +147,7 @@
 
         # scala dev
         # scala
-        (callPackage ./sbt-extras.nix {})
-
-        # java dev
-        oraclejdk8
-        maven
+        # (callPackage ./sbt-extras.nix {})
 
         # javascript dev
         # haskellPackages.purescript
@@ -138,7 +156,12 @@
         mongodb-tools
 
         (callPackage ./awscli-saml-auth.nix {})
-        (callPackage ./laas.nix {})
+        (callPackage ./laas-cli {})
+
+        (callPackage ./wine {
+          wineRelease = "staging";
+          wineBuild = "wineWow";
+        })
       ];
     };
   };

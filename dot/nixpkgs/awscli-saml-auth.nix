@@ -1,12 +1,5 @@
 { stdenv, pkgs, pythonPackages, fetchgitPrivate, writeScriptBin}:
 
-# To install locally run:
-# nix-env -f default.nix -i awscli-saml-auth
-#
-# Usage:
-# . $(which setawstoken.sh)
-# . $(which unsetawstoken.sh)
-
 let
   keyring = pkgs.stdenv.lib.overrideDerivation pythonPackages.keyring (oldAttrs : {
     # Tests fail on OS X and I haven't figured out why yet!

@@ -1,0 +1,5 @@
+#! /usr/bin/env nix-shell
+#! nix-shell -i bash -p nodejs-6_x
+ 
+exec $HOME/node_modules/.bin/micros "${@}"
+

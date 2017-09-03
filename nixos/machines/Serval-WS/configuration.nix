@@ -22,6 +22,9 @@
   # fixes docker for now https://github.com/NixOS/nixpkgs/issues/22472
   # boot.kernelParams = ["systemd.legacy_systemd_cgroup_controller=yes"];
 
+  hardware.opengl.driSupport32Bit = true;
+  hardware.pulseaudio.support32Bit = true;
+
   services = {
     xserver.videoDrivers = [ "nvidia" ];
 
@@ -29,12 +32,16 @@
       enable = true;
       drivers = [ pkgs.gutenprint pkgs.hplipWithPlugin ];
     };
+
   };
 
   networking = {
     hostName = "ronin";
     networkmanager.enable = true;
   };
+
+  networking.firewall.enable = false;
+  services.mongodb.bind_ip = "0.0.0.0";
 
   # nixpkgs.config = {
   #   packageOverrides = pkgs: {

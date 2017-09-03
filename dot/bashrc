@@ -114,7 +114,7 @@ export PATH=$PATH:~/Development/atlassian-plugin-sdk/bin:~/Development/atlassian
 #export auto_proxy=http://gateway.atlassian.com/proxy.pac
 
 export WINEARCH=win32
-export WINEPREFIX=~/win32
+export WINEPREFIX=~/.win32
 
 export EDITOR=nvim
 export BROWSER=chromium
@@ -137,3 +137,6 @@ set -h # needed for the promptline.vim vcs branch slice
 alias awstoken="source $(which setawstoken.sh)"
 alias awsunsettoken="source $(which unsetawstoken.sh)"
 
+export ANSIBLE_VAULT_PASSWORD_FILE=~/.vault_pass
+
+export NIX_PATH=$NIX_PATH:ssh-config-file=/var/nix/config

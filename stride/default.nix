@@ -1,4 +1,5 @@
-
+{ stdenv, fetchurl, dpkg, alsaLib, atk, cairo, cups, dbus, expat, fontconfig
+, freetype , gdk_pixbuf, glib, gnome2, nspr, nss, pango, udev, xorg }:
 let
   fullPath = stdenv.lib.makeLibraryPath [
     alsaLib
@@ -11,8 +12,8 @@ let
     freetype
     gdk_pixbuf
     glib
-    gnome.GConf
-    gtk
+    gnome2.GConf
+    gnome2.gtk
     nspr
     nss
     pango

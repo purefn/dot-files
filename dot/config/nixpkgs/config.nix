@@ -24,9 +24,6 @@
   };
 
   packageOverrides = pkgs: {
-    # jdk = pkgs.oraclejdk8;
-    # jre = pkgs.oraclejdk8;
-
     # wine = pkgs.winePackages.full.override {
       # wineRelease = "staging";
       # wineBuild = "wineWow";
@@ -156,7 +153,9 @@
         mongodb-tools
 
         (callPackage ./awscli-saml-auth.nix {})
-        (callPackage ./laas-cli {})
+        stride
+        laas-cli
+        # (callPackage ./laas-cli {})
 
         (callPackage ./wine {
           wineRelease = "staging";

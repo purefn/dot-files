@@ -134,9 +134,6 @@ eval "$(direnv hook bash)"
 set -h # needed for the promptline.vim vcs branch slice
 . ~/.shell_prompt.sh
 
-alias awstoken="source $(which setawstoken.sh)"
-alias awsunsettoken="source $(which unsetawstoken.sh)"
-
 export ANSIBLE_VAULT_PASSWORD_FILE=~/.vault_pass
 
 export NIX_PATH=$NIX_PATH:ssh-config-file=/var/nix/config

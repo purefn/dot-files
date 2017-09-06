@@ -35,6 +35,9 @@ nm-applet --sm-disable &
 
 pasystray &
 
+eval $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
+export SSH_AUTH_SOCK
+
 export GTK_IM_MODULE="xim"
 
 exec dbus-launch --exit-with-session xmonad

@@ -26,22 +26,35 @@
   hardware.pulseaudio.support32Bit = true;
 
   services = {
-    xserver.videoDrivers = [ "nvidia" ];
+    gnome3.gnome-keyring.enable = true;
+
+    mongodb.bind_ip = "0.0.0.0";
 
     printing = {
       enable = true;
       drivers = [ pkgs.gutenprint pkgs.hplipWithPlugin ];
     };
 
+    xserver.videoDrivers = [ "nvidia" ];
   };
 
   networking = {
     hostName = "ronin";
     networkmanager.enable = true;
+
+    firewall.enable = false;
   };
 
-  networking.firewall.enable = false;
-  services.mongodb.bind_ip = "0.0.0.0";
+  security.pam.services = [
+    { name = "gnome_keyring";
+      text = ''
+        auth     optional    ${pkgs.gnome3.gnome_keyring}/lib/security/pam_gnome_keyring.so
+        session  optional    ${pkgs.gnome3.gnome_keyring}/lib/security/pam_gnome_keyring.so auto_start
+
+        password  optional    ${pkgs.gnome3.gnome_keyring}/lib/security/pam_gnome_keyring.so
+      '';
+    }
+  ];
 
   # nixpkgs.config = {
   #   packageOverrides = pkgs: {

@@ -40,4 +40,6 @@
     enableGhostscriptFonts = true;
     fontconfig.dpi = 96;
   };
+
+  environment.systemPackages = [ pkgs.gnome3.dconf ];
 }

@@ -1,5 +1,5 @@
 { stdenv, fetchurl, dpkg, alsaLib, atk, cairo, cups, dbus, expat, fontconfig
-, freetype , gdk_pixbuf, glib, gnome2, nspr, nss, pango, udev, xorg }:
+, freetype, gdk_pixbuf, glib, gnome2, nspr, nss, pango, udev, xorg }:
 let
   fullPath = stdenv.lib.makeLibraryPath [
     alsaLib
@@ -33,12 +33,12 @@ let
   ] + ":${stdenv.cc.cc.lib}/lib64";
 in
 stdenv.mkDerivation rec {
-  version = "0.12.10";
+  version = "1.4.32";
   name = "stride-${version}";
 
   src = fetchurl {
     url = https://stride-desktop-downloads.s3.amazonaws.com/releases/linux/deb/64/alpha/stride-alpha_amd64.deb;
-    sha256 = "05x6g6gppkdjdlb5bszrrm134pyrj8a1p0p8w36abghbd8zq6n8v";
+    sha256 = "00qqw6fi54fh2k76ip7liw2jzazf7ksgyy2984nzd772s8q7h0g4";
   };
 
   phases = "unpackPhase installPhase";

@@ -33,15 +33,16 @@ let
   ] + ":${stdenv.cc.cc.lib}/lib64";
 in
 stdenv.mkDerivation rec {
-  version = "1.4.32";
+  version = "1.6.19";
   name = "stride-${version}";
 
   src = fetchurl {
     url = https://stride-desktop-downloads.s3.amazonaws.com/releases/linux/deb/64/alpha/stride-alpha_amd64.deb;
-    sha256 = "00qqw6fi54fh2k76ip7liw2jzazf7ksgyy2984nzd772s8q7h0g4";
+    sha256 = "0yks0rjiai7k4x9swz6zm6ylzraql5ml92nqjxxapqxj8f1wblkg";
   };
 
-  phases = "unpackPhase installPhase";
+  dontBuild = true;
+  dontFixup = true;
 
   buildInputs = [ dpkg ];
 

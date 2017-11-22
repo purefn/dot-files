@@ -18,6 +18,24 @@ self: super:
 
   sbt-extras = super.callPackage ./sbt-extras {};
 
+  # python27 =
+    # let
+      # packageOverrides = with super; with stdenv; self: super: {
+        # keyring = super.buildPythonPackage rec {
+          # name = "keyring-8.4.1";
+
+          # src = fetchurl {
+            # url = "mirror://pypi/k/keyring/${name}.tar.gz";
+            # sha256 = "1286sh5g53168qxbl4g5bmns9ci0ld0jl3h44b7h8is5nw1421ar";
+          # };
+
+          # buildInputs = with self;
+            # [ fs gdata python_keyczar mock pyasn1 pycrypto pytest_28 six setuptools_scm pytestrunner secretstorage ];
+        # };
+      # };
+    # in
+      # super.python27.override { inherit packageOverrides; };
+
   xmonad =
     # (xmonad-with-packages.override {
       # ghcWithPackages = haskellPackages.ghcWithPackages;
@@ -135,7 +153,25 @@ self: super:
       # atlassian packages
       awscli-saml-auth
       stride
-      laas-cli
+      # laas-cli
+      (stdenv.mkDerivation rec {
+        name = "laas-${version}";
+        version = "4.2.5";
+
+        src = fetchurl {
+          url = "https://statlas.atlassian.io/laas/laas_${version}_linux_amd64.tar.gz";
+          sha256 = "0kvvl51kbi2s0kkwsayyrp5q5wczq5xmyw36yrcs2qpi22qaly6z";
+        };
+
+        phases = [ "unpackPhase" "installPhase" ];
+
+        installPhase = ''
+          mkdir -p $out/bin
+          cp laas $out/bin/laas.wrapped
+          echo $(< $NIX_CC/nix-support/dynamic-linker) $out/bin/laas.wrapped \"\$@\" > $out/bin/laas
+          chmod +x $out/bin/laas
+        '';
+      })
 
       # (callPackage ./wine {
       #   wineRelease = "staging";

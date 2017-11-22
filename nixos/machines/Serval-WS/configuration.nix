@@ -19,9 +19,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # fixes docker for now https://github.com/NixOS/nixpkgs/issues/22472
-  # boot.kernelParams = ["systemd.legacy_systemd_cgroup_controller=yes"];
-
   hardware.opengl.driSupport32Bit = true;
   hardware.pulseaudio.support32Bit = true;
 
@@ -32,7 +29,7 @@
 
     printing = {
       enable = true;
-      drivers = [ pkgs.gutenprint pkgs.hplipWithPlugin ];
+      # drivers = [ pkgs.gutenprint pkgs.hplipWithPlugin ];
     };
 
     xserver.videoDrivers = [ "nvidia" ];

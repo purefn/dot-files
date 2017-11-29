@@ -26,7 +26,11 @@ buildGoPackage rec {
     }
   ];
 
-  buildFlags = ''-ldflags '-X main.VERSION=${version}' '';
+  patches = [ ./version.patch ];
+
+  postPatch = ''
+    substituteInPlace main.go --replace '@VERSION@' ${version}
+  '';
 
   postInstall = ''
     mv $bin/bin/cli $bin/bin/laas

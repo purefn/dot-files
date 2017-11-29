@@ -153,26 +153,8 @@ self: super:
       # atlassian packages
       awscli-saml-auth
       stride
-      # laas-cli
+      laas-cli
       micros-cli
-      (stdenv.mkDerivation rec {
-        name = "laas-${version}";
-        version = "4.2.6";
-
-        src = fetchurl {
-          url = "https://statlas.atlassian.io/laas/laas_${version}_linux_amd64.tar.gz";
-          sha256 = "0z61c3fd4g9dzrqqd4grrljasad9bhxmn6gl915swn8fzj0lbix2";
-        };
-
-        phases = [ "unpackPhase" "installPhase" ];
-
-        installPhase = ''
-          mkdir -p $out/bin
-          cp laas $out/bin/laas.wrapped
-          echo $(< $NIX_CC/nix-support/dynamic-linker) $out/bin/laas.wrapped \"\$@\" > $out/bin/laas
-          chmod +x $out/bin/laas
-        '';
-      })
 
       # (callPackage ./wine {
       #   wineRelease = "staging";

@@ -1,0 +1,26 @@
+diff --git a/lib/token.js b/lib/token.js
+index aa36f61..3e90282 100644
+--- a/lib/token.js
++++ b/lib/token.js
+@@ -3,7 +3,7 @@
+ const url = require('url'),
+   join = require('path').join;
+ 
+-const netrc = require('@atlassian/netrc');
++const netrc = require('netrc');
+ 
+ const ui = require('./ui');
+ 
+diff --git a/package.json b/package.json
+index 01a334a..8a56edf 100644
+--- a/package.json
++++ b/package.json
+@@ -45,7 +45,7 @@
+   },
+   "dependencies": {
+     "@atlassian/inject-environment-into-object": "^1.1.1",
+-    "@atlassian/netrc": "^0.1.3",
++    "netrc": "^0.1.4",
+     "@atlassian/ws": "^4.1.0",
+     "alamo": "^0.1.3",
+     "async": "^2.1.5",

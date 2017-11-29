@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = https://stride-desktop-downloads.s3.amazonaws.com/releases/linux/deb/64/alpha/stride-alpha_amd64.deb;
-    sha256 = "0yks0rjiai7k4x9swz6zm6ylzraql5ml92nqjxxapqxj8f1wblkg";
+    sha256 = "0ggp6vw6idwijlbp7gfj8fy4vm69hvhfz2c6zd81521sz6zy61r8";
   };
 
   dontBuild = true;

@@ -26,6 +26,8 @@ buildGoPackage rec {
     }
   ];
 
+  buildFlags = ''-ldflags '-X main.VERSION=${version}' '';
+
   postInstall = ''
     mv $bin/bin/cli $bin/bin/laas
   '';

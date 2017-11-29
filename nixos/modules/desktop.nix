@@ -7,6 +7,8 @@
     layout = "us";
     xkbOptions = "compose:ralt";
 
+    plainX = true;
+
     windowManager = {
       # xmonad is started in ~/.xsession
       default = "none";

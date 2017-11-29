@@ -154,13 +154,14 @@ self: super:
       awscli-saml-auth
       stride
       # laas-cli
+      micros-cli
       (stdenv.mkDerivation rec {
         name = "laas-${version}";
-        version = "4.2.5";
+        version = "4.2.6";
 
         src = fetchurl {
           url = "https://statlas.atlassian.io/laas/laas_${version}_linux_amd64.tar.gz";
-          sha256 = "0kvvl51kbi2s0kkwsayyrp5q5wczq5xmyw36yrcs2qpi22qaly6z";
+          sha256 = "0z61c3fd4g9dzrqqd4grrljasad9bhxmn6gl915swn8fzj0lbix2";
         };
 
         phases = [ "unpackPhase" "installPhase" ];

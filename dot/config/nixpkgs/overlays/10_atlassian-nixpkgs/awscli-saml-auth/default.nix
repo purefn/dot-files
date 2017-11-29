@@ -1,4 +1,4 @@
-{ stdenv, pythonPackages, fetchgitPrivate }:
+{ stdenv, awscli, pythonPackages, fetchgitPrivate }:
 
 let
   keyring = stdenv.lib.overrideDerivation pythonPackages.keyring (oldAttrs : {

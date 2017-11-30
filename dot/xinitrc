@@ -40,4 +40,4 @@ export SSH_AUTH_SOCK
 
 export GTK_IM_MODULE="xim"
 
-exec dbus-launch --exit-with-session xmonad
+exec xmonad

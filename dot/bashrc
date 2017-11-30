@@ -137,3 +137,5 @@ set -h # needed for the promptline.vim vcs branch slice
 export ANSIBLE_VAULT_PASSWORD_FILE=~/.vault_pass
 
 export NIX_PATH=$NIX_PATH:ssh-config-file=/var/nix/config
+
+source ~/.nix-profile/share/cloudtoken/shell_additions/bashrc_additions

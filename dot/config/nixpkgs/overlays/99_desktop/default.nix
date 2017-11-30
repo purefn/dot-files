@@ -151,7 +151,7 @@ self: super:
       mongodb-tools
 
       # atlassian packages
-      awscli-saml-auth
+      cloudtoken
       stride
       laas-cli
       micros-cli

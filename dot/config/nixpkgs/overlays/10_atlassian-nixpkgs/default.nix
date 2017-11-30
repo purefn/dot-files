@@ -1,7 +1,7 @@
 self: super:
 
 {
-  awscli-saml-auth = super.callPackage ./awscli-saml-auth {};
+  cloudtoken = super.callPackage ./cloudtoken {};
 
   laas-cli = super.callPackage ./laas-cli {};
 

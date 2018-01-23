@@ -2,14 +2,14 @@
 
 buildGoPackage rec {
   name = "laas-cli-${version}";
-  version = "4.2.5";
+  version = "5.0.0";
 
   goPackagePath = "stash.atlassian.com/laas/cli";
 
   src = fetchgitPrivate {
     url = "ssh://git@stash.atlassian.com:7997/laas/cli";
-    rev = "77185146a50fecd1a528286fc9d06f6f7358a9c7";
-    sha256 = "1xrngfpzl0i77ych7h9xgdzbsgsbycjgs4dcsala6mh869snpwqc";
+    rev = version;
+    sha256 = "17y23p5rims13mlgmk0i9yrcfby6fv10hzjbgdmmg4pj56139w67";
   };
 
   goDeps = ./deps.nix;
@@ -20,8 +20,8 @@ buildGoPackage rec {
       goPackagePath = "stash.atlassian.com/laas/admin-api-client-go";
       src = fetchgitPrivate {
         url = "ssh://git@stash.atlassian.com:7997/laas/admin-api-client-go";
-        rev = "247107b48a202a28e63e855e61761f52b7b0d512";
-        sha256 = "033ksy7xqcb12dvpark9jcz3iq24q7absca0c1ljc3kcl7pss7d2";
+        rev = "31238629aafe788c95202259283d28707aa48488";
+        sha256 = "0gkj1w6j18jb109a5ymr82jpvv62g7gwsy07swn3kgwv7zm31np1";
       };
     }
   ];

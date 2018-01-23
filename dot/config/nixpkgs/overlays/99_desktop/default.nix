@@ -116,7 +116,7 @@ self: super:
       # handbrake
       hipchat
       mplayer
-      mumble
+      # mumble
       pithos
       sshfsFuse
       steam
@@ -135,12 +135,12 @@ self: super:
       # haskell dev
       nix-ghci
       haskellPackages.cabal2nix
-      haskellPackages.codex
+      # haskellPackages.codex
       haskellPackages.hasktags
       haskellPackages.hlint
       # haskellPackages.hscope
       haskellPackages.hserv
-      haskellPackages.packunused
+      # haskellPackages.packunused
       haskellPackages.pandoc
       haskellPackages.pointful
       haskellPackages.pointfree

@@ -29,7 +29,7 @@
 
     printing = {
       enable = true;
-      # drivers = [ pkgs.gutenprint pkgs.hplipWithPlugin ];
+      drivers = [ pkgs.gutenprint pkgs.hplipWithPlugin ];
     };
 
     xserver.videoDrivers = [ "nvidia" ];

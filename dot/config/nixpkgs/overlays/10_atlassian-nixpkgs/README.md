@@ -11,12 +11,18 @@ Most of they are built from source from private repositories, using [`fetchgitPr
 | Note that the config file and any keys it points to must be readable by the build user, which depending on your nix configuration means making it readable by the build-users-group, the user of the running nix-daemon, or the user calling the nix command which started the build. Similarly, if using an ssh agent ssh-auth-sock must point to a socket the build user can access.
 | You may need StrictHostKeyChecking=no in the config file. Since ssh will refuse to use a group-readable private key, if using build-users you will likely want to use something like IdentityFile /some/directory/%u/key and have a directory for each build user accessible to that user.
 
+See [ssh config](https://github.com/NixOS/nixpkgs/issues/4004) for an example of configuring an ssh-config-file.
+
 As the repository is set up as an overlay, the easiest way to use it is to clone the repository to a nixpkgs overlays directory and then install
 
 ```
 $ mkdir -p ~/.config/nixpkgs/overlays
 $ git clone git@bitbucket.org:atlassianlabs/atlassian-nixpkgs.git ~/.config/nixpkgs/overlays/atlassian-nixpkgs
+<<<<<<< HEAD
 $ nix-env -iA nixpkgs.micros-cli nixpkgs.cloudtoken nixpkgs.laas-cli nixpkgs.stride
+=======
+$ nix-env -iA nixos.micros-cli nixos.cloudtoken nixos.laas-cli nixos.stride
+>>>>>>> 55d040b3c1ba3ab616e44ecc6ab11c5a515cbbf2
 ```
 
 Notes on the packages:

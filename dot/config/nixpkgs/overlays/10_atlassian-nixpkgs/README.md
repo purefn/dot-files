@@ -18,11 +18,7 @@ As the repository is set up as an overlay, the easiest way to use it is to clone
 ```
 $ mkdir -p ~/.config/nixpkgs/overlays
 $ git clone git@bitbucket.org:atlassianlabs/atlassian-nixpkgs.git ~/.config/nixpkgs/overlays/atlassian-nixpkgs
-<<<<<<< HEAD
 $ nix-env -iA nixpkgs.micros-cli nixpkgs.cloudtoken nixpkgs.laas-cli nixpkgs.stride
-=======
-$ nix-env -iA nixos.micros-cli nixos.cloudtoken nixos.laas-cli nixos.stride
->>>>>>> 55d040b3c1ba3ab616e44ecc6ab11c5a515cbbf2
 ```
 
 Notes on the packages:

@@ -1,0 +1,26 @@
+diff --git a/main.go b/main.go
+index 556e562..167c585 100644
+--- a/main.go
++++ b/main.go
+@@ -3,7 +3,6 @@ package main
+ import (
+ 	"errors"
+ 	"os"
+-	"strings"
+ 
+ 	"github.com/fatih/color"
+ 	"gopkg.in/alecthomas/kingpin.v2"
+@@ -123,12 +122,7 @@ func (app *App) aliasCompletionOptions() []string {
+ }
+ 
+ func main() {
+-	if VERSION == "" {
+-		// This is ... highly irregular.
+-		VERSION = "<UNKNOWN>"
+-	} else {
+-		VERSION = strings.Replace(VERSION, "'", "", -1)
+-	}
++	VERSION = "@VERSION@"
+ 
+ 	cli := kingpin.New("laas", "Logging Configuration & Adminstritive Tool").Version(VERSION)
+ 	cli.Writer(os.Stdout)

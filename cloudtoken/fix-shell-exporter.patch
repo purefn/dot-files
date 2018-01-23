@@ -1,0 +1,8 @@
+diff --git a/cloudtoken_plugin/__init__.py b/cloudtoken_plugin/__init__.py
+index a771e4c..3ad9513 100644
+--- a/cloudtoken_plugin/__init__.py
++++ b/cloudtoken_plugin/__init__.py
+@@ -1,2 +1,2 @@
+ from pkgutil import extend_path
+-__path__ = extend_path(__path__, __name__
++__path__ = extend_path(__path__, __name__)

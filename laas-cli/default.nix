@@ -26,6 +26,12 @@ buildGoPackage rec {
     }
   ];
 
+  patches = [ ./version.patch ];
+
+  postPatch = ''
+    substituteInPlace main.go --replace '@VERSION@' ${version}
+  '';
+
   postInstall = ''
     mv $bin/bin/cli $bin/bin/laas
   '';

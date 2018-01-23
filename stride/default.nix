@@ -33,12 +33,12 @@ let
   ] + ":${stdenv.cc.cc.lib}/lib64";
 in
 stdenv.mkDerivation rec {
-  version = "1.6.19";
+  version = "1.7.16";
   name = "stride-${version}";
 
   src = fetchurl {
-    url = https://stride-desktop-downloads.s3.amazonaws.com/releases/linux/deb/64/alpha/stride-alpha_amd64.deb;
-    sha256 = "0yks0rjiai7k4x9swz6zm6ylzraql5ml92nqjxxapqxj8f1wblkg";
+    url = "https://packages.atlassian.com/stride-apt-client/pool/stride_${version}_amd64.deb";
+    sha256 = "1rk3i1qcr05a85v7bvi0jl6ayj3lawnv2sq01vgndjx4gx7345yh";
   };
 
   dontBuild = true;
@@ -55,6 +55,6 @@ stdenv.mkDerivation rec {
     mv usr/* "$out/"
     patchelf --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
       --set-rpath "${fullPath}:\$ORIGIN" \
-      "$out/bin/stride-alpha"
+      "$out/bin/stride"
   '';
 }

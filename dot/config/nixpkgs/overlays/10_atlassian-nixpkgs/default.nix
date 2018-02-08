@@ -1,7 +1,7 @@
 self: super:
 
 {
-  cloudtoken = super.callPackage ./cloudtoken {};
+  cloudtoken = super.python3Packages.callPackage ./cloudtoken {};
 
   laas-cli = super.callPackage ./laas-cli {};
 

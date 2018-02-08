@@ -1,4 +1,4 @@
-{ stdenv, pkgs, python3Packages, fetchgit, fetchgitPrivate }:
+{ stdenv, pkgs, buildPythonPackage, boto3, fs, gdata, python_keyczar, mock, pyasn1, pycrypto, pytest, six, setuptools_scm, pytestrunner, secretstorage, requests,  watchdog, flask, schedule, pyyaml, fetchgit, fetchgitPrivate }:
 
 let
   srcRoot = fetchgit {
@@ -9,7 +9,7 @@ let
 
   ver = "0.1.6";
 
-  shellExporter = python3Packages.buildPythonPackage rec {
+  shellExporter = buildPythonPackage rec {
     name = "cloudtoken-plugin.shell-exporter-${ver}";
     version = ver;
 
@@ -24,7 +24,7 @@ let
     patches = [ ./fix-shell-exporter.patch ];
   };
 
-  jsonExporter = python3Packages.buildPythonPackage rec {
+  jsonExporter = buildPythonPackage rec {
     name = "cloudtoken-plugin.json-exporter-${ver}";
     version = ver;
 
@@ -37,7 +37,7 @@ let
     src = "${srcRoot}/plugins/json-exporter-plugin";
   };
 
-  saml = python3Packages.buildPythonPackage rec {
+  saml = buildPythonPackage rec {
     name = "cloudtoken-plugin.saml-${ver}";
     version = ver;
 
@@ -49,13 +49,13 @@ let
 
     src = "${srcRoot}/plugins/saml-plugin";
 
-    propagatedBuildInputs = with python3Packages; [ boto3 ];
+    propagatedBuildInputs = [ boto3 ];
 
     patches = [ ./rm-circular-dep-saml.patch ];
   };
 
   # an older version is strictly required
-  keyring = python3Packages.buildPythonPackage rec {
+  keyring = buildPythonPackage rec {
     name = "keyring-${version}";
     version = "8.7";
 
@@ -64,10 +64,10 @@ let
       sha256 = "0482rmi2x6p78wl2kz8qzyq21xz1sbbfwnv5x7dggar4vkwxhzfx";
     };
 
-    buildInputs = with python3Packages;
-      [ fs gdata python_keyczar mock pyasn1 pycrypto pytest_28 six setuptools_scm pytestrunner ];
+    buildInputs =
+      [ fs gdata python_keyczar mock pyasn1 pycrypto pytest six setuptools_scm pytestrunner ];
 
-    propagatedBuildInputs = [ python3Packages.secretstorage ];
+    propagatedBuildInputs = [ secretstorage ];
 
     checkPhase = ''
       py.test $out
@@ -82,7 +82,7 @@ let
     };
   };
 
-  keyringsAlt = python3Packages.buildPythonPackage rec {
+  keyringsAlt = buildPythonPackage rec {
     name = "keyrings.alt-${version}";
     version = "2.2";
 
@@ -91,12 +91,12 @@ let
       sha256 = "19l5mlr5n70997xx9zkmbgx77xzjmb48ymmh4s4knh8vkxpbsf7l";
     };
 
-    propagatedBuildInputs = [ python3Packages.six ];
+    propagatedBuildInputs = [ six ];
 
     doCheck = false;
   };
 
-  getpass2 = python3Packages.buildPythonPackage rec {
+  getpass2 = buildPythonPackage rec {
     name = "getpass2-${version}";
     version = "1.0.2";
 
@@ -108,7 +108,7 @@ let
     doCheck = false;
   };
 
-  atlassianPlugins = python3Packages.buildPythonPackage rec {
+  atlassianPlugins = buildPythonPackage rec {
     name = "cloudtoken-plugin.atlassian_plugins-${version}";
     version = "0.1.12";
 
@@ -126,11 +126,11 @@ let
 
     patches = [ ./rm-circular-dep-idp.patch ];
 
-    propagatedBuildInputs = [ keyring keyringsAlt getpass2 python3Packages.requests ];
+    propagatedBuildInputs = [ keyring keyringsAlt getpass2 requests ];
   };
 
   # an updated version because the version in nixpkgs master is 0.3.2
-  schedule = python3Packages.buildPythonPackage rec {
+  schedule = buildPythonPackage rec {
     name = "schedule-0.4.2";
 
     src = pkgs.fetchurl {
@@ -138,7 +138,7 @@ let
       sha256 = "04c6mskr036ry57dpix17x9ycgy7jfk0m1fjmc1nz0l6rqzvhgwk";
     };
 
-    buildInputs = with python3Packages; [ mock ];
+    buildInputs = [ mock ];
 
     meta = with stdenv.lib; {
       description = "Python job scheduling for humans";
@@ -148,7 +148,7 @@ let
   };
 
 in
-  python3Packages.buildPythonPackage rec {
+  buildPythonPackage rec {
     name = "cloudtoken-${ver}";
     version = ver;
 
@@ -168,7 +168,7 @@ in
       done
     '';
 
-    propagatedBuildInputs = with python3Packages; [
+    propagatedBuildInputs = [
       shellExporter
       jsonExporter
       saml

@@ -1,0 +1,3 @@
+[submodule "dot/config/nixpkgs/overlays/10_atlassian-nixpkgs"]
+	path = dot/config/nixpkgs/overlays/10_atlassian-nixpkgs
+	url = git@bitbucket.org:atlassianlabs/atlassian-nixpkgs.git

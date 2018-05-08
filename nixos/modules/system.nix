@@ -27,10 +27,8 @@
       git-crypt
       gnupg
       pciutils
-      # neovim is currently broken on unstable
-      neovim
-      # vim
-      which # otherwise it's not available from /bin/sh
+      # neovim
+      which
     ];
 
     shellAliases = {
@@ -52,7 +50,7 @@
       "cdrom"
       "disk"
       "docker"
-      "libvirtd"   
+      "libvirtd"
       "networkmanager"
       "systemd-journal"
       "transmission"

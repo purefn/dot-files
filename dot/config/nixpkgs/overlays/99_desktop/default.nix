@@ -113,15 +113,14 @@ self: super:
 
       # apps
       gimp
-      # handbrake
-      hipchat
+      handbrake
       mplayer
       # mumble
-      pithos
+      # pithos
       sshfsFuse
-      steam
+      # steam
       transmission_remote_gtk
-      linuxPackages.virtualbox
+      # linuxPackages.virtualbox
       vagrant
       wireshark
 

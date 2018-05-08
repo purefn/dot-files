@@ -53,11 +53,12 @@
     }
   ];
 
-  # nixpkgs.config = {
-  #   packageOverrides = pkgs: {
-  #     linuxPackages = pkgs.linuxPackages_latest;
-  #   };
-  # };
+  nixpkgs.config = {
+    packageOverrides = pkgs: {
+    #   linuxPackages = pkgs.linuxPackages_latest;
+    # virtualbox = pkgs.virtualbox.override { enableExtensionPack = true; };
+    };
+  };
 
   systemd.services."fix-alx" = {
     description = "Make the Atheros NIC driver work for the e2400";

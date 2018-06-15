@@ -9,7 +9,7 @@ import Data.Monoid
 import Graphics.X11.ExtraTypes.XF86
 import System.Exit
 import System.IO (Handle, hPutStrLn)
-import System.Taffybar.Hooks.PagerHints (pagerHints)
+import System.Taffybar.Support.PagerHints (pagerHints)
 import XMonad
 import XMonad.Core
 import XMonad.Actions.CycleWS (nextWS, prevWS, toggleWS, toggleOrView)
@@ -42,7 +42,8 @@ import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run (spawnPipe)
 import XMonad.Util.Scratchpad (scratchpadManageHook, scratchpadSpawnActionCustom)
 
-main = xmonad . swingFix . ewmh . pagerHints $ defaultConfig
+-- main = xmonad . swingFix . docks . ewmh $ defaultConfig
+main = xmonad . docks . ewmh . pagerHints $ defaultConfig
   { borderWidth        = 1
   , focusedBorderColor = colorBlue
   , focusFollowsMouse  = True
@@ -57,7 +58,7 @@ main = xmonad . swingFix . ewmh . pagerHints $ defaultConfig
   }
 
 -- Java swing apps will just display a grey screen without this
-swingFix c = c { startupHook = startupHook c <> setWMName "LG3D" }
+-- swingFix c = c { startupHook = startupHook c <> setWMName "LG3D" }
 
 -- Colors
 -- myFont              = "Ubuntu Mono:pixelsize=12:antialias=true:hinting=true"

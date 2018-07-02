@@ -36,6 +36,7 @@ with import <nixpkgs> {};
   libnotify
   notify-osd
   rxvt_unicode-with-plugins
+  haskellPackages.status-notifier-item
   taffybar
   xbindkeys
   xcompmgr
@@ -69,6 +70,7 @@ with import <nixpkgs> {};
   # haskell dev
   cabal-install
   nix-ghci
+  haskell-ide-engine
   haskellPackages.cabal2nix
   # haskellPackages.codex
   haskellPackages.ghcid

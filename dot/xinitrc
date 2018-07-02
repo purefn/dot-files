@@ -29,11 +29,15 @@ urxvtd -q -o -f
 
 xcompmgr -n &
 
+status-notifier-watcher &
+
 taffybar &
 
-nm-applet --sm-disable &
+nm-applet --sm-disable --indicator &
 
 pasystray &
+
+battery-monitor &
 
 eval $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
 export SSH_AUTH_SOCK

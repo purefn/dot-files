@@ -137,3 +137,4 @@ set -h # needed for the promptline.vim vcs branch slice
 alias awstoken="source $(which setawstoken.sh)"
 alias awsunsettoken="source $(which unsetawstoken.sh)"
 
+export TERM=rxvt

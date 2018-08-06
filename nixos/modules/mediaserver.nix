@@ -3,19 +3,18 @@
 {
   powerManagement.enable = false;
 
-  users.extraUsers.flexget = {
-    isSystemUser = true;
-    home = "/var/lib/flexget";
-    createHome = true;
-  };
+  environment.systemPackages = with pkgs; [ libtorrent unrar python27Packages.rarfile ];
 
   services = {
     flexget = {
       enable = true;
-      user = "flexget";
+      user = "transmission";
       homeDir = "/var/lib/flexget";
       systemScheduler = false;
-      config = builtins.replaceStrings ["secrets.yml"] [(toString ./flexget/secrets.yml)] (builtins.readFile ./flexget/config.yml);
+      config = ''
+        variables: ${pkgs.writeText "flexget-secrets.yml" (builtins.readFile ./flexget/secrets.yml)}
+        ${builtins.readFile ./flexget/config.yml}
+      ''; 
     };
 
     mediatomb = {

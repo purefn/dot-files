@@ -29,12 +29,19 @@ urxvtd -q -o -f
 
 xcompmgr -n &
 
+status-notifier-watcher &
+
 taffybar &
 
-nm-applet --sm-disable &
+nm-applet --sm-disable --indicator &
 
 pasystray &
 
+battery-monitor &
+
+eval $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
+export SSH_AUTH_SOCK
+
 export GTK_IM_MODULE="xim"
 
-exec dbus-launch --exit-with-session xmonad
+exec xmonad

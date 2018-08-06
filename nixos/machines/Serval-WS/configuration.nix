@@ -19,28 +19,46 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # fixes docker for now https://github.com/NixOS/nixpkgs/issues/22472
-  # boot.kernelParams = ["systemd.legacy_systemd_cgroup_controller=yes"];
+  hardware.opengl.driSupport32Bit = true;
+  hardware.pulseaudio.support32Bit = true;
 
   services = {
-    xserver.videoDrivers = [ "nvidia" ];
+    gnome3.gnome-keyring.enable = true;
+
+    mongodb.bind_ip = "0.0.0.0";
 
     printing = {
       enable = true;
       drivers = [ pkgs.gutenprint pkgs.hplipWithPlugin ];
     };
+
+    xserver.videoDrivers = [ "nvidia" ];
   };
 
   networking = {
     hostName = "ronin";
     networkmanager.enable = true;
+
+    firewall.enable = false;
   };
 
-  # nixpkgs.config = {
-  #   packageOverrides = pkgs: {
-  #     linuxPackages = pkgs.linuxPackages_latest;
-  #   };
-  # };
+  security.pam.services = [
+    { name = "gnome_keyring";
+      text = ''
+        auth     optional    ${pkgs.gnome3.gnome_keyring}/lib/security/pam_gnome_keyring.so
+        session  optional    ${pkgs.gnome3.gnome_keyring}/lib/security/pam_gnome_keyring.so auto_start
+
+        password  optional    ${pkgs.gnome3.gnome_keyring}/lib/security/pam_gnome_keyring.so
+      '';
+    }
+  ];
+
+  nixpkgs.config = {
+    packageOverrides = pkgs: {
+    #   linuxPackages = pkgs.linuxPackages_latest;
+    # virtualbox = pkgs.virtualbox.override { enableExtensionPack = true; };
+    };
+  };
 
   systemd.services."fix-alx" = {
     description = "Make the Atheros NIC driver work for the e2400";

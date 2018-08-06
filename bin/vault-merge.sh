@@ -19,7 +19,11 @@ fi
 # Next, we set a default location for a vault password file, and allow the user
 # to override it if desired.
 
-VAULT_PASSWORD_FILE="$GIT_ROOT/.ansible-vault-password"
+if [ "x$ANSIBLE_VAULT_PASSWORD_FILE" == "x" ]; then
+  VAULT_PASSWORD_FILE="$GIT_ROOT/.ansible-vault-password"
+else
+  VAULT_PASSWORD_FILE="$ANSIBLE_VAULT_PASSWORD_FILE"
+fi
 
 while getopts "p:" opt; do
     case $opt in

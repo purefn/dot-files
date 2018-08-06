@@ -26,7 +26,6 @@
     };
     virtualbox.host = {
       enable = true;
-      enableHardening = false;
     };
   };
 }

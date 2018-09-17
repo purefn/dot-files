@@ -5,6 +5,10 @@ self: super:
 
   battery-monitor = super.callPackage ./battery-monitor {};
 
+  # handbrake = super.handbrake.override {
+  #   useFfmpeg = true;
+  # };
+
   haskell-ide-engine =
     let
       hie-nix = super.fetchFromGitHub {
@@ -35,7 +39,9 @@ self: super:
           # * extradite
           start = [
             ctrlp-vim
+            deoplete-nvim
             fugitive
+            fzfWrapper
             LanguageClient-neovim
             supertab
             syntastic
@@ -43,6 +49,7 @@ self: super:
             vim-airline-themes
             vim-commentary
             vim-indent-guides
+            vim-markdown
 
             vim-colorschemes
             wombat256-vim

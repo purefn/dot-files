@@ -327,6 +327,8 @@ endfunction
 " Completion {{{
 set completeopt+=longest
 
+let g:deoplete#enable_at_startup = 1
+
 " Use buffer words as default tab completion
 let g:SuperTabDefaultCompletionType = '<c-x><c-p>'
 

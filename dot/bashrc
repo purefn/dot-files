@@ -119,10 +119,10 @@ export BROWSER=chromium
 
 export GTK_THEME=Adwaita:dark
 
-function nix-try { 
+function nix-try {
   cmd=$1
   shift
-  nix-shell -p "$cmd" --run "$cmd $@" 
+  nix-shell -p "$cmd" --run "$cmd $@"
 }
 
 eval "$(direnv hook bash)"
@@ -133,6 +133,9 @@ set -h # needed for the promptline.vim vcs branch slice
 export ANSIBLE_VAULT_PASSWORD_FILE=~/.vault_pass
 
 export NIX_PATH=$NIX_PATH:ssh-config-file=/var/nix/config
+
+
+export TERM=rxvt
 
 source ~/.nix-profile/share/cloudtoken/shell_additions/bashrc_additions
 export AWS_VAULT_BACKEND=secret-service

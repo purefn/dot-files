@@ -12,6 +12,7 @@ import System.Taffybar.Information.CPU
 import System.Taffybar.Information.Memory
 import System.Taffybar.SimpleConfig
 import System.Taffybar.Widget
+import System.Taffybar.Widget.Battery
 import System.Taffybar.Widget.Generic.PollingGraph
 import System.Taffybar.Widget.Generic.PollingLabel
 import System.Taffybar.Widget.Text.NetworkMonitor
@@ -104,6 +105,7 @@ main = do
           workspaces : map (>>= buildContentsBox) [ layout, windows ]
       , endWidgets = map (>>= buildContentsBox) . mconcat $
         [ [ clock
+          , textBatteryNew "$status$ $percentage$% ($time$)"
           , tray
           , cpu
           , mem

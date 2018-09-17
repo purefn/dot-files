@@ -7,8 +7,6 @@
     layout = "us";
     xkbOptions = "compose:ralt";
 
-    # plainX = true;
-
     windowManager = {
       # xmonad is started in ~/.xsession
       default = "none";
@@ -21,6 +19,7 @@
 
     displayManager = {
       slim = {
+        enable = true;
         defaultUser = "rwallace";
         theme = pkgs.fetchurl {
           url = "https://github.com/jagajaga/nixos-slim-theme/archive/1.1.tar.gz";
@@ -28,8 +27,6 @@
         };
       };
     };
-
-    # videoDrivers = [ "nvidia" ];
 
     screenSection = ''
       Option "NoLogo" "TRUE"

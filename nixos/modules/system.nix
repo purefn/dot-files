@@ -27,14 +27,9 @@
       git-crypt
       gnupg
       pciutils
-      # neovim
+      neovim
       which
     ];
-
-    shellAliases = {
-      vi = "nvim";
-      vim = "nvim";
-    };
 
     variables.EDITOR = pkgs.lib.mkForce "nvim";
 

@@ -1,3 +1,5 @@
+{-# LANGUAGE OverloadedStrings #-}
+
 module Main where
 
 import Data.List (isPrefixOf)
@@ -93,10 +95,10 @@ main = do
     myWorkspacesConfig = defaultWorkspacesConfig
       { underlineHeight = 0
       , underlinePadding = 0
-      , minWSWidgetSize = Nothing
       , minIcons = 0
       , maxIcons = Just 0
-      -- , windowIconSize = 8
+      , getWindowIconPixbuf = scaledWindowIconPixbufGetter getWindowIconPixbufFromEWMH
+      -- , maxIcons = Just 1
       , borderWidth = 0
       }
     workspaces = workspacesNew myWorkspacesConfig
@@ -105,7 +107,7 @@ main = do
           workspaces : map (>>= buildContentsBox) [ layout, windows ]
       , endWidgets = map (>>= buildContentsBox) . mconcat $
         [ [ clock
-          , textBatteryNew "$status$ $percentage$% ($time$)"
+          -- , textBatteryNew "$status$ $percentage$% ($time$)"
           , tray
           , cpu
           , mem

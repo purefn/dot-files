@@ -91,20 +91,17 @@ self: super:
 
   nix-ghci = super.callPackage ./nix-ghci {};
 
-  network-manager-applet = super.callPackage ./nm-applet {};
-
-  sbt-extras = super.callPackage ./sbt-extras {};
-
   # override to add appindicator support
   pasystray = super.callPackage ./pasystray {};
 
+  haskellPackages = super.haskell.packages.ghc844;
+
   xmonad =
-    (super.xmonad-with-packages.override {
-      ghcWithPackages = super.haskellPackages.ghcWithPackages;
+    super.xmonad-with-packages.override {
       packages = hpkgs: [
         hpkgs.xmonad-contrib
         hpkgs.xmonad-extras
         hpkgs.taffybar
       ];
-    });
+    };
 }

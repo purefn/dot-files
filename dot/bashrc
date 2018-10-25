@@ -137,5 +137,8 @@ export NIX_PATH=$NIX_PATH:ssh-config-file=/var/nix/config
 
 export TERM=rxvt
 
-source ~/.nix-profile/share/cloudtoken/shell_additions/bashrc_additions
+if [[ -f ~/.nix-profile/share/cloudtoken/shell_additions/bashrc_additions ]]; then
+  source ~/.nix-profile/share/cloudtoken/shell_additions/bashrc_additions
+fi
+
 export AWS_VAULT_BACKEND=secret-service

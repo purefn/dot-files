@@ -14,6 +14,7 @@ import XMonad
 import XMonad.Core
 import XMonad.Actions.CycleWS (nextWS, prevWS, toggleWS, toggleOrView)
 import XMonad.Actions.GridSelect
+import XMonad.Actions.Minimize
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
@@ -221,7 +222,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask .|. shiftMask, xK_x), sendMessage $ XMonad.Layout.MultiToggle.Toggle REFLECTX) --Reflect layout by X
   , ((modMask .|. shiftMask, xK_y), sendMessage $ XMonad.Layout.MultiToggle.Toggle REFLECTY) --Reflect layout by Y
   , ((modMask, xK_m), withFocused minimizeWindow)                                            --Minimize window
-  , ((modMask .|. shiftMask, xK_m), sendMessage RestoreNextMinimizedWin)                     --Restore window
+  , ((modMask .|. shiftMask, xK_m), withLastMinimized maximizeWindowAndFocus)                --Restore window
   , ((modMask .|. shiftMask, xK_f), fullFloatFocused)                                        --Push window into full screen
   , ((modMask, xK_s), spawn "xscreensaver-command -lock")                                   --Lock screen
   , ((modMask .|. shiftMask, xK_q), io exitSuccess)                               --Quit xmonad

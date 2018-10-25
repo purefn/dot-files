@@ -26,8 +26,7 @@ with import <nixpkgs> {};
   # desktop
   dmenu
   gnome3.adwaita-icon-theme
-  gnome3.hicolor-icon-theme
-  gnome3.gnome-icon-theme
+  hicolor-icon-theme
   gnome3.eog
   gnome3.evince
   gnome3.file-roller

@@ -96,9 +96,7 @@ main = do
       { underlineHeight = 0
       , underlinePadding = 0
       , minIcons = 0
-      , maxIcons = Just 0
-      , getWindowIconPixbuf = scaledWindowIconPixbufGetter getWindowIconPixbufFromEWMH
-      -- , maxIcons = Just 1
+      , maxIcons = Just 1
       , borderWidth = 0
       }
     workspaces = workspacesNew myWorkspacesConfig
@@ -107,7 +105,7 @@ main = do
           workspaces : map (>>= buildContentsBox) [ layout, windows ]
       , endWidgets = map (>>= buildContentsBox) . mconcat $
         [ [ clock
-          -- , textBatteryNew "$status$ $percentage$% ($time$)"
+          , textBatteryNew "$status$ $percentage$% ($time$)"
           , tray
           , cpu
           , mem

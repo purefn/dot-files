@@ -10,6 +10,9 @@
       "https://cache.nixos.org"
     ];
     binaryCachePublicKeys = [ "hydra.nixos.org-1:CNHJZBh9K4tP3EKF6FkkgeVYsS3ohTl+oS0Qa8bezVs=" ];
+
+    distributedBuilds = true;
+    trustedUsers = [ "nixBuild" ];
   };
 
   # Select internationalisation properties.
@@ -59,6 +62,17 @@
     home = "/home/rwallace";
     shell = "/run/current-system/sw/bin/bash";
   };
+
+  users.extraUsers.nixBuild = {
+    name = "nixBuild";
+    useDefaultShell = true;
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJYrlyNp/qRA6EfmDvZ8x1SfvXCy/9+s7yUdEl7FTyCX nixBuild"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILb12SZhLSbRklbPmOE18Wm1+eIisqvOOc2LFnWmC7LY nixBuild"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBRFLScI1Q6ul6goyJuCd+/jASAexkJ4uz5W7qdBJ/e3 nixBuild"
+    ];
+  };
+
 
   programs.bash.enableCompletion = true;
 

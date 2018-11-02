@@ -56,6 +56,25 @@
   nix = {
     binaryCaches = [ "https://cache.nixos.org/" "https://nixcache.reflex-frp.org" ];
     binaryCachePublicKeys = [ "ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI=" ];
+
+    buildMachines = [
+      {
+        hostName = "seedbox";
+        maxJobs = 2;
+        sshKey = "/root/.ssh/id_nixBuild";
+        sshUser = "nixBuild";
+        system = "x86_64-linux";
+        speedFactor = 0.5;
+      }
+      {
+        hostName = "tealc";
+        maxJobs = 8;
+        sshKey = "/root/.ssh/id_nixBuild";
+        sshUser = "nixBuild";
+        system = "x86_64-linux";
+        speedFactor = 0.75;
+      }
+    ];
   };
 
   nixpkgs.config = {

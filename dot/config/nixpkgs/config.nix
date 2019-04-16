@@ -4,7 +4,7 @@
 
   chromium = {
     # enablePepperFlash = true; # Chromium's non-NSAPI alternative to Adobe Flash
-    enablePepperPDF = true;
+    # enablePepperPDF = true;
     # enableWideVine = true;
     pulseSupport = true;
   };

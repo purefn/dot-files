@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./cachix.nix
       ../../modules/audio.nix
       ../../modules/desktop.nix
       ../../modules/laptop.nix
@@ -54,26 +55,26 @@
   ];
 
   nix = {
-    binaryCaches = [ "https://cache.nixos.org/" "https://nixcache.reflex-frp.org" ];
-    binaryCachePublicKeys = [ "ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI=" ];
+    binaryCaches = [ "https://cache.nixos.org/" "https://nixcache.reflex-frp.org" "https://cache.dhall-lang.org" ];
+    binaryCachePublicKeys = [ "ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI=" "cache.dhall-lang.org:I9/H18WHd60olG5GsIjolp7CtepSgJmM2CsO813VTmM=" ];
 
     buildMachines = [
-      {
-        hostName = "seedbox";
-        maxJobs = 2;
-        sshKey = "/root/.ssh/id_nixBuild";
-        sshUser = "nixBuild";
-        system = "x86_64-linux";
-        speedFactor = 0.5;
-      }
-      {
-        hostName = "tealc";
-        maxJobs = 8;
-        sshKey = "/root/.ssh/id_nixBuild";
-        sshUser = "nixBuild";
-        system = "x86_64-linux";
-        speedFactor = 0.75;
-      }
+      # {
+      #   hostName = "seedbox";
+      #   maxJobs = 2;
+      #   sshKey = "/root/.ssh/id_nixBuild";
+      #   sshUser = "nixBuild";
+      #   system = "x86_64-linux";
+      #   speedFactor = 0.5;
+      # }
+      # {
+      #   hostName = "tealc";
+      #   maxJobs = 8;
+      #   sshKey = "/root/.ssh/id_nixBuild";
+      #   sshUser = "nixBuild";
+      #   system = "x86_64-linux";
+      #   speedFactor = 0.75;
+      # }
     ];
   };
 
@@ -84,13 +85,13 @@
     };
   };
 
-  systemd.services."fix-alx" = {
-    description = "Make the Atheros NIC driver work for the e2400";
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-    };
-    script = "echo 1969 e0a1 > /sys/bus/pci/drivers/alx/new_id || true";
-  };
+  # systemd.services."fix-alx" = {
+  #   description = "Make the Atheros NIC driver work for the e2400";
+  #   wantedBy = [ "multi-user.target" ];
+  #   serviceConfig = {
+  #     Type = "oneshot";
+  #     RemainAfterExit = true;
+  #   };
+  #   script = "echo 1969 e0a1 > /sys/bus/pci/drivers/alx/new_id || true";
+  # };
 }

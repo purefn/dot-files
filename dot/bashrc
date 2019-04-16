@@ -135,7 +135,7 @@ export ANSIBLE_VAULT_PASSWORD_FILE=~/.vault_pass
 export NIX_PATH=$NIX_PATH:ssh-config-file=/var/nix/config
 
 
-export TERM=rxvt
+# export TERM=rxvt
 
 if [[ -f ~/.nix-profile/share/cloudtoken/shell_additions/bashrc_additions ]]; then
   source ~/.nix-profile/share/cloudtoken/shell_additions/bashrc_additions

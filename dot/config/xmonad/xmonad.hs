@@ -54,7 +54,7 @@ main = xmonad . docks . ewmh . pagerHints $ defaultConfig
   , manageHook         = manageDocks <+> myManageHook
   , modMask            = mod4Mask -- Rebind Mod to the Windows key
   , normalBorderColor  = colorGray
-  , terminal           = "urxvtc"
+  , terminal           = "kitty"
   , workspaces         = myWorkspaces
   }
 
@@ -65,12 +65,13 @@ main = xmonad . docks . ewmh . pagerHints $ defaultConfig
 -- myFont              = "Ubuntu Mono:pixelsize=12:antialias=true:hinting=true"
 -- myFont              = "Unifont:pixelsize=14"
 -- myFont              = "Inconsolata:pixelsize=12:antialias=true:hinting=true"
-myFont              = "DejaVu Sans Mono:pixelsize=12:antialias=true:hinting=true"
+-- myFont              = "DejaVu Sans Mono:pixelsize=12:antialias=true:hinting=true"
 -- myFont              = "monofur:pixelsize=12:antialias=true:hinting=true"
 -- myFont              = "Consolas:pixelsize=12:antialias=true:autohinting=true,Unifont:pixelsize=12"
 -- myFont              = "Monaco:pixelsize=12:antialias=true:hinting=true"
 -- myFont              = "Anonymous Pro:pixelsize=12:antialias=true:hinting=true"
 -- myFont              = "Droid Sans Mono:pixelsize=12:antialias=true:hinting=true"
+myFont = "monospace"
 
 colorBlack          = "#000000"
 colorBlackAlt       = "#050505"
@@ -137,9 +138,9 @@ myGSConfig colorizer = (buildDefaultGSConfig myColorizer)
     }
 
 -- Scratchpad
-manageScratchPad :: ManageHook
-manageScratchPad = scratchpadManageHook (W.RationalRect 0 (1/50) 1 (3/4))
-scratchPad = scratchpadSpawnActionCustom "urxvtc -name scratchpad -e tmux"
+-- manageScratchPad :: ManageHook
+-- manageScratchPad = scratchpadManageHook (W.RationalRect 0 (1/50) 1 (3/4))
+-- scratchPad = scratchpadSpawnActionCustom "urxvtc -name scratchpad -e tmux"
 
 -- Transformers
 data TABBED = TABBED deriving (Read, Show, Eq, Typeable)
@@ -161,7 +162,7 @@ myWorkspaces ::[WorkspaceId]
 myWorkspaces = [ "term", "web", "code", "gfx", "chat", "music", "video", "other" ]
 
 myManageHook :: ManageHook
-myManageHook = hooks <+> manageScratchPad where
+myManageHook = hooks where
   hooks = composeAll . concat $
     [ [resource     =? r --> doIgnore                    | r <- myIgnores] --ignore desktop
     , [className    =? c --> doShift (myWorkspaces !! 1) | c <- myWebS   ] --move myWebS windows to workspace 1 by classname
@@ -195,7 +196,6 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   [ ((modMask .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)                       --Launch a terminal
   , ((modMask, xK_p), shellPrompt myXPConfig)                                              --Launch Xmonad shell prompt
   , ((modMask, xK_g), goToSelected $ myGSConfig myColorizer)                                 --Launch GridSelect
-  , ((modMask, xK_masculine), scratchPad)                                                    --Scratchpad
   , ((modMask, xK_c), kill)                                                                  --Close focused window
   , ((modMask, xK_space), sendMessage NextLayout)                                            --Rotate through the available layout algorithms
   , ((modMask .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf)                 --Reset the layouts on the current workspace to default

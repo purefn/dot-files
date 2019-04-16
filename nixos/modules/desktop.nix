@@ -34,10 +34,21 @@
   };
 
   fonts = {
-    enableCoreFonts = true;
+    enableDefaultFonts = true;
     enableFontDir = true;
     enableGhostscriptFonts = true;
-    fontconfig.dpi = 96;
+    fontconfig = {
+      # dpi = 96;
+
+      defaultFonts = {
+        monospace = [ "Fira Code" "DejaVu Sans Mono" ];
+      };
+    };
+
+    fonts = with pkgs; [
+      fira-code
+      fira-code-symbols
+    ];
   };
 
   environment.systemPackages = [ pkgs.gnome3.dconf ];

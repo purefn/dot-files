@@ -5,20 +5,16 @@ self: super:
 
   battery-monitor = super.callPackage ./battery-monitor {};
 
-  # handbrake = super.handbrake.override {
-  #   useFfmpeg = true;
-  # };
-
   haskell-ide-engine =
     let
       hie-nix = super.fetchFromGitHub {
         owner = "domenkozar";
         repo = "hie-nix";
-        rev = "8f04568aa8c3215f543250eb7a1acfa0cf2d24ed";
-        sha256 = "06ygnywfnp6da0mcy4hq0xcvaaap1w3di2midv1w9b9miam8hdrn";
+        rev = "922bbc7bf85b3b51df9534d5799e8310cc0387c9";
+        sha256 = "1wf80g1zbgglc3lyqrzfdaqrzhdgmzhgg1p81hd2cpp57gpai9wh";
       };
     in
-      (import hie-nix { pkgs = super; }).hies;
+      (import hie-nix {}).hies;
 
   mumble = super.mumble.override { pulseSupport = true; };
 
@@ -49,7 +45,8 @@ self: super:
             vim-airline-themes
             vim-commentary
             vim-indent-guides
-            vim-markdown
+            vim-pandoc
+            vim-pandoc-syntax
 
             vim-colorschemes
             wombat256-vim
@@ -93,8 +90,6 @@ self: super:
 
   # override to add appindicator support
   pasystray = super.callPackage ./pasystray {};
-
-  haskellPackages = super.haskell.packages.ghc844;
 
   xmonad =
     super.xmonad-with-packages.override {

@@ -26,7 +26,7 @@ data HostConfig = HostConfig
   { nics :: [String]
   } deriving (Eq, Show)
 
-ronin = HostConfig { nics = [ "enp59s0", "wlp61s0" ] }
+ronin = HostConfig { nics = [ "enp59s0" ] } --, "wlp61s0" ] }
 tealc = HostConfig { nics = [ "wlp3s0" ] }
 
 mkRGBA (r, g, b, a) = (r/256, g/256, b/256, a/256)

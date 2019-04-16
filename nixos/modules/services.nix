@@ -13,10 +13,10 @@
 
     openssh.enable = true;
 
-    postgresql = {
-      enable = true;
-      package = pkgs.postgresql93;
-    };
+    # postgresql = {
+    #   enable = true;
+    #   package = pkgs.postgresql93;
+    # };
   };
 
   virtualisation = {

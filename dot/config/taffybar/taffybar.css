@@ -65,8 +65,8 @@
    This will actually affect all widgets, (not just the workspace icons), but
    that is what we want since we want the icons to look the same. */
 .auto-size-image, .sni-tray  {
-	padding-top: 3px;
-	padding-bottom: 3px;
+	padding-top: 0px;
+	padding-bottom: 0px;
 }
 
 .window-icon-container.active {
@@ -96,6 +96,7 @@ button {
 	background-color: @transparent;
 	border-width: 0px;
 	border-radius: 0px;
+  padding: 0px;
 }
 
 button:checked, button:hover .Contents:hover {

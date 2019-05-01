@@ -45,3 +45,5 @@ export SSH_AUTH_SOCK
 export GTK_IM_MODULE="xim"
 
 exec xmonad
+
+# exec systemctl --user start wm.target

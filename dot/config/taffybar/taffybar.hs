@@ -1,33 +1,45 @@
 {-# LANGUAGE OverloadedStrings #-}
-
 module Main where
 
-import Data.List (isPrefixOf)
-import Data.Maybe
-import Data.Monoid
-import System.Log.Handler.Simple
-import System.Log.Logger
-import System.Process (readProcess)
-import System.Taffybar
-import System.Taffybar.Hooks
-import System.Taffybar.Information.CPU
-import System.Taffybar.Information.Memory
-import System.Taffybar.SimpleConfig
-import System.Taffybar.Widget
-import System.Taffybar.Widget.Battery
-import System.Taffybar.Widget.Generic.PollingGraph
-import System.Taffybar.Widget.Generic.PollingLabel
-import System.Taffybar.Widget.Text.NetworkMonitor
-import System.Taffybar.Widget.SNITray
-import System.Taffybar.Widget.Util
-import System.Taffybar.Widget.Workspaces
-
-data HostConfig = HostConfig
-  { nics :: [String]
-  } deriving (Eq, Show)
-
-ronin = HostConfig { nics = [ "enp59s0" ] } --, "wlp61s0" ] }
-tealc = HostConfig { nics = [ "wlp3s0" ] }
+import           Control.Exception.Base
+import           Control.Monad
+import           Control.Monad.IO.Class
+import           Control.Monad.Trans.Class
+import           Control.Monad.Trans.Reader
+import qualified Data.ByteString.Char8 as BS
+import           Data.List
+import           Data.List.Split
+import qualified Data.Map as M
+import           Data.Maybe
+import           Network.HostName
+import           StatusNotifier.Tray
+import           System.Directory
+import           System.Environment
+import           System.FilePath.Posix
+import           System.IO
+import           System.Log.Handler.Simple
+import           System.Log.Logger
+import           System.Process
+import           System.Taffybar
+import           System.Taffybar.Auth
+import           System.Taffybar.Context (appendHook)
+import           System.Taffybar.DBus
+import           System.Taffybar.DBus.Toggle
+import           System.Taffybar.Hooks
+import           System.Taffybar.Information.CPU
+import           System.Taffybar.Information.EWMHDesktopInfo
+import           System.Taffybar.Information.Memory
+import           System.Taffybar.Information.X11DesktopInfo
+import           System.Environment.XDG.BaseDir
+import           System.Taffybar.SimpleConfig
+import           System.Taffybar.Util
+import           System.Taffybar.Widget
+import           System.Taffybar.Widget.Generic.PollingGraph
+import           System.Taffybar.Widget.Generic.PollingLabel
+import           System.Taffybar.Widget.Util
+import           System.Taffybar.Widget.Workspaces
+import           Text.Printf
+import           Text.Read hiding (lift)
 
 mkRGBA (r, g, b, a) = (r/256, g/256, b/256, a/256)
 blue = mkRGBA (42, 99, 140, 256)
@@ -44,10 +56,10 @@ myGraphConfig =
   , graphBackgroundColor = (0.0, 0.0, 0.0, 0.0)
   }
 
--- netCfg i = myGraphConfig
---   { graphDataColors = [yellow1, yellow2]
---   , graphLabel = Just i
---   }
+netCfg = myGraphConfig
+  { graphDataColors = [yellow1, yellow2]
+  , graphLabel = Just "net"
+  }
 
 memCfg = myGraphConfig
   { graphDataColors = [(0.129, 0.588, 0.953, 1)]
@@ -68,6 +80,14 @@ cpuCallback = do
   (_, systemLoad, totalLoad) <- cpuLoad
   return [totalLoad, systemLoad]
 
+getFullWorkspaceNames :: X11Property [(WorkspaceIdx, String)]
+getFullWorkspaceNames = go <$> readAsListOfString Nothing "_NET_DESKTOP_FULL_NAMES"
+  where go = zip [WSIdx i | i <- [0..]]
+
+workspaceNamesLabelSetter workspace =
+  fromMaybe "" . lookup (workspaceIdx workspace) <$>
+            liftX11Def [] getFullWorkspaceNames
+
 enableLogger logger level = do
   logger <- getLogger logger
   saveGlobalLogger $ setLevel level logger
@@ -79,43 +99,90 @@ logDebug = do
   saveGlobalLogger $ setLevel DEBUG logger2
   workspacesLogger <- getLogger "System.Taffybar.Widget.Workspaces"
   saveGlobalLogger $ setLevel WARNING workspacesLogger
+  -- logDebug
+  -- logM "What" WARNING "Why"
+  -- enableLogger "System.Taffybar.Widget.Util" DEBUG
+  -- enableLogger "System.Taffybar.Information.XDG.DesktopEntry" DEBUG
+  -- enableLogger "System.Taffybar.WindowIcon" DEBUG
+  -- enableLogger "System.Taffybar.Widget.Generic.PollingLabel" DEBUG
+
+cssFileByHostname =
+  [ ("uber-loaner", "uber-loaner.css")
+  , ("ronin", "taffybar.css")
+  ]
 
 main = do
-  host <- readProcess "hostname" [] ""
-  let
-    hostConfig = if "ronin" `isPrefixOf` host then ronin else tealc
-    cpu = pollingGraphNew cpuCfg 0.5 cpuCallback
-    mem = pollingGraphNew memCfg 1 memCallback
-    -- nets = fmap (\i -> networkGraphNew (netCfg i) (Just [i])) (nics hostConfig)
-    nets = fmap (\i -> networkMonitorNew (i <> " " <> defaultNetFormat) (Just [i])) (nics hostConfig)
-    clock = textClockNew Nothing "%a %b %_d %H:%M" 1
-    layout = layoutNew defaultLayoutConfig
-    windows = windowsNew defaultWindowsConfig
-    tray = sniTrayNew
-    myWorkspacesConfig = defaultWorkspacesConfig
-      { underlineHeight = 0
-      , underlinePadding = 0
-      , minIcons = 0
-      , maxIcons = Just 1
-      , borderWidth = 0
-      }
-    workspaces = workspacesNew myWorkspacesConfig
-    myConfig = defaultSimpleTaffyConfig
-      { startWidgets =
-          workspaces : map (>>= buildContentsBox) [ layout, windows ]
-      , endWidgets = map (>>= buildContentsBox) . mconcat $
-        [ [ clock
-          , textBatteryNew "$status$ $percentage$% ($time$)"
-          , tray
-          , cpu
-          , mem
+  hostName <- getHostName
+  homeDirectory <- getHomeDirectory
+  cssFilePath <-
+    traverse (getUserConfigFile "taffybar") $ lookup hostName cssFileByHostname
+  let cpuGraph = pollingGraphNew cpuCfg 5 cpuCallback
+      memoryGraph = pollingGraphNew memCfg 5 memCallback
+      myIcons = scaledWindowIconPixbufGetter $
+                getWindowIconPixbufFromChrome <|||>
+                unscaledDefaultGetWindowIconPixbuf <|||>
+                (\size _ -> lift $ loadPixbufByName size "application-default-icon")
+      layout = layoutNew defaultLayoutConfig
+      windows = windowsNew defaultWindowsConfig
+      notifySystemD = void $ runCommandFromPath ["systemd-notify", "--ready"]
+      myWorkspacesConfig =
+        defaultWorkspacesConfig
+        { underlineHeight = 3
+        , underlinePadding = 2
+        , minIcons = 1
+        , getWindowIconPixbuf = myIcons
+        , widgetGap = 0
+        , showWorkspaceFn = hideEmpty
+        , updateRateLimitMicroseconds = 100000
+        , labelSetter = workspaceNamesLabelSetter
+        }
+      workspaces = workspacesNew myWorkspacesConfig
+      fullEndWidgets =
+        map (>>= buildContentsBox)
+              [ textClockNewWith defaultClockConfig "%a %b %_d %H:%M" 1
+              , textBatteryNew "$percentage$% ($time$)"
+              , batteryIconNew
+              , cpuGraph
+              , memoryGraph
+              , networkGraphNew netCfg Nothing
+              , sniTrayNew
+              -- , networkMonitorNew defaultNetFormat Nothing >>= setMinWidth 200
+              -- , fsMonitorNew 60 ["/dev/sdd2"]
+              ]
+      shortLaptopEndWidgets =
+        map (>>= buildContentsBox)
+                       [ batteryIconNew
+                       , textBatteryNew "$percentage$%"
+                       , textClockNewWith defaultClockConfig "%a %b %_d %H:%M" 1
+                       , sniTrayNew
+                       ]
+      baseConfig =
+        defaultSimpleTaffyConfig
+        { startWidgets =
+            workspaces : map (>>= buildContentsBox) [layout, windows]
+        , endWidgets = fullEndWidgets
+        , barPosition = Top
+        , barPadding = 0
+        , barHeight = 30
+        , cssPath = cssFilePath
+        }
+      selectedConfig =
+        fromMaybe baseConfig $ lookup hostName
+          [ ( "uber-loaner"
+            , baseConfig { endWidgets = shortLaptopEndWidgets }
+            )
+          , ( "ronin"
+            , baseConfig { endWidgets = fullEndWidgets, barHeight = 42 }
+          )
           ]
-        , nets
-        ]
-      , barPosition = Top
-      , barPadding = 0
-      , barHeight = 50
-      , widgetSpacing = 0
-      }
-  dyreTaffybar $ withBatteryRefresh $ withLogServer $ withToggleServer $
-               toTaffyConfig myConfig
+      simpleTaffyConfig = selectedConfig
+        { centerWidgets = map (>>= buildContentsBox) []
+        -- , endWidgets = []
+        -- , startWidgets = []
+        }
+  startTaffybar $
+    appendHook notifySystemD $
+    -- appendHook (getHost False) $
+    withLogServer $
+    withToggleServer $
+    toTaffyConfig simpleTaffyConfig

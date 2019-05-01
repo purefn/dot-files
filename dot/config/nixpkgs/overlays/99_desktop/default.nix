@@ -3,8 +3,6 @@ self: super:
 {
   adjust-volume = super.haskellPackages.callPackage ./adjust-volume {};
 
-  battery-monitor = super.callPackage ./battery-monitor {};
-
   haskell-ide-engine =
     let
       hie-nix = super.fetchFromGitHub {
@@ -90,6 +88,10 @@ self: super:
 
   # override to add appindicator support
   pasystray = super.callPackage ./pasystray {};
+
+  taffybar = super.taffybar.override {
+    packages = hpkgs: [ hpkgs.hostname ];
+  };
 
   xmonad =
     super.xmonad-with-packages.override {

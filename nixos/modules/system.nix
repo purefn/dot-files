@@ -34,7 +34,7 @@
       which
     ];
 
-    variables.EDITOR = pkgs.lib.mkForce "nvim";
+    variables.EDITOR = pkgs.lib.mkForce "${pkgs.neovim}/bin/nvim";
 
     etc.timezone.text = "US/Arizona";
   };

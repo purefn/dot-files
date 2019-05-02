@@ -14,6 +14,12 @@ self: super:
     in
       (import hie-nix {}).hies;
 
+  all-hies =
+    let
+      ps = import (fetchTarball "https://github.com/infinisil/all-hies/tarball/master") {};
+    in
+      ps.selection { selector = p: { inherit (p) ghc864; }; };
+
   mumble = super.mumble.override { pulseSupport = true; };
 
   neovim = super.neovim.override {

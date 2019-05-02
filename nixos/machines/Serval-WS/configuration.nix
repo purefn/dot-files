@@ -8,7 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./cachix.nix
+      ../../cachix.nix
       ../../modules/audio.nix
       ../../modules/desktop.nix
       ../../modules/laptop.nix

@@ -2,6 +2,7 @@
 !/dot/config/nvim
 /dot/config/nvim/.netrwhist
 !/dot/config/nixpkgs
+/dot/config/nixpkgs/packages.nix
 !/dot/config/taffybar
 !/dot/config/xmonad
 /dot/config/xmonad/xmonad.hi

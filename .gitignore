@@ -10,6 +10,7 @@
 /dot/ssh/id_dsa
 /dot/ssh/id_dsa.pub
 /dot/ssh/id_rsa
+/dot/ssh/id_rsa.pub
 /dot/ssh/terraform
 /dot/ssh/terraform.pub
 /dot/ssh/known_hosts

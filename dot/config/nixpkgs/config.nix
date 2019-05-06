@@ -7,6 +7,7 @@
     # enablePepperPDF = true;
     # enableWideVine = true;
     pulseSupport = true;
+    gnomeKeyringSupport = true;
   };
 
   MPlayer = {

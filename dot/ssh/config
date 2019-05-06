@@ -2,3 +2,11 @@ Host *
     UseRoaming no
     Compression yes
 
+Host tealc-osx
+  HostName 192.168.1.98
+  User richard
+
+Host tealc
+  HostName 172.16.214.128
+  User rwallace
+  ProxyJump tealc-osx

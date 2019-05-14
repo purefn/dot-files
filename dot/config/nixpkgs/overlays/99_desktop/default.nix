@@ -18,7 +18,7 @@ self: super:
     let
       ps = import (fetchTarball "https://github.com/infinisil/all-hies/tarball/master") {};
     in
-      ps.selection { selector = p: { inherit (p) ghc864; }; };
+      ps.selection { selector = p: { inherit (p) ghc863; }; };
 
   mumble = super.mumble.override { pulseSupport = true; };
 

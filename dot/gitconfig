@@ -1,20 +1,23 @@
 [user]
-	name = Richard Wallace
-	email = rwallace@thewallacepack.net
+  name = Richard Wallace
+  email = rwallace@thewallacepack.net
 [color]
-	diff = auto
-	status = auto
-	branch = auto
-	interactive = auto
+  diff = auto
+  status = auto
+  branch = auto
+  interactive = auto
 [alias]
-	st = status
-	ci = commit
-	co = checkout
-	br = branch
+  st = status
+  ci = commit
+  co = checkout
+  br = branch
 [merge]
-	summary = true
+  summary = true
 [core]
-	excludesfile = /home/rwallace/.gitignore
-	editor = nvim
+  excludesfile = /home/rwallace/.gitignore
+  editor = nvim
 [push]
-	default = simple
+  default = simple
+# If present, overrides email address with work address
+[include]
+  path = /home/rwallace/.gitconfig-work

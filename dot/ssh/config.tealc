@@ -1,0 +1,7 @@
+Host * !172.16.214.*
+  ProxyJump richard@172.16.214.1
+
+Host tealc-osx
+  HostName  172.16.214.1
+  User richard
+

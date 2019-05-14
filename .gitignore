@@ -9,6 +9,7 @@
 /dot/config/xmonad/xmonad.hi
 /dot/config/xmonad/xmonad.o
 /dot/ssh/authorized_keys
+/dot/ssh/config.local
 /dot/ssh/id_dsa
 /dot/ssh/id_dsa.pub
 /dot/ssh/id_rsa

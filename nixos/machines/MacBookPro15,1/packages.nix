@@ -24,34 +24,34 @@ with import <nixpkgs> {};
   # pavucontrol
 
   # desktop
-  # dmenu
-  # gnome3.adwaita-icon-theme
-  # hicolor-icon-theme
-  # gnome3.eog
-  # gnome3.evince
-  # gnome3.file-roller
-  # gnome3.gnome_keyring
+  dmenu
+  gnome3.adwaita-icon-theme
+  hicolor-icon-theme
+  gnome3.eog
+  gnome3.evince
+  gnome3.file-roller
+  gnome3.gnome_keyring
   # gnome3.networkmanagerapplet
   # gnome3.networkmanager_openconnect
   # adjust-volume
-  # libnotify
-  # notify-osd
+  libnotify
+  notify-osd
   # rxvt_unicode-with-plugins
-  # haskellPackages.status-notifier-item
-  # taffybar
-  # xbindkeys
-  # xcompmgr
-  # xmonad
+  haskellPackages.status-notifier-item
+  taffybar
+  xbindkeys
+  xcompmgr
+  xmonad
   # xscreensaver
 
   # browsers
-  # chromium
+  chromium
   # firefox
 
   # apps
   # gimp
   # handbrake
-  # mplayer
+  mplayer
   # mumble
   # pithos
   sshfsFuse
@@ -69,23 +69,27 @@ with import <nixpkgs> {};
   ngrok
 
   # haskell dev
-  # cabal-install
-  # nix-ghci
+  cabal-install
+  nix-ghci
   # haskell-ide-engine
-  # haskellPackages.cabal2nix
+  haskellPackages.cabal2nix
   # haskellPackages.codex
-  # haskellPackages.ghcid
-  # haskellPackages.hasktags
-  # haskellPackages.hlint
+  haskellPackages.ghcid
+  haskellPackages.hasktags
+  haskellPackages.hlint
   # haskellPackages.hscope
-  # haskellPackages.hserv
+  haskellPackages.hserv
   # haskellPackages.packunused
-  # haskellPackages.pandoc
+  haskellPackages.pandoc
   # haskellPackages.pointful
-  # haskellPackages.pointfree
+  haskellPackages.pointfree
 
   # javascript dev
   jq
 
   mongodb-tools
+
+  # k8
+  kubernetes-helm
+  minikube
 ]

@@ -1,4 +1,5 @@
 /dot/config/*
+!/dot/config/kitty
 !/dot/config/nvim
 /dot/config/nvim/.netrwhist
 !/dot/config/nixpkgs

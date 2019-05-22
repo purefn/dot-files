@@ -25,6 +25,10 @@
     };
   };
 
+  nix = {
+    binaryCaches = [ "ssh://nix-ssh@ronin" "https://cache.nixos.org/" ];
+  };
+
   networking = {
     hostName = "tealc";
     firewall.enable = false;
@@ -59,8 +63,16 @@
     openvpn.servers = {
       simspace = {
         config = ''config /var/lib/vpn/Simspace-UDP-richard.wallace.conf'';
+        updateResolvConf = true;
       };
     };
+  };
+
+  programs = {
+    ssh.extraConfig = ''
+      Host * !172.16.214.*
+        ProxyJump richard@172.16.214.1
+    '';
   };
 
   system.stateVersion = "19.03"; # Did you read the comment?

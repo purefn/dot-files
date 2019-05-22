@@ -5,4 +5,4 @@ Host tealc-osx
 Host tealc
   HostName 172.16.214.128
   User rwallace
-  ProxyJump tealc-osx<Paste>
+  ProxyJump tealc-osx

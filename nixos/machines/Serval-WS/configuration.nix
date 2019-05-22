@@ -76,6 +76,11 @@
       #   speedFactor = 0.75;
       # }
     ];
+
+    sshServe = {
+      enable = true;
+      keys = [ "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCxOCHEL+sVGfYcc0rCihM7IswfUdtovGQqrgn8k6l0uQdFwsExbw+WGyCVrUYHKtR6PrBaayFh+VWW71xHMfqIlUnBqrmPMXGi0B9lja3fbNFD3JAkEjUSKC2fIvPdWaimCgjHynw51wLA4DpkfHoZsD60dM3pTD+xVcrYKEWOqaPPXoB+XGNUFkpjk8JxkxMqVRPe1OmWkqudAGI0n3FdzSgduR6X+nBwvi8TOC70NpSo72eF6HBiati5cdS5MhCANRNTldWA8XhsZdFYcYV2MVZiM7kgEQXa54PRyrAl2rQRooY7HHMjyVcjPsmYZVwB8K/dybu9oXhMOQTmlj/v root@tealc" ];
+    };
   };
 
   nixpkgs.config = {

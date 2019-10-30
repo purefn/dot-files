@@ -17,8 +17,5 @@
       enable = true;
       extraOptions = "--bip=172.17.42.1/16";
     };
-    virtualbox.host = {
-      enable = true;
-    };
   };
 }

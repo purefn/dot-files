@@ -6,16 +6,14 @@
 {
   imports = [ ];
 
-  boot.initrd.availableKernelModules = [ "ata_piix" "mptspi" "sd_mod" "sr_mod" ];
+  boot.initrd.availableKernelModules = [ "ata_piix" "mptspi" "uhci_hcd" "ehci_pci" "sd_mod" "sr_mod" ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/35ddfb01-a149-489c-aa89-6ddadb2942e3";
+    { device = "/dev/disk/by-label/nixos";
       fsType = "ext4";
     };
 
-  swapDevices = [ ];
-
-  nix.maxJobs = lib.mkDefault 6;
+  swapDevices = [ { device = "/dev/disk/by-label/swap"; } ];
 }

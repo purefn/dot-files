@@ -237,7 +237,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
   ++
   [((m .|. modMask, key), screenWorkspace sc >>= flip whenJust (windows . f))                --Switch to n screens and send client to n screens
-    | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
+    | (key, sc) <- zip [xK_r, xK_w, xK_e] [0..]
     , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
   where
     fullFloatFocused = withFocused $ \f -> windows =<< appEndo `fmap` runQuery doFullFloat f

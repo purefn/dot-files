@@ -5,22 +5,12 @@ self: super:
 
   haskell-ide-engine =
     let
-      hie-nix = super.fetchFromGitHub {
-        owner = "domenkozar";
-        repo = "hie-nix";
-        rev = "922bbc7bf85b3b51df9534d5799e8310cc0387c9";
-        sha256 = "1wf80g1zbgglc3lyqrzfdaqrzhdgmzhgg1p81hd2cpp57gpai9wh";
-      };
+      src = super.fetchFromGitHub (builtins.fromJSON (builtins.readFile ./all-hies.json));
+      all-hies = import src {};
     in
-      (import hie-nix {}).hies;
+      all-hies.selection { selector = p: { inherit (p) ghc863; }; };
 
-  all-hies =
-    let
-      ps = import (fetchTarball "https://github.com/infinisil/all-hies/tarball/master") {};
-    in
-      ps.selection { selector = p: { inherit (p) ghc863; }; };
-
-  mumble = super.mumble.override { pulseSupport = true; };
+  # mumble = super.mumble.override { pulseSupport = true; };
 
   neovim = super.neovim.override {
     vimAlias = true;
@@ -42,6 +32,7 @@ self: super:
             deoplete-nvim
             fugitive
             fzfWrapper
+            fzf-vim
             LanguageClient-neovim
             supertab
             syntastic
@@ -69,13 +60,6 @@ self: super:
         purescript = {
           start = [
             purescript-vim
-          ];
-        };
-
-        scala = {
-          start = [
-            ensime-vim
-            vim-scala
           ];
         };
       };

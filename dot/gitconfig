@@ -21,3 +21,6 @@
 # If present, overrides email address with work address
 [include]
   path = /home/rwallace/.gitconfig-work
+[rerere]
+	enabled = true
+	autoupdate = true

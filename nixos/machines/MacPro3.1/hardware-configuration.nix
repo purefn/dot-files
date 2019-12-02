@@ -29,6 +29,4 @@
 
   # Not needed, turned automagically by systemd
   # swapDevices = [ { device = "/dev/disk/by-label/swap"; } ];
-
-  nix.maxJobs = 8;
 }

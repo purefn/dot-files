@@ -19,7 +19,5 @@
 
   swapDevices =[ ];
 
-  nix.maxJobs = 8;
-
   hardware.opengl.driSupport32Bit = true;
 }

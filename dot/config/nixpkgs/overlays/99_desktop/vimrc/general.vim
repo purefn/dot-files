@@ -334,3 +334,25 @@ let g:SuperTabDefaultCompletionType = '<c-x><c-p>'
 
 " }}}
 
+" LanguageClient-neovim {{{
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+map <leader>lk :call LanguageClient#textDocument_hover()<CR>
+map <leader>lg :call LanguageClient#textDocument_definition()<CR>
+map <leader>lr :call LanguageClient#textDocument_rename()<CR>
+map <leader>lf :call LanguageClient#textDocument_formatting()<CR>
+map <leader>lb :call LanguageClient#textDocument_references()<CR>
+map <leader>la :call LanguageClient#textDocument_codeAction()<CR>
+map <leader>ls :call LanguageClient#textDocument_documentSymbol()<CR>
+
+hi link ALEError Error
+hi Warning term=underline cterm=underline ctermfg=Yellow gui=undercurl guisp=Gold
+hi link ALEWarning Warning
+hi link ALEInfo SpellCap
+
+augroup LanguageClient_config
+  autocmd!
+  autocmd User LanguageClientStarted setlocal signcolumn=yes
+  autocmd User LanguageClientStopped setlocal signcolumn=auto
+augroup END
+
+" }}}

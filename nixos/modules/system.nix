@@ -13,6 +13,8 @@
 
     distributedBuilds = true;
     trustedUsers = [ "nixBuild" ];
+
+    maxJobs = "auto";
   };
 
   # Select internationalisation properties.

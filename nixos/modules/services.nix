@@ -2,6 +2,13 @@
 
 {
   services = {
+    keybase.enable = true;
+
+    kbfs = {
+      enable = true;
+      extraFlags = [ "-label %u" ];
+    };
+
     locate.enable = true;
 
     ntp = {

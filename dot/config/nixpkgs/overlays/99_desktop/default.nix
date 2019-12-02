@@ -3,24 +3,24 @@ self: super:
 {
   adjust-volume = super.haskellPackages.callPackage ./adjust-volume {};
 
-  haskell-ide-engine =
-    let
-      hie-nix = super.fetchFromGitHub {
-        owner = "domenkozar";
-        repo = "hie-nix";
-        rev = "922bbc7bf85b3b51df9534d5799e8310cc0387c9";
-        sha256 = "1wf80g1zbgglc3lyqrzfdaqrzhdgmzhgg1p81hd2cpp57gpai9wh";
-      };
-    in
-      (import hie-nix {}).hies;
+  # haskell-ide-engine =
+  #   let
+  #     hie-nix = super.fetchFromGitHub {
+  #       owner = "domenkozar";
+  #       repo = "hie-nix";
+  #       rev = "922bbc7bf85b3b51df9534d5799e8310cc0387c9";
+  #       sha256 = "1wf80g1zbgglc3lyqrzfdaqrzhdgmzhgg1p81hd2cpp57gpai9wh";
+  #     };
+  #   in
+  #     (import hie-nix {}).hies;
 
-  all-hies =
-    let
-      ps = import (fetchTarball "https://github.com/infinisil/all-hies/tarball/master") {};
-    in
-      ps.selection { selector = p: { inherit (p) ghc863; }; };
+  # all-hies =
+  #   let
+  #     ps = import (fetchTarball "https://github.com/infinisil/all-hies/tarball/master") {};
+  #   in
+  #     ps.selection { selector = p: { inherit (p) ghc863; }; };
 
-  mumble = super.mumble.override { pulseSupport = true; };
+  # mumble = super.mumble.override { pulseSupport = true; };
 
   neovim = super.neovim.override {
     vimAlias = true;

@@ -8,27 +8,30 @@
     [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" ];
-  # boot.kernelModules = [ "kvm-intel" "alx" "fuse" ];
-  boot.kernelModules = [ "alx" "fuse" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usbhid" "sd_mod" "sdhci_pci" ];
+  boot.initrd.kernelModules = [ ];
+  boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-label/nixos";
+    { device = "/dev/disk/by-uuid/eebce082-e45b-4631-bd8e-6f3eecca0235";
+      fsType = "ext4";
+    };
+
+  fileSystems."/home/rwallace" =
+    { device = "/dev/disk/by-uuid/bf8ffafc-38eb-4fc3-8e98-fa55c7203124";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-label/boot";
+    { device = "/dev/disk/by-uuid/E257-BF33";
       fsType = "vfat";
     };
 
-  fileSystems."/home/rwallace" =
-    { device = "/dev/disk/by-label/home-rwallace";
-      fsType = "ext4";
-    };
+  swapDevices =
+    [ { device = "/dev/disk/by-uuid/6bd3600f-4570-4ca1-8493-b557c15c952d"; }
+    ];
 
-  swapDevices = [ ];
-
-  nix.maxJobs = 8;
+  nix.maxJobs = lib.mkDefault 8;
+  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 }

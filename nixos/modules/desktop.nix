@@ -18,14 +18,17 @@
     };
 
     displayManager = {
-      slim = {
-        enable = true;
-        defaultUser = "rwallace";
-        theme = pkgs.fetchurl {
-          url = "https://github.com/jagajaga/nixos-slim-theme/archive/1.1.tar.gz";
-          sha256 = "0cawq38l8rcgd35vpdx3i1wbs3wrkcrng1c9qch0l4qncw505hv6";
-        };
-      };
+      lightdm.enable = true;
+      session = [
+        {
+          manage = "desktop";
+          name = "xinitrc";
+          start = ''
+            ~/.xinitrc &
+            waitPID=$!
+          '';
+        }
+      ];
     };
 
     screenSection = ''

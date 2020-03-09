@@ -2,7 +2,7 @@
 
 {
   nix = {
-    extraOptions = "auto-optimise-store = true";
+    autoOptimiseStore = true;
     trustedBinaryCaches = [
       "https://hydra.nixos.org"
     ];
@@ -15,6 +15,9 @@
     trustedUsers = [ "nixBuild" ];
 
     maxJobs = "auto";
+    # maxJobs = 1;
+    buildCores = 0;
+    #buildCores = 1;
   };
 
   # Select internationalisation properties.

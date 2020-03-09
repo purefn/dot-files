@@ -1,6 +1,7 @@
 Host *
   UseRoaming no
   Compression yes
+  ForwardX11 yes
 
 Include config.local
 
@@ -11,8 +12,7 @@ Host simspace-jenkins-node-*
 
 Host jenkins-node-*
   User remotejenkins
-  # IdentityFile ~/.ssh/simspace_template.key
-  #
+  IdentityFile ~/.ssh/simspace_template.key
 
 Host qa-portal.simspace.*
   User simadmin

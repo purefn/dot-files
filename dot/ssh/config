@@ -1,6 +1,7 @@
 Host *
   UseRoaming no
   Compression yes
+  ForwardX11 yes
 
 Include config.local
 

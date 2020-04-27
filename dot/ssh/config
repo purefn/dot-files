@@ -5,3 +5,21 @@ Host *
 
 Include config.local
 
+Host simspace-jenkins-node-*
+  User remotejenkins
+  # IdentityFile ~/.ssh/simspace_template.key
+  #
+
+Host jenkins-node-*
+  User remotejenkins
+  IdentityFile ~/.ssh/simspace_template.key
+
+Host qa-portal.simspace.*
+  User simadmin
+  IdentityFile ~/.ssh/simspace-portal.key
+  Port 6000
+
+Host portal-range-qa.simspace.lan
+  User simadmin
+  IdentityFile ~/.ssh/simspace-portal.key
+  Port 6000

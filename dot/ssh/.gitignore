@@ -1,1 +1,9 @@
 *.pem
+*.key
+authorized_keys
+config.local
+id_dsa
+id_dsa.pub
+id_rsa
+id_rsa.pub
+known_hosts

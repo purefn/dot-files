@@ -6,7 +6,7 @@
     # enablePepperFlash = true; # Chromium's non-NSAPI alternative to Adobe Flash
     # enablePepperPDF = true;
     # enableWideVine = true;
-    pulseSupport = true;
+    # pulseSupport = true;
     # gnomeKeyringSupport = true;
   };
 

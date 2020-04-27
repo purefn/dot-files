@@ -8,16 +8,6 @@
 !/dot/config/xmonad
 /dot/config/xmonad/xmonad.hi
 /dot/config/xmonad/xmonad.o
-/dot/ssh/authorized_keys
-/dot/ssh/config.local
-/dot/ssh/id_dsa
-/dot/ssh/id_dsa.pub
-/dot/ssh/id_rsa
-/dot/ssh/id_rsa.pub
-/dot/ssh/terraform
-/dot/ssh/terraform.pub
-/dot/ssh/known_hosts
-/dot/ssh/git-annex-*
 /dot/sbt/boot
 /dot/sbt/launch
 /dot/sbt/launchers

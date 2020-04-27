@@ -61,7 +61,6 @@
     nfs.server = {
       enable = true;
       exports = ''
-        /portal-appliance 192.168.39.0/24(insecure,rw,sync,no_subtree_check,crossmnt,fsid=0)
         /portal-appliance/mongodb 192.168.39.0/24(insecure,rw,sync,no_subtree_check,fsid=1)
         /portal-appliance/db 192.168.39.0/24(insecure,rw,sync,no_subtree_check,no_root_squash,fsid=2)
         /portal-appliance/data 192.168.39.0/24(insecure,rw,sync,no_subtree_check,fsid=3)
@@ -70,7 +69,9 @@
         /portal-appliance/provisioning 192.168.39.0/24(insecure,rw,sync,no_subtree_check,anonuid=1000,anongid=20,root_squash,fsid=6)
         /portal-appliance/seeddata 192.168.39.0/24(insecure,rw,sync,no_subtree_check,anonuid=1000,anongid=20,root_squash,fsid=7)
         /portal-appliance/minio 192.168.39.0/24(insecure,rw,sync,no_subtree_check,anonuid=1000,anongid=20,root_squash,fsid=8)
-        /portal-appliance/minio-ova 192.168.39.0/24(insecure,rw,sync,no_subtree_check,anonuid=1000,anongid=20,root_squash,fsid=8)
+        /portal-appliance/minio-ova 192.168.39.0/24(insecure,rw,sync,no_subtree_check,anonuid=1000,anongid=20,root_squash,fsid=9)
+        /portal-appliance/keycloakpostgres 192.168.39.0/24(insecure,rw,sync,no_subtree_check,anonuid=1000,anongid=20,no_root_squash,fsid=10)
+        /portal-appliance/mattermost 192.168.39.0/24(insecure,rw,sync,no_subtree_check,anonuid=1000,anongid=20,no_root_squash,fsid=11)
       '';
     };
 
@@ -83,19 +84,25 @@
       };
     };
 
-    minio = {
-      enable = true;
-      accessKey = "minioadmin";
-      secretKey = "password";
-    };
+    # minio = {
+    #   enable = true;
+    #   accessKey = "minioadmin";
+    #   secretKey = "password";
+    # };
 
-    postgresql = {
-      enable = true;
-      package = pkgs.postgresql_9_6;
-    };
+    # postgresql = {
+    #   enable = true;
+    #   package = pkgs.postgresql_9_6;
+    # };
 
-    mongodb = {
-      enable = true;
+    # mongodb = {
+    #   enable = true;
+    # };
+  };
+
+  systemd.services = {
+    falcon-sensor = import ../../modules/falcon-sensor/falcon.nix {
+      inherit pkgs;
     };
   };
 

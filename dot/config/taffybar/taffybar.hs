@@ -80,9 +80,9 @@ cpuCallback = do
   (_, systemLoad, totalLoad) <- cpuLoad
   return [totalLoad, systemLoad]
 
-getFullWorkspaceNames :: X11Property [(WorkspaceIdx, String)]
+getFullWorkspaceNames :: X11Property [(WorkspaceId, String)]
 getFullWorkspaceNames = go <$> readAsListOfString Nothing "_NET_DESKTOP_FULL_NAMES"
-  where go = zip [WSIdx i | i <- [0..]]
+  where go = zip [WorkspaceId i | i <- [0..]]
 
 workspaceNamesLabelSetter workspace =
   fromMaybe "" . lookup (workspaceIdx workspace) <$>
@@ -139,7 +139,7 @@ main = do
       workspaces = workspacesNew myWorkspacesConfig
       fullEndWidgets =
         map (>>= buildContentsBox)
-              [ textClockNewWith defaultClockConfig "%a %b %_d %H:%M" 1
+              [ textClockNewWith defaultClockConfig { clockFormatString = "%a %b %_d %H:%M", clockUpdateStrategy = ConstantInterval 1 }
               , textBatteryNew "$percentage$% ($time$)"
               , batteryIconNew
               , cpuGraph
@@ -153,7 +153,7 @@ main = do
         map (>>= buildContentsBox)
                        [ batteryIconNew
                        , textBatteryNew "$percentage$%"
-                       , textClockNewWith defaultClockConfig "%a %b %_d %H:%M" 1
+                       , textClockNewWith defaultClockConfig { clockFormatString = "%a %b %_d %H:%M", clockUpdateStrategy = ConstantInterval 1 }
                        , sniTrayNew
                        ]
       baseConfig =

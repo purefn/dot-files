@@ -3,6 +3,11 @@ self: super:
 {
   adjust-volume = super.haskellPackages.callPackage ./adjust-volume {};
 
+  blueman = super.blueman.overrideAttrs (oldAttrs: {
+    buildInputs = oldAttrs.buildInputs ++ [ self.libappindicator-gtk3 ];
+    configureFlags = oldAttrs.configureFlags ++ [ "--enable-appindicator" ];
+  });
+
   # haskell-ide-engine =
   #   let
   #     src = super.fetchFromGitHub (builtins.fromJSON (builtins.readFile ./all-hies.json));
@@ -77,7 +82,7 @@ self: super:
   nix-ghci = super.callPackage ./nix-ghci {};
 
   # override to add appindicator support
-  pasystray = super.callPackage ./pasystray {};
+  # pasystray = super.callPackage ./pasystray {};
 
   taffybar = super.taffybar.override {
     packages = hpkgs: [ hpkgs.hostname ];

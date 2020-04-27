@@ -27,10 +27,12 @@
 
   hardware = {
     opengl.driSupport32Bit = true;
-    pulseaudio.support32Bit = true;
+    bluetooth.enable = true;
   };
 
   services = {
+    blueman.enable = true;
+
     gnome3.gnome-keyring.enable = true;
 
     mongodb.bind_ip = "0.0.0.0";

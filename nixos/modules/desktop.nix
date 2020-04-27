@@ -9,12 +9,10 @@
 
     windowManager = {
       # xmonad is started in ~/.xsession
-      default = "none";
     };
 
     desktopManager = {
       xterm.enable = false;
-      default = "none";
     };
 
     displayManager = {

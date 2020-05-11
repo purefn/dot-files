@@ -20,6 +20,8 @@
       enable = true;
       forwardX11 = true;
     };
+
+    tailscale.enable = true;
   };
 
   virtualisation = {

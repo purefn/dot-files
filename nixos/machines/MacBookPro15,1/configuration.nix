@@ -8,11 +8,11 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ../../cachix.nix
       ../../modules/desktop.nix
       ../../modules/networking.nix
       ../../modules/services.nix
       ../../modules/system.nix
+      ../../modules/vmware-guest.nix
     ];
 
   boot = {
@@ -21,11 +21,9 @@
       version = 2;
       device = "/dev/sda";
     };
-  };
 
-  # nix = {
-  #   binaryCaches = [ "ssh://nix-ssh@192.168.1.12" "https://cache.nixos.org/" ];
-  # };
+    tmpOnTmpfs = true;
+  };
 
   networking = {
     hostName = "tealc";
@@ -34,6 +32,10 @@
     extraHosts = ''
       192.168.39.196 portal.local minio.local minio-ova.local mattermost.local keycloak.local
     '';
+  };
+
+  nix = {
+    maxJobs = pkgs.lib.mkForce 4;
   };
 
   fileSystems = {
@@ -47,17 +49,65 @@
   };
 
   virtualisation = {
-    vmware.guest.enable = true;
+    vmware.guest = {
+      enable = true;
+      headless = false;
+    };
 
     libvirtd.enable = true;
-
-    # virtualbox.host = {
-    #   enable = true;
-    #   enableHardening = false;
-    # };
   };
 
   services = {
+    collectd = {
+      enable = true;
+      autoLoadPlugin = true;
+      extraConfig = ''
+        Interval 1
+        <Plugin rrdtool>
+          DataDir "/var/lib/collectd"
+          CreateFilesAsync false
+          CacheTimeout 120
+          CacheFlush   900
+          WritesPerSecond 50
+        </Plugin>
+        <Plugin "df">
+          MountPoint "/tmp"
+        </Plugin>
+        <Plugin cpu>
+          ReportByCpu true
+          ReportByState true
+          ValuesPercentage false
+          ReportNumCpu false
+          ReportGuestState false
+          SubtractGuestState true
+        </Plugin>
+        <Plugin memory>
+          ValuesAbsolute true
+        </Plugin>
+        <Plugin swap>
+          ReportIO false
+        </Plugin>
+      '';
+    };
+    lighttpd = {
+      enable = true;
+      collectd = {
+        enable = true;
+        collectionCgi = config.services.collectd.package.overrideDerivation(old: {
+          name = "collection.cgi";
+          dontConfigure = true;
+          buildPhase = "true";
+          installPhase = ''
+            substituteInPlace contrib/collection.cgi  \
+              --replace '"/etc/collection.conf"' '$ENV{COLLECTION_CONF}' \
+              --replace 'hour => 3600,' 'hour => 3600, threehour => 3600*3,' \
+              --replace 'Hour Day Week Month Year' 'Hour Threehour Day Week Month Year'
+            cp contrib/collection.cgi $out
+          '';
+        });
+      };
+    };
+
     nfs.server = {
       enable = true;
       exports = ''
@@ -75,14 +125,14 @@
       '';
     };
 
-    openvpn.servers = {
-      simspace = {
-        config = ''
-          config /var/lib/vpn/Simspace-UDP-richard.wallace.conf
-        '';
-        updateResolvConf = true;
-      };
-    };
+    # openvpn.servers = {
+    #   simspace = {
+    #     config = ''
+    #       config /var/lib/vpn/Simspace-UDP-richard.wallace.conf
+    #     '';
+    #     updateResolvConf = true;
+    #   };
+    # };
 
     # minio = {
     #   enable = true;
@@ -113,5 +163,5 @@
     '';
   };
 
-  system.stateVersion = "19.03"; # Did you read the comment?
+  # system.stateVersion = "19.03"; # Did you read the comment?
 }

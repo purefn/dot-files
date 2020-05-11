@@ -6,6 +6,5 @@
 # Executed by xdm/gdm/kdm at login
 #
 
-# shouldn't be needed since we're using xinit
-# /bin/sh --login -i ~/.xinitrc
+/bin/sh --login -i ~/.xinitrc
 

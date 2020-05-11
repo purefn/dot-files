@@ -7,8 +7,12 @@ Include config.local
 
 Host simspace-jenkins-node-*
   User remotejenkins
-  # IdentityFile ~/.ssh/simspace_template.key
+  IdentityFile ~/.ssh/simspace_template.key
   #
+
+Host jenkins-pipeline-node-*
+  User simspace
+  IdentityFile ~/.ssh/simspace_template.key
 
 Host jenkins-node-*
   User remotejenkins

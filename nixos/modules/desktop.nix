@@ -9,7 +9,6 @@
 
     displayManager = {
       lightdm.enable = true;
-      defaultSession = "xinitrc";
       session = [
         {
           manage = "desktop";

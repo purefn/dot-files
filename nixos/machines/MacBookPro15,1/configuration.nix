@@ -29,13 +29,15 @@
     hostName = "tealc";
     firewall.enable = false;
 
-    extraHosts = ''
-      192.168.39.196 portal.local minio.local minio-ova.local mattermost.local keycloak.local
-    '';
+    # extraHosts = ''
+    #   192.168.39.196 portal.local minio.local minio-ova.local mattermost.local keycloak.local
+    # '';
   };
 
   nix = {
     maxJobs = pkgs.lib.mkForce 4;
+    buildCores = pkgs.lib.mkForce 2;
+    daemonNiceLevel = 10;
   };
 
   fileSystems = {
@@ -54,7 +56,7 @@
       headless = false;
     };
 
-    libvirtd.enable = true;
+    # libvirtd.enable = true;
   };
 
   services = {
@@ -164,4 +166,18 @@
   };
 
   # system.stateVersion = "19.03"; # Did you read the comment?
+
+
+#   services.kubernetes = {
+#     easyCerts = true;
+#     addons.dashboard.enable = true;
+#     roles = ["master" "node"];
+#     # apiserver = {
+#     #   securePort = 443;
+#     #   # advertiseAddress = config.networking.privateIPv4;
+#     # };
+#     kubelet.extraOpts = "--fail-swap-on=false";
+#     masterAddress = "tealc";
+#   };
+#   services.dockerRegistry.enable = true;
 }

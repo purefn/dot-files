@@ -13,9 +13,9 @@
       session = [
         {
           manage = "desktop";
-          name = "xinitrc";
+          name = "home-manager";
           start = ''
-            ~/.xinitrc &
+            ~/.xsession-hm &
             waitPID=$!
           '';
         }

@@ -13,4 +13,4 @@ $ nix-shell '<home-manager>' -A install
 
 TODO
 ----
-* Switch from using home-manager separately from NixOS to using it as a module
+* Switch to using home-manager as a NixOS module

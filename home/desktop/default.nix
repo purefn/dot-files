@@ -2,12 +2,11 @@
 
 {
   gtk = {
-    enable = false;
+    enable = true;
 
-    # TODO try material-black https://www.gnome-look.org/s/Gnome/p/1333360
     iconTheme = {
-      package = pkgs.gnome3.adwaita-icon-theme;
-      name = "Adwaita";
+      package = pkgs.papirus-icon-theme;
+      name = "Papirus";
     };
 
     theme = {

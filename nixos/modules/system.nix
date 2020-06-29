@@ -70,7 +70,6 @@
     ];
   };
 
-
   programs.bash.enableCompletion = true;
 
   nixpkgs.config = {

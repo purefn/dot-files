@@ -23,6 +23,8 @@
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
+
+    tmpOnTmpfs = true;
   };
 
   hardware = {
@@ -36,6 +38,12 @@
     gnome3.gnome-keyring.enable = true;
 
     mongodb.bind_ip = "0.0.0.0";
+
+    nix-serve = {
+      enable = true;
+      port = 5555;
+      secretKeyFile = "/var/nix/nix-serve/priv.key";
+    };
 
     printing = {
       enable = true;
@@ -52,21 +60,19 @@
     firewall.enable = false;
   };
 
-  security.pam.services = [
-    { name = "gnome_keyring";
+  security.pam.services = {
+    gnome_keyring = {
       text = ''
         auth     optional    ${pkgs.gnome3.gnome_keyring}/lib/security/pam_gnome_keyring.so
         session  optional    ${pkgs.gnome3.gnome_keyring}/lib/security/pam_gnome_keyring.so auto_start
 
         password  optional    ${pkgs.gnome3.gnome_keyring}/lib/security/pam_gnome_keyring.so
       '';
-    }
-  ];
+    };
+  };
 
   nix = {
-    binaryCaches = [ "https://cache.nixos.org/" "https://nixcache.reflex-frp.org" "https://cache.dhall-lang.org" ];
-    binaryCachePublicKeys = [ "ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI=" "cache.dhall-lang.org:I9/H18WHd60olG5GsIjolp7CtepSgJmM2CsO813VTmM=" ];
-
+    trustedUsers = ["rwallace"];
     buildMachines = [
       # {
       #   hostName = "seedbox";

@@ -1,1 +1,16 @@
-Run the setup.sh script to have links setup for each file in the "dot" directory to the $HOME directory.  If files already exist in the home directory, they are copied to .bck files before the link is created.  If a link already exists in the home directory, nothing is done.
+Configuration for nixos and home-manager.
+
+Setup
+-----
+```
+$ ln /path/to/clone/nixos /etc/nixos
+$ nixos-rebuild switch
+$ ln /path/to/clone/home ~/.config/nixpkgs
+$ nix-channel --add https://github.com/rycee/home-manager/archive/master.tar.gz home-manager
+$ nix-channel --update
+$ nix-shell '<home-manager>' -A install
+```
+
+TODO
+----
+* Switch from using home-manager separately from NixOS to using it as a module

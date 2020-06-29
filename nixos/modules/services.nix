@@ -2,12 +2,12 @@
 
 {
   services = {
-    keybase.enable = true;
+    # keybase.enable = true;
 
-    kbfs = {
-      enable = true;
-      extraFlags = [ "-label %u" ];
-    };
+    # kbfs = {
+    #   enable = true;
+    #   extraFlags = [ "-label %u" ];
+    # };
 
     locate.enable = true;
 

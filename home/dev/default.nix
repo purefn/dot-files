@@ -4,6 +4,7 @@
   home = {
     file = {
       ".ghci".source = ./ghci;
+      ".stack/config.yaml".source = ./stack.yaml;
     };
     packages = with pkgs; [
       # general dev

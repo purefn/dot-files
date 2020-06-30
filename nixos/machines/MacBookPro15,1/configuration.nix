@@ -12,7 +12,6 @@
       ../../modules/networking.nix
       ../../modules/services.nix
       ../../modules/system.nix
-      ../../modules/vmware-guest.nix
     ];
 
   boot = {

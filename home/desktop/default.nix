@@ -45,6 +45,7 @@
       # gnome3.networkmanagerapplet
       # gnome3.networkmanager_openconnect
       gnome3.seahorse
+      gnome3.zenity
       libnotify
 
       # audio

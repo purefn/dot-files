@@ -6,6 +6,26 @@
 with lib;
 
 {
+  programs = {
+    git = {
+      userEmail = mkForce "richard.wallace@simspace.com";
+    };
+
+    ssh = {
+      matchBlocks = mkForce {
+        "tealc-osx" = {
+          user = "richard";
+          hostname = "172.16.18.1";
+        };
+
+        "jenkins-pipeline-node-*" = {
+          user = "simspace";
+          identityFile = "~/.ssh/simspace_template.key";
+        };
+      };
+    };
+  };
+
   services = {
     blueman-applet.enable = mkForce false;
     cbatticon.enable = mkForce false;

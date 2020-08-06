@@ -13,6 +13,7 @@
       # darcs
       gnumake
       ngrok
+      binutils-unwrapped
 
       # haskell dev
       # all-hies
@@ -30,6 +31,10 @@
       haskellPackages.pandoc
       # haskellPackages.pointful
       # haskellPackages.pointfree
+
+      # nix
+      haskellPackages.nixfmt
+      niv
     ];
   };
 
@@ -50,8 +55,14 @@
     };
 
     extraConfig = {
+      checkout = {
+        defaultRemote = "origin";
+      };
       core = {
         editor = "nvim";
+      };
+      pull = {
+        rebase = false;
       };
       rerere = {
         enabled = true;

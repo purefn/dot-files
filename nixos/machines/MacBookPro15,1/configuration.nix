@@ -34,8 +34,8 @@
   };
 
   nix = {
-    maxJobs = pkgs.lib.mkForce 4;
-    buildCores = pkgs.lib.mkForce 2;
+    # maxJobs = pkgs.lib.mkForce 4;
+    # buildCores = pkgs.lib.mkForce 2;
     daemonNiceLevel = 10;
   };
 

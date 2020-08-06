@@ -2,6 +2,7 @@
 
 {
   home.packages = with pkgs; [
+    nix-prefetch-git
     sshfsFuse
   ];
 
@@ -14,7 +15,6 @@
       compression = true;
 
       extraConfig = ''
-        UseRoaming = no
         ForwardX11 = yes
       '';
 

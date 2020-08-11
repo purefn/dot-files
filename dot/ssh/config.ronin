@@ -1,8 +1,0 @@
-Host tealc-osx
-  HostName 192.168.1.97
-  User richard
-
-Host tealc
-  HostName 172.16.18.128
-  User rwallace
-  ProxyJump tealc-osx

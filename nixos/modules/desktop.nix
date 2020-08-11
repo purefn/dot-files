@@ -7,22 +7,14 @@
     layout = "us";
     xkbOptions = "compose:ralt";
 
-    windowManager = {
-      # xmonad is started in ~/.xsession
-    };
-
-    desktopManager = {
-      xterm.enable = false;
-    };
-
     displayManager = {
       lightdm.enable = true;
       session = [
         {
           manage = "desktop";
-          name = "xinitrc";
+          name = "home-manager";
           start = ''
-            ~/.xinitrc &
+            ~/.xsession-hm &
             waitPID=$!
           '';
         }

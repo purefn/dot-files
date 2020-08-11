@@ -23,6 +23,8 @@
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
+
+    tmpOnTmpfs = true;
   };
 
   hardware = {
@@ -37,6 +39,12 @@
 
     mongodb.bind_ip = "0.0.0.0";
 
+    nix-serve = {
+      enable = true;
+      port = 5555;
+      secretKeyFile = "/var/nix/nix-serve/priv.key";
+    };
+
     printing = {
       enable = true;
       drivers = [ pkgs.gutenprint pkgs.hplipWithPlugin ];
@@ -45,6 +53,34 @@
     xserver.videoDrivers = [ "nvidia" ];
   };
 
+  # fix for broken nvidia driver build https://github.com/NixOS/nixpkgs/issues/90459#issuecomment-647041204
+  nixpkgs.overlays = [
+    (self: super: {
+      linuxPackages_latest = super.linuxPackages_latest.extend (self: super: {
+        nvidiaPackages = super.nvidiaPackages // {
+          stable = super.nvidiaPackages.stable.overrideAttrs (attrs: {
+            patches = [
+              (pkgs.fetchpatch {
+                name = "nvidia-kernel-5.7.patch";
+                url = "https://gitlab.com/snippets/1965550/raw";
+                sha256 = "03iwxhkajk65phc0h5j7v4gr4fjj6mhxdn04pa57am5qax8i2g9w";
+              })
+            ];
+
+            passthru = {
+              settings = pkgs.callPackage (import <nixpkgs/pkgs/os-specific/linux/nvidia-x11/settings.nix> self.nvidiaPackages.stable "15psxvd65wi6hmxmd2vvsp2v0m07axw613hb355nh15r1dpkr3ma") {
+                withGtk2 = true;
+                withGtk3 = false;
+              };
+
+              persistenced = pkgs.lib.mapNullable (hash: pkgs.callPackage (import <nixpkgs/pkgs/os-specific/linux/nvidia-x11/persistenced.nix> self.nvidiaPackages.stable hash) { }) "13izz9p2kg9g38gf57g3s2sw7wshp1i9m5pzljh9v82c4c22x1fw";
+            };
+          });
+        };
+      });
+    })
+  ];
+
   networking = {
     hostName = "ronin";
     networkmanager.enable = true;
@@ -52,21 +88,19 @@
     firewall.enable = false;
   };
 
-  security.pam.services = [
-    { name = "gnome_keyring";
+  security.pam.services = {
+    gnome_keyring = {
       text = ''
         auth     optional    ${pkgs.gnome3.gnome_keyring}/lib/security/pam_gnome_keyring.so
         session  optional    ${pkgs.gnome3.gnome_keyring}/lib/security/pam_gnome_keyring.so auto_start
 
         password  optional    ${pkgs.gnome3.gnome_keyring}/lib/security/pam_gnome_keyring.so
       '';
-    }
-  ];
+    };
+  };
 
   nix = {
-    binaryCaches = [ "https://cache.nixos.org/" "https://nixcache.reflex-frp.org" "https://cache.dhall-lang.org" ];
-    binaryCachePublicKeys = [ "ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI=" "cache.dhall-lang.org:I9/H18WHd60olG5GsIjolp7CtepSgJmM2CsO813VTmM=" ];
-
+    trustedUsers = ["rwallace"];
     buildMachines = [
       # {
       #   hostName = "seedbox";

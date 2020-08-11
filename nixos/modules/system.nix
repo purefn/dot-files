@@ -3,21 +3,12 @@
 {
   nix = {
     autoOptimiseStore = true;
-    trustedBinaryCaches = [
-      "https://hydra.nixos.org"
-    ];
-    binaryCaches = [
-      "https://cache.nixos.org"
-    ];
-    binaryCachePublicKeys = [ "hydra.nixos.org-1:CNHJZBh9K4tP3EKF6FkkgeVYsS3ohTl+oS0Qa8bezVs=" ];
 
-    distributedBuilds = true;
-    trustedUsers = [ "nixBuild" ];
+    distributedBuilds = false;
+    trustedUsers = [ "nixBuild" "rwallace" ];
 
     maxJobs = "auto";
-    # maxJobs = 1;
     buildCores = 0;
-    #buildCores = 1;
   };
 
   # Select internationalisation properties.
@@ -78,7 +69,6 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBRFLScI1Q6ul6goyJuCd+/jASAexkJ4uz5W7qdBJ/e3 nixBuild"
     ];
   };
-
 
   programs.bash.enableCompletion = true;
 

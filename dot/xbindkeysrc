@@ -1,9 +1,0 @@
-"adjust-volume increase"
-  XF86AudioRaiseVolume
-
-"adjust-volume decrease"
-  XF86AudioLowerVolume
-
-"adjust-volume toggle"
-  XF86AudioMute
-

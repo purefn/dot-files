@@ -31,8 +31,6 @@
     enableFontDir = true;
     enableGhostscriptFonts = true;
     fontconfig = {
-      # dpi = 96;
-
       defaultFonts = {
         monospace = [ "Fira Code" "DejaVu Sans Mono" ];
       };

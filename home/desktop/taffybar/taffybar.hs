@@ -115,7 +115,7 @@ main = do
                 (\size _ -> lift $ loadPixbufByName size "application-default-icon")
       layout = layoutNew defaultLayoutConfig
       windows = windowsNew defaultWindowsConfig
-      notifySystemD = void $ runCommandFromPath ["systemd-notify", "--ready"]
+      -- notifySystemD = void $ runCommandFromPath ["systemd-notify", "--ready"]
       myWorkspacesConfig =
         defaultWorkspacesConfig
         { underlineHeight = 3
@@ -153,7 +153,7 @@ main = do
         , barPosition = Top
         , barPadding = 0
         , barHeight = 30
-        , cssPath = cssFilePath
+        -- , cssPath = cssFilePath
         }
       selectedConfig =
         baseConfig { endWidgets = fullEndWidgets, barHeight = 42 }

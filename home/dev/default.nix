@@ -75,9 +75,10 @@
       ".*.swn"
       ".*.swp"
       ".*.swo"
+      "portal-suite/**/shell.nix"
     ];
 
-    lfs.enable = true;
+    # lfs.enable = true;
   };
 
   services = {

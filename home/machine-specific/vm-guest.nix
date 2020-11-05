@@ -13,6 +13,10 @@ with lib;
 
     ssh = {
       matchBlocks = mkForce {
+        "* !192.168.99.* !172.16.18.* !tealc-osx" = {
+          proxyJump = "richard@172.16.18.1";
+        };
+
         "tealc-osx" = {
           user = "richard";
           hostname = "172.16.18.1";
@@ -21,6 +25,12 @@ with lib;
         "jenkins-pipeline-node-*" = {
           user = "simspace";
           identityFile = "~/.ssh/simspace_template.key";
+        };
+
+        "qa-portal.simspace.lan" = {
+          user = "simadmin";
+          identityFile = "~/.ssh/simspace-portal.key";
+          port = 6000;
         };
       };
     };

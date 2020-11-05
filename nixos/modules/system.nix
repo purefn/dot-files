@@ -26,8 +26,9 @@
       gitFull
       git-crypt
       gnupg
-      pciutils
       neovim
+      pciutils
+      unionfs-fuse
       which
     ];
 

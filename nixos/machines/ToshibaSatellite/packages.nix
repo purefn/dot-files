@@ -28,7 +28,7 @@ with import <nixpkgs> {};
   # desktop
   adjust-volume
   dmenu
-  fire-code
+  fira-code
   fira-code-symbols
   gnome3.adwaita-icon-theme
   hicolor-icon-theme
@@ -42,7 +42,7 @@ with import <nixpkgs> {};
   libnotify
   notify-osd
   kitty
-  seahorse
+  # seahorse
   haskellPackages.status-notifier-item
   taffybar
   xbindkeys
@@ -76,7 +76,7 @@ with import <nixpkgs> {};
   ngrok
 
   # haskell dev
-  all-hies
+  # all-hies
   cabal-install
   nix-ghci
   # haskell-ide-engine

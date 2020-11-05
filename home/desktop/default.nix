@@ -105,7 +105,6 @@
     network-manager-applet.enable = true;
     pasystray.enable = true;
     status-notifier-watcher.enable = true;
-    taffybar.enable = true;
     xscreensaver.enable = true;
 
     gnome-keyring = {
@@ -113,10 +112,17 @@
       components = [ "pkcs11" "secrets" "ssh" ];
     };
 
-    picom = {
+    taffybar = {
       enable = true;
-      blur = true;
+      package = pkgs.taffybar.override {
+        packages = ps: with ps; [ hostname ];
+      };
     };
+
+    # picom = {
+    #   enable = true;
+    #   blur = true;
+    # };
   };
 
   xdg.configFile = {

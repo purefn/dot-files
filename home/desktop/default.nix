@@ -68,11 +68,15 @@
     ];
   };
 
-  nixpkgs.config = {
-    # might be better as a program module
-    MPlayer = {
-      pulseSupport = true;
+  nixpkgs = {
+    config = {
+      # might be better as a program module
+      MPlayer = {
+        pulseSupport = true;
+      };
     };
+
+    overlays = [ (import ./overlay) ];
   };
 
   programs = {

@@ -21,7 +21,7 @@
       device = "/dev/sda";
     };
 
-    tmpOnTmpfs = true;
+    # tmpOnTmpfs = true;
   };
 
   networking = {
@@ -34,8 +34,8 @@
   };
 
   nix = {
-    # maxJobs = pkgs.lib.mkForce 4;
-    # buildCores = pkgs.lib.mkForce 2;
+    maxJobs = pkgs.lib.mkForce 4;
+    buildCores = pkgs.lib.mkForce 1;
     daemonNiceLevel = 10;
   };
 
@@ -60,7 +60,7 @@
 
   services = {
     collectd = {
-      enable = true;
+      enable = false;
       autoLoadPlugin = true;
       extraConfig = ''
         Interval 1
@@ -91,7 +91,7 @@
       '';
     };
     lighttpd = {
-      enable = true;
+      enable = false;
       collectd = {
         enable = true;
         collectionCgi = config.services.collectd.package.overrideDerivation(old: {
@@ -110,7 +110,7 @@
     };
 
     nfs.server = {
-      enable = true;
+      enable = false;
       exports = ''
         /portal-appliance/mongodb 192.168.39.0/24(insecure,rw,sync,no_subtree_check,fsid=1)
         /portal-appliance/db 192.168.39.0/24(insecure,rw,sync,no_subtree_check,no_root_squash,fsid=2)
@@ -151,18 +151,11 @@
     # };
   };
 
-  systemd.services = {
-    falcon-sensor = import ../../modules/falcon-sensor/falcon.nix {
-      inherit pkgs;
-    };
-  };
-
-  programs = {
-    ssh.extraConfig = ''
-      Host * !192.168.99.* !172.16.18.*
-        ProxyJump richard@172.16.18.1
-    '';
-  };
+  # systemd.services = {
+  #   falcon-sensor = import ../../modules/falcon-sensor/falcon.nix {
+  #     inherit pkgs;
+  #   };
+  # };
 
   # system.stateVersion = "19.03"; # Did you read the comment?
 

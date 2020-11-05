@@ -2,10 +2,6 @@
 
 {
   services = {
-    xserver = {
-      synaptics.enable = true;
-    };
-    
     logind.extraConfig = ''
       HandleLidSwitch=suspend
       HandleSuspendKey=suspend

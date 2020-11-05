@@ -12,7 +12,6 @@
       ../../modules/networking.nix
       ../../modules/services.nix
       ../../modules/system.nix
-      ../../modules/vmware-guest.nix
     ];
 
   boot = {
@@ -35,8 +34,8 @@
   };
 
   nix = {
-    maxJobs = pkgs.lib.mkForce 4;
-    buildCores = pkgs.lib.mkForce 2;
+    # maxJobs = pkgs.lib.mkForce 4;
+    # buildCores = pkgs.lib.mkForce 2;
     daemonNiceLevel = 10;
   };
 

@@ -28,38 +28,45 @@
     };
   };
 
-  home.packages = with pkgs; [
-    # basics
-    dmenu
-    fira-code
-    fira-code-symbols
-    gnome3.eog
-    gnome3.evince
-    gnome3.file-roller
-    gnome3.gnome_keyring
-    gnome3.networkmanagerapplet
-    gnome3.networkmanager_openconnect
-    gnome3.seahorse
-    libnotify
+  home = {
+    file = {
+      ".terminfo/x/xterm-kitty".source = "${pkgs.kitty}/lib/kitty/terminfo/x/xterm-kitty";
+    };
 
-    # audio
-    # pamixer
-    # paprefs
-    # pasystray
-    # pavucontrol
+    packages = with pkgs; [
+      # basics
+      dmenu
+      fira-code
+      fira-code-symbols
+      gnome3.eog
+      gnome3.evince
+      gnome3.file-roller
+      gnome3.gnome_keyring
+      # gnome3.networkmanagerapplet
+      # gnome3.networkmanager_openconnect
+      gnome3.seahorse
+      gnome3.zenity
+      libnotify
 
-    # apps
-    gimp
-    handbrake
-    mplayer
-    # mumble
-    # pithos
-    # steam
-    transmission_remote_gtk
-    # linuxPackages.virtualbox
-    # vagrant
-    wireshark
-  ];
+      # audio
+      # pamixer
+      # paprefs
+      # pasystray
+      # pavucontrol
+
+      # apps
+      gimp
+      handbrake
+      mplayer
+      # mumble
+      # pithos
+      # steam
+      transmission_remote_gtk
+      # linuxPackages.virtualbox
+      # vagrant
+      wireshark
+    ];
+  };
 
   nixpkgs = {
     config = {

@@ -11,7 +11,6 @@ import           Data.List
 import           Data.List.Split
 import qualified Data.Map as M
 import           Data.Maybe
-import           Network.HostName
 import           StatusNotifier.Tray
 import           System.Directory
 import           System.Environment
@@ -106,16 +105,8 @@ logDebug = do
   -- enableLogger "System.Taffybar.WindowIcon" DEBUG
   -- enableLogger "System.Taffybar.Widget.Generic.PollingLabel" DEBUG
 
-cssFileByHostname =
-  [ ("uber-loaner", "uber-loaner.css")
-  , ("ronin", "taffybar.css")
-  ]
-
 main = do
-  hostName <- getHostName
   homeDirectory <- getHomeDirectory
-  cssFilePath <-
-    traverse (getUserConfigFile "taffybar") $ lookup hostName cssFileByHostname
   let cpuGraph = pollingGraphNew cpuCfg 5 cpuCallback
       memoryGraph = pollingGraphNew memCfg 5 memCallback
       myIcons = scaledWindowIconPixbufGetter $
@@ -146,8 +137,6 @@ main = do
               , memoryGraph
               , networkGraphNew netCfg Nothing
               , sniTrayNew
-              -- , networkMonitorNew defaultNetFormat Nothing >>= setMinWidth 200
-              -- , fsMonitorNew 60 ["/dev/sdd2"]
               ]
       shortLaptopEndWidgets =
         map (>>= buildContentsBox)
@@ -167,22 +156,11 @@ main = do
         , cssPath = cssFilePath
         }
       selectedConfig =
-        fromMaybe baseConfig $ lookup hostName
-          [ ( "uber-loaner"
-            , baseConfig { endWidgets = shortLaptopEndWidgets }
-            )
-          , ( "ronin"
-            , baseConfig { endWidgets = fullEndWidgets, barHeight = 42 }
-          )
-          ]
+        baseConfig { endWidgets = fullEndWidgets, barHeight = 42 }
       simpleTaffyConfig = selectedConfig
         { centerWidgets = map (>>= buildContentsBox) []
-        -- , endWidgets = []
-        -- , startWidgets = []
         }
   startTaffybar $
-    appendHook notifySystemD $
-    -- appendHook (getHost False) $
     withLogServer $
     withToggleServer $
     toTaffyConfig simpleTaffyConfig

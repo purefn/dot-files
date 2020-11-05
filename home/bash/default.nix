@@ -4,6 +4,8 @@
   home.packages = with pkgs; [
     awscli
     aws-vault
+    bashtop
+    bpytop
     lsof
     parallel
     #powerline-fonts
@@ -14,6 +16,8 @@
     unzip
     zip
   ];
+
+  nixpkgs.overlays = [ (import ./overlay) ];
 
   programs = {
     bash = {

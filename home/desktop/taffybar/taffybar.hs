@@ -110,6 +110,7 @@ main = do
   let cpuGraph = pollingGraphNew cpuCfg 5 cpuCallback
       memoryGraph = pollingGraphNew memCfg 5 memCallback
       myIcons = scaledWindowIconPixbufGetter $
+                getWindowIconPixbufFromEWMH <|||>
                 getWindowIconPixbufFromChrome <|||>
                 unscaledDefaultGetWindowIconPixbuf <|||>
                 (\size _ -> lift $ loadPixbufByName size "application-default-icon")

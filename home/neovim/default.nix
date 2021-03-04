@@ -8,58 +8,99 @@
     vimAlias = true;
     vimdiffAlias = true;
 
-    configure = {
-      packages = with pkgs.vimPlugins; {
-        basics = {
-          # TODO add these?
-          # * mundo
-          # * nerdtree
-          # * tagbar
-          # * extradite
-          start = [
-            ctrlp-vim
-            deoplete-nvim
-            fugitive
-            fzfWrapper
-            fzf-vim
-            LanguageClient-neovim
-            supertab
-            syntastic
-            vim-airline
-            vim-airline-themes
-            vim-commentary
-            vim-indent-guides
-            vim-pandoc
-            vim-pandoc-syntax
+    plugins = with pkgs.vimPlugins; [
+      # TODO add these?
+      # * mundo
+      # * nerdtree
+      # * tagbar
+      # * extradite
+      {
+        plugin = ctrlp-vim;
+        config = ''
+          " Fuzzy find files
+          nnoremap <silent> <Leader><space> :CtrlP<CR>
+          let g:ctrlp_max_files=0
+          let g:ctrlp_show_hidden=1
+          let g:ctrlp_custom_ignore = { 'dir': '\v[\/](.git|.cabal-sandbox|.stack-work)$' }
 
-            vim-colorschemes
-            wombat256-vim
-          ];
-        };
+          " fuzzy find buffers
+          noremap <leader>b<space> :CtrlPBuffer<cr>
+        '';
+      }
+      {
+        plugin = deoplete-nvim;
+        config = ''
+          let g:deoplete#enable_at_startup = 1
+        '';
+      }
+      fugitive
+      fzfWrapper
+      fzf-vim
+      {
+        plugin = LanguageClient-neovim;
+        config = ''
+          augroup LanguageClient_config
+            autocmd!
+            autocmd User LanguageClientStarted setlocal signcolumn=yes
+            autocmd User LanguageClientStopped setlocal signcolumn=auto
+          augroup END
+        '';
+      }
+      purescript-vim
+      {
+        plugin = supertab;
+        config = ''
+          " Use buffer words as default tab completion
+          let g:SuperTabDefaultCompletionType = '<c-x><c-p>'
+        '';
+      }
+      {
+        plugin = syntastic;
+        config = ''
+          " disable syntastic for haskell
+          let g:syntastic_haskell_checkers = [${"''"}]
+        '';
+      }
+      {
+        plugin = vim-airline;
+        config = ''
+          " Use powerline fonts for airline
+          if !exists('g:airline_symbols')
+            let g:airline_symbols = {}
+          endif
 
-        haskell = {
-        };
+          let g:airline_powerline_fonts = 1
+          let g:airline_symbols.space = "\ua0"
+          let g:airline#extensions#tabline#enabled = 1
+        '';
+      }
+      vim-airline-themes
+      vim-colorschemes
+      vim-commentary
+      vim-indent-guides
+      vim-nix
+      vim-pandoc
+      vim-pandoc-syntax
+      {
+        plugin = wombat256-vim;
+        config = ''
+          colorscheme wombat256mod
 
-        nix = {
-          start = [
-            vim-nix
-          ];
-        };
+          " Adjust signscolumn to match wombat
+          hi! link SignColumn LineNr
 
-        purescript = {
-          start = [
-            purescript-vim
-          ];
-        };
-      };
+          " Match wombat colors in nerd tree
+          hi Directory guifg=#8ac6f2
+        '';
+      }
+    ];
 
-      customRC =
-        let
-          vimrcs = pkgs.lib.sourceByRegex ./vimrc [ ".*\.vim$" ];
-          cfgs = builtins.attrNames (builtins.readDir (vimrcs).outPath);
-          exeSrc = a: "execute 'source ${vimrcs.outPath}/${a}'";
-        in
-          pkgs.lib.concatMapStringsSep "\n" exeSrc cfgs;
-    };
+    extraConfig =
+      let
+        vimrcs = pkgs.lib.sourceByRegex ./vimrc [ ".*\.vim$" ];
+        cfgs = builtins.attrNames (builtins.readDir (vimrcs).outPath);
+        exeSrc = a: "execute 'source ${vimrcs.outPath}/${a}'";
+      in
+        pkgs.lib.concatMapStringsSep "\n" exeSrc cfgs + "\n\n";
   };
 }

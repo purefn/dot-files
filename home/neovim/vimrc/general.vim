@@ -108,17 +108,9 @@ set mouse=
 
 " Color and Fonts {{{
 
-colorscheme wombat256mod
-
-" Adjust signscolumn to match wombat
-hi! link SignColumn LineNr
-
 " Use pleasant but very visible search hilighting
 hi Search ctermfg=white ctermbg=173 cterm=none guifg=#ffffff guibg=#e5786d gui=none
 hi! link Visual Search
-
-" Match wombat colors in nerd tree
-hi Directory guifg=#8ac6f2
 
 " Searing red very visible cursor
 hi Cursor guibg=red
@@ -138,14 +130,6 @@ set t_Co=256
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
 
-" Use powerline fonts for airline
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-
-let g:airline_powerline_fonts = 1
-let g:airline_symbols.space = "\ua0"
-let g:airline#extensions#tabline#enabled = 1
 " }}}
 
 " Files, backups and undo {{{
@@ -160,14 +144,6 @@ nmap <leader>e :e <C-R>=expand("%:p:h") . '/'<CR>
 
 " Show undo tree
 nmap <silent> <leader>u :MundoToggle<CR>
-
-" Fuzzy find files
-nnoremap <silent> <Leader><space> :CtrlP<CR>
-let g:ctrlp_max_files=0
-let g:ctrlp_show_hidden=1
-let g:ctrlp_custom_ignore = { 'dir': '\v[\/](.git|.cabal-sandbox|.stack-work)$' }
-
-" }}}
 
 " Text, tab and indent related {{{
 
@@ -252,9 +228,6 @@ nnoremap <leader>bo <c-w>o
 " delete buffer without closing pane
 noremap <leader>bd :Bd<cr>
 
-" fuzzy find buffers
-noremap <leader>b<space> :CtrlPBuffer<cr>
-
 " Neovim terminal configurations
 " Use <Esc> to escape terminal insert mode
 tnoremap <Esc> <C-\><C-n>
@@ -263,7 +236,6 @@ tnoremap <c-h> <C-\><C-n><C-w>h
 tnoremap <c-j> <C-\><C-n><C-w>j
 tnoremap <c-k> <C-\><C-n><C-w>k
 tnoremap <c-l> <C-\><C-n><C-w>l
-
 
 " }}}
 
@@ -327,11 +299,6 @@ endfunction
 " Completion {{{
 set completeopt+=longest
 
-let g:deoplete#enable_at_startup = 1
-
-" Use buffer words as default tab completion
-let g:SuperTabDefaultCompletionType = '<c-x><c-p>'
-
 " }}}
 
 " LanguageClient-neovim {{{
@@ -348,11 +315,5 @@ hi link ALEError Error
 hi Warning term=underline cterm=underline ctermfg=Yellow gui=undercurl guisp=Gold
 hi link ALEWarning Warning
 hi link ALEInfo SpellCap
-
-augroup LanguageClient_config
-  autocmd!
-  autocmd User LanguageClientStarted setlocal signcolumn=yes
-  autocmd User LanguageClientStopped setlocal signcolumn=auto
-augroup END
 
 " }}}

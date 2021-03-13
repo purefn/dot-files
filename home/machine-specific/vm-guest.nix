@@ -13,14 +13,14 @@ with lib;
 
     ssh = {
       matchBlocks = mkForce {
-        "* !192.168.99.* !172.16.18.* !tealc-osx" = {
-          proxyJump = "richard@172.16.18.1";
-        };
+        # "* !192.168.99.* !172.16.18.* !tealc-osx" = {
+          # proxyJump = "richard@172.16.18.1";
+        # };
 
-        "tealc-osx" = {
-          user = "richard";
-          hostname = "172.16.18.1";
-        };
+        # "tealc-osx" = {
+          # user = "richard";
+          # hostname = "172.16.18.1";
+        # };
 
         "jenkins-pipeline-node-*" = {
           user = "simspace";

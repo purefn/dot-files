@@ -114,9 +114,17 @@
 
     taffybar = {
       enable = true;
-      package = pkgs.taffybar.override {
-        packages = ps: with ps; [ hostname ];
-      };
+      package =
+        let
+          nixpkgs-2009 = pkgs.fetchgit {
+            url = "https://github.com/NixOS/nixpkgs";
+            rev = "e5deabe68b7f85467d2f8519efe1daabbd9a86b5";
+            sha256 = "16kf2k2d9kw61lrsdm9gfs3349i77vy1xd8hjxjk5accbql5569q";
+          };
+        in
+          (import nixpkgs-2009 {}).taffybar.override {
+            packages = ps: with ps; [ hostname ];
+          };
     };
 
     # picom = {

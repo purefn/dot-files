@@ -15,10 +15,10 @@
     ];
 
   boot = {
-    loader.grub = {
-      enable = true;
-      version = 2;
-      device = "/dev/sda";
+    # Use the systemd-boot EFI boot loader.
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
     };
 
     # tmpOnTmpfs = true;
@@ -39,15 +39,15 @@
     daemonNiceLevel = 10;
   };
 
-  fileSystems = {
-    "/home/rwallace" = {
-      fsType = "nfs";
-      device = "172.16.18.1:/Users/richard/home";
-      options = [
-        "vers=3"
-      ];
-    };
-  };
+  # fileSystems = {
+    # "/home/rwallace" = {
+      # fsType = "nfs";
+      # device = "172.16.18.1:/Users/richard/home";
+      # options = [
+        # "vers=3"
+      # ];
+    # };
+  # };
 
   virtualisation = {
     vmware.guest = {

@@ -21,6 +21,7 @@
       nix-ghci
       # haskell-ide-engine
       haskellPackages.cabal2nix
+      haskellPackages.cabal-fmt
       # haskellPackages.codex
       haskellPackages.ghcid
       # haskellPackages.hasktags

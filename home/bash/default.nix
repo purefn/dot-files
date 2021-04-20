@@ -20,6 +20,8 @@
   nixpkgs.overlays = [ (import ./overlay) ];
 
   programs = {
+    bat.enable = true;
+
     bash = {
       enable = true;
 
@@ -29,6 +31,10 @@
         # TODO have this file generated automatically
         . ${./shell_prompt.sh}
       '';
+
+      shellAliases = {
+        cat = "bat";
+      };
     };
 
     dircolors.enable = true;

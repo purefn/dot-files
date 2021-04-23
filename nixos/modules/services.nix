@@ -21,7 +21,7 @@
       forwardX11 = true;
     };
 
-    # tailscale.enable = true;
+    tailscale.enable = true;
   };
 
   virtualisation = {

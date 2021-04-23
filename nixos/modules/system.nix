@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
 
 {
+  imports = [ <home-manager/nixos> ];
+
   nix = {
     autoOptimiseStore = true;
 
@@ -37,7 +39,6 @@
     etc.timezone.text = "US/Arizona";
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.extraUsers.rwallace = {
     name = "rwallace";
     group = "users";
@@ -58,8 +59,9 @@
     uid = 1000;
     createHome = true;
     home = "/home/rwallace";
-    shell = "/run/current-system/sw/bin/bash";
+    isNormalUser = true;
   };
+  home-manager.users.rwallace = import /persist/dot-files/home/home.nix;
 
   users.extraUsers.nixBuild = {
     name = "nixBuild";
@@ -69,6 +71,7 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILb12SZhLSbRklbPmOE18Wm1+eIisqvOOc2LFnWmC7LY nixBuild"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBRFLScI1Q6ul6goyJuCd+/jASAexkJ4uz5W7qdBJ/e3 nixBuild"
     ];
+    isSystemUser = true;
   };
 
   programs.bash.enableCompletion = true;

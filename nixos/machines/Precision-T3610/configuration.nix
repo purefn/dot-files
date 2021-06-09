@@ -13,6 +13,7 @@
       ../../modules/networking.nix
       ../../modules/services.nix
       ../../modules/system.nix
+      ../../modules/secrets.nix
     ];
 
   boot = {

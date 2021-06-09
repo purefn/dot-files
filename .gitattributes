@@ -1,3 +1,4 @@
 secrets.yml filter=git-crypt diff=git-crypt
 nixos/modules/vpn/** filter=git-crypt diff=git-crypt
+nixos/modules/secrets.nix filter=git-crypt diff=git-crypt
 home/machine-specific/ss-vm.nix filter=git-crypt diff=git-crypt

@@ -61,7 +61,14 @@
     home = "/home/rwallace";
     isNormalUser = true;
   };
-  home-manager.users.rwallace = import /persist/dot-files/home/home.nix;
+  home-manager = {
+  #   # useGlobalPkgs = true;
+    users.rwallace = import /persist/dot-files/home/home.nix;
+  #     let
+  #       nixpkgs = { inherit (config.nixpkgs) config overlays system; };
+  #     in
+  #       args@{config, pkgs, ...}: (import /persist/dot-files/home/home.nix args) // { inherit nixpkgs; };
+  };
 
   users.extraUsers.nixBuild = {
     name = "nixBuild";

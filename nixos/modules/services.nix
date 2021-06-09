@@ -27,7 +27,8 @@
   virtualisation = {
     docker = {
       enable = true;
-      extraOptions = "--bip=172.17.42.1/16";
+      storageDriver = "zfs";
+      autoPrune.enable = true;
     };
   };
 }

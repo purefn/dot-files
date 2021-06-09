@@ -1,5 +1,3 @@
 secrets.yml filter=git-crypt diff=git-crypt
 nixos/modules/vpn/** filter=git-crypt diff=git-crypt
-dot/sbt/*/plugins/credentials.sbt filter=git-crypt diff=git-crypt
-dot/sbt/*/credentials.sbt filter=git-crypt diff=git-crypt
-dot/ssh/** filter=git-crypt diff=git-crypt
+home/machine-specific/ss-vm.nix filter=git-crypt diff=git-crypt

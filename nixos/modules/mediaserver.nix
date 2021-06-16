@@ -3,24 +3,13 @@
 {
   powerManagement.enable = false;
 
-  environment.systemPackages = with pkgs; [ libtorrent unrar python27Packages.rarfile ];
+  environment.systemPackages = with pkgs; [ libtorrent unrar ];
 
   nixpkgs.config.packageOverrides = pkgs: {
     radarr = pkgs.callPackage ./radarr {};
   };
 
   services = {
-    # flexget = {
-      # enable = true;
-      # user = "transmission";
-      # homeDir = "/var/lib/flexget";
-      # systemScheduler = false;
-      # config = ''
-        # variables: ${pkgs.writeText "flexget-secrets.yml" (builtins.readFile ./flexget/secrets.yml)}
-        # ${builtins.readFile ./flexget/config.yml}
-      # '';
-    # };
-
     jackett.enable = true;
 
     mediatomb = {
@@ -28,12 +17,24 @@
       ps3Support = true;
       port = 50500;
       interface = "enp0s31f6";
+      mediaDirectories = [
+        {
+          path = "/storage/series";
+          recursive = true;
+          hidden-files = false;
+        }
+        {
+          path = "/storage/movies";
+          recursive = true;
+          hidden-files = false;
+        }
+      ];
     };
 
     openssh.enable = true;
 
     openvpn.servers.pia = {
-      config = builtins.readFile ./vpn/pia/us_california-aes-128-cbc-udp-dns.ovpn;
+      config = builtins.readFile ./vpn/pia/current-us_silicon_valley-aes-128-cbc-udp-dns.ovpn;
       up = "${pkgs.update-resolv-conf}/libexec/openvpn/update-resolv-conf";
       down = "${pkgs.update-resolv-conf}/libexec/openvpn/update-resolv-conf";
     };
@@ -50,25 +51,14 @@
       group = "transmission";
     };
 
-    sickbeard = {
-      enable = false;
-      package = pkgs.stdenv.mkDerivation {
-        name = "sickgear-wrapper";
-        version = pkgs.sickgear.version;
-        nativeBuildInputs = [ pkgs.makeWrapper pkgs.sickgear];
-        phases = ["installPhase"];
-        installPhase = ''
-          mkdir $out
-          makeWrapper ${pkgs.sickgear}/SickBeard.py $out/SickBeard.py --prefix PATH ":" "${pkgs.unrar}/bin"
-        '';
-      };
-      user = "transmission";
-      group = "transmission";
-    };
+    tailscale.enable = true;
 
     transmission = {
       enable = true;
       settings = {
+	download-dir = "/storage/torrents";
+	incomplete-dir-enabled = false;
+        rpc-bind-address = "0.0.0.0";
         rpc-whitelist = "127.0.0.1,192.168.*.*";
         script-torrent-done-enabled = true;
         script-torrent-done-filename = pkgs.writeShellScript "transmission-done" ''

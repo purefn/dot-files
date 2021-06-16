@@ -23,10 +23,10 @@
       fsType = "vfat";
     };
 
-  fileSystems."/storage" =
-    { device = "/dev/disk/by-label/storage";
-      fsType = "ext4";
-    };
+  # fileSystems."/storage" =
+    # { device = "/dev/disk/by-label/storage";
+      # fsType = "ext4";
+    # };
 
   swapDevices =
     [ { device = "/dev/disk/by-uuid/d980f073-e27e-4ceb-87ea-cd87a26fb372"; }

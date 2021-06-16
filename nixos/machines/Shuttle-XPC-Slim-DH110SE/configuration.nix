@@ -14,12 +14,25 @@
     ];
 
   # Use the systemd-boot EFI boot loader.
-  boot.loader = {
-    systemd-boot.enable = true;
-    efi.canTouchEfiVariables = true;
+  boot = {
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+    tmpOnTmpfs = true;
+    supportedFilesystems = [ "zfs" ];
+
+  };
+
+  fileSystems = {
+    "/storage" = {
+      fsType = "zfs";
+      device = "rpool/safe/storage";
+    };
   };
 
   networking = {
+    hostId = "1f9bf057";
     hostName = "seedbox";
     interfaces = {
       enp0s31f6.ip4 = [ { address = "192.168.1.10"; prefixLength = 24; } ];
@@ -31,6 +44,13 @@
     nameservers = [ "8.8.8.8" ];
     firewall.enable = false;
     # firewall.allowedTCPPorts = [ 22 80 9091 50500 ];
+  };
+
+  services = {
+    zfs = {
+      autoScrub.enable = true;
+      autoSnapshot.enable = true;
+    };
   };
 
   # This value determines the NixOS release with which your system is to be

@@ -6,21 +6,10 @@
   environment.systemPackages = with pkgs; [ libtorrent unrar python27Packages.rarfile ];
 
   nixpkgs.config.packageOverrides = pkgs: {
-    radarr = pkgs.callPackage ./radarr {};
+    # radarr = pkgs.callPackage ./radarr {};
   };
 
   services = {
-    # flexget = {
-      # enable = true;
-      # user = "transmission";
-      # homeDir = "/var/lib/flexget";
-      # systemScheduler = false;
-      # config = ''
-        # variables: ${pkgs.writeText "flexget-secrets.yml" (builtins.readFile ./flexget/secrets.yml)}
-        # ${builtins.readFile ./flexget/config.yml}
-      # '';
-    # };
-
     jackett.enable = true;
 
     mediatomb = {
@@ -46,22 +35,6 @@
 
     radarr = {
       enable = true;
-      user = "transmission";
-      group = "transmission";
-    };
-
-    sickbeard = {
-      enable = false;
-      package = pkgs.stdenv.mkDerivation {
-        name = "sickgear-wrapper";
-        version = pkgs.sickgear.version;
-        nativeBuildInputs = [ pkgs.makeWrapper pkgs.sickgear];
-        phases = ["installPhase"];
-        installPhase = ''
-          mkdir $out
-          makeWrapper ${pkgs.sickgear}/SickBeard.py $out/SickBeard.py --prefix PATH ":" "${pkgs.unrar}/bin"
-        '';
-      };
       user = "transmission";
       group = "transmission";
     };

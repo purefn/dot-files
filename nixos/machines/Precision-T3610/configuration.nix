@@ -13,10 +13,11 @@
       ../../modules/networking.nix
       ../../modules/services.nix
       ../../modules/system.nix
+      ../../modules/secrets.nix
     ];
 
   boot = {
-    # kernelPackages = pkgs.linuxPackages_5_4;
+    kernelPackages = pkgs.linuxPackages_5_4;
 
     loader = {
       systemd-boot.enable = true;
@@ -75,13 +76,6 @@
     # wireless.enable = true;
     firewall.allowedTCPPorts = [ 3389 ];
   };
-
-  # nix = {
-  #   package = pkgs.nixUnstable;
-  #   extraOptions = ''
-  #     experimental-features = nix-command flakes
-  #   '';
-  # };
 
   powerManagement.enable = false;
 

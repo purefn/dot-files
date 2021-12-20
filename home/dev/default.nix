@@ -36,6 +36,9 @@
       # nix
       haskellPackages.nixfmt
       niv
+
+      # k8s
+      kubectl
     ];
   };
 

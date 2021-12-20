@@ -65,6 +65,7 @@
     home = "/home/rwallace";
     isNormalUser = true;
   };
+
   home-manager.users.rwallace = import /persist/dot-files/home/home.nix;
 
   # users.extraUsers.nixBuild = {

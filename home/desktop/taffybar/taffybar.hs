@@ -1,4 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE ScopedTypeVariables #-}
 module Main where
 
 import           Control.Exception.Base
@@ -109,11 +110,23 @@ main = do
   homeDirectory <- getHomeDirectory
   let cpuGraph = pollingGraphNew cpuCfg 5 cpuCallback
       memoryGraph = pollingGraphNew memCfg 5 memCallback
-      myIcons = scaledWindowIconPixbufGetter $
-                getWindowIconPixbufFromEWMH <|||>
-                getWindowIconPixbufFromChrome <|||>
-                unscaledDefaultGetWindowIconPixbuf <|||>
-                (\size _ -> lift $ loadPixbufByName size "application-default-icon")
+      -- myIcons = scaledWindowIconPixbufGetter $
+      --           getWindowIconPixbufFromEWMH <|||>
+      --           getWindowIconPixbufFromChrome <|||>
+      --           unscaledDefaultGetWindowIconPixbuf <|||>
+      --           (\size _ -> lift $ loadPixbufByName size "application-default-icon")
+      handleException :: WindowIconPixbufGetter -> WindowIconPixbufGetter
+      handleException getter = \size windowData ->
+        ReaderT $ \c ->
+          catch (runReaderT (getter size windowData) c) $ \(_ :: SomeException) ->
+            return Nothing
+
+      myGetWindowIconPixbuf :: WindowIconPixbufGetter
+      myGetWindowIconPixbuf = scaledWindowIconPixbufGetter $
+        handleException getWindowIconPixbufFromDesktopEntry <|||>
+        handleException getWindowIconPixbufFromClass <|||>
+        handleException getWindowIconPixbufFromEWMH
+
       layout = layoutNew defaultLayoutConfig
       windows = windowsNew defaultWindowsConfig
       -- notifySystemD = void $ runCommandFromPath ["systemd-notify", "--ready"]
@@ -122,7 +135,8 @@ main = do
         { underlineHeight = 3
         , underlinePadding = 2
         , minIcons = 1
-        , getWindowIconPixbuf = myIcons
+        -- , getWindowIconPixbuf = myIcons
+        , getWindowIconPixbuf = myGetWindowIconPixbuf
         , widgetGap = 0
         , showWorkspaceFn = hideEmpty
         , updateRateLimitMicroseconds = 100000
@@ -132,8 +146,8 @@ main = do
       fullEndWidgets =
         map (>>= buildContentsBox)
               [ textClockNewWith defaultClockConfig { clockFormatString = "%a %b %_d %H:%M", clockUpdateStrategy = ConstantInterval 1 }
-              , textBatteryNew "$percentage$% ($time$)"
-              , batteryIconNew
+              -- , textBatteryNew "$percentage$% ($time$)"
+              -- , batteryIconNew
               , cpuGraph
               , memoryGraph
               , networkGraphNew netCfg Nothing

@@ -11,6 +11,10 @@
 
     maxJobs = "auto";
     buildCores = 0;
+
+    extraOptions = ''
+      experimental-features = nix-command
+    '';
   };
 
   # Select internationalisation properties.
@@ -63,16 +67,16 @@
   };
   home-manager.users.rwallace = import /persist/dot-files/home/home.nix;
 
-  users.extraUsers.nixBuild = {
-    name = "nixBuild";
-    useDefaultShell = true;
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJYrlyNp/qRA6EfmDvZ8x1SfvXCy/9+s7yUdEl7FTyCX nixBuild"
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILb12SZhLSbRklbPmOE18Wm1+eIisqvOOc2LFnWmC7LY nixBuild"
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBRFLScI1Q6ul6goyJuCd+/jASAexkJ4uz5W7qdBJ/e3 nixBuild"
-    ];
-    isSystemUser = true;
-  };
+  # users.extraUsers.nixBuild = {
+  #   name = "nixBuild";
+  #   useDefaultShell = true;
+  #   openssh.authorizedKeys.keys = [
+  #     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJYrlyNp/qRA6EfmDvZ8x1SfvXCy/9+s7yUdEl7FTyCX nixBuild"
+  #     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILb12SZhLSbRklbPmOE18Wm1+eIisqvOOc2LFnWmC7LY nixBuild"
+  #     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBRFLScI1Q6ul6goyJuCd+/jASAexkJ4uz5W7qdBJ/e3 nixBuild"
+  #   ];
+  #   isSystemUser = true;
+  # };
 
   programs.bash.enableCompletion = true;
 

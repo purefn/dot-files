@@ -4,7 +4,6 @@
   home.packages = with pkgs; [
     awscli
     aws-vault
-    bashtop
     bpytop
     lsof
     parallel

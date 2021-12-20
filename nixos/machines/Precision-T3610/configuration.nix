@@ -16,7 +16,7 @@
     ];
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_5_4;
+    # kernelPackages = pkgs.linuxPackages_5_4;
 
     loader = {
       systemd-boot.enable = true;
@@ -58,10 +58,13 @@
       };
 
   hardware = {
-    opengl.driSupport32Bit = true;
+    opengl = {
+      enable =true;
+      driSupport32Bit = true;
+    };
     bluetooth.enable = true;
     nvidia = {
-      package = config.boot.kernelPackages.nvidiaPackages.legacy_340;
+      package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
     };
   };
 
@@ -73,12 +76,14 @@
     firewall.allowedTCPPorts = [ 3389 ];
   };
 
-  nix = {
-    package = pkgs.nixUnstable;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
-  };
+  # nix = {
+  #   package = pkgs.nixUnstable;
+  #   extraOptions = ''
+  #     experimental-features = nix-command flakes
+  #   '';
+  # };
+
+  powerManagement.enable = false;
 
   security.pam.services = {
     gnome_keyring = {
@@ -94,7 +99,7 @@
   services = {
     blueman.enable = true;
 
-    gnome3.gnome-keyring.enable = true;
+    gnome.gnome-keyring.enable = true;
 
     printing = {
       enable = true;

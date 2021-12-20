@@ -58,6 +58,7 @@
       # pavucontrol
 
       # apps
+      discord
       gimp
       handbrake
       mplayer

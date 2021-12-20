@@ -21,6 +21,13 @@
       ];
     };
 
+    libinput = {
+      enable = true;
+      naturalScrolling = false;
+      middleEmulation = true;
+      tapping = true;
+    };
+
     screenSection = ''
       Option "NoLogo" "TRUE"
     '';

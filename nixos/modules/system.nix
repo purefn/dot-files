@@ -15,6 +15,14 @@
     extraOptions = ''
       experimental-features = nix-command
     '';
+
+    # Binary Cache for Haskell.nix
+    binaryCachePublicKeys = [
+      "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
+    ];
+    binaryCaches = [
+      "https://hydra.iohk.io"
+    ];
   };
 
   # Select internationalisation properties.
@@ -79,7 +87,12 @@
   #   isSystemUser = true;
   # };
 
-  programs.bash.enableCompletion = true;
+  programs.bash = {
+    enableCompletion = true;
+    shellAliases = {
+      nixf = "nix --extra-experimental-features flakes";
+    };
+  };
 
   nixpkgs.config = {
     allowUnfree = true;

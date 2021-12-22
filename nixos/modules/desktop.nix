@@ -1,37 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  # Enable the X11 windowing system.
-  services.xserver = {
-    enable = true;
-    layout = "us";
-    xkbOptions = "compose:ralt";
-
-    displayManager = {
-      lightdm.enable = true;
-      session = [
-        {
-          manage = "desktop";
-          name = "home-manager";
-          start = ''
-            ~/.xsession-hm &
-            waitPID=$!
-          '';
-        }
-      ];
-    };
-
-    libinput = {
-      enable = true;
-      naturalScrolling = false;
-      middleEmulation = true;
-      tapping = true;
-    };
-
-    screenSection = ''
-      Option "NoLogo" "TRUE"
-    '';
-  };
+  environment.systemPackages = [ pkgs.gnome3.dconf ];
 
   fonts = {
     enableDefaultFonts = true;
@@ -49,5 +19,47 @@
     ];
   };
 
-  environment.systemPackages = [ pkgs.gnome3.dconf ];
+  security.pam.services = {
+    gnome_keyring = {
+      text = ''
+        auth     optional    ${pkgs.gnome3.gnome_keyring}/lib/security/pam_gnome_keyring.so
+        session  optional    ${pkgs.gnome3.gnome_keyring}/lib/security/pam_gnome_keyring.so auto_start
+
+        password  optional    ${pkgs.gnome3.gnome_keyring}/lib/security/pam_gnome_keyring.so
+      '';
+    };
+  };
+
+  services = {
+    blueman.enable = true;
+
+    gnome.gnome-keyring.enable = true;
+
+    networkmanager.enable = true;
+
+    printing = {
+      enable = true;
+      drivers = [ pkgs.gutenprint pkgs.hplipWithPlugin ];
+    };
+
+    xserver = {
+      enable = true;
+      layout = "us";
+      xkbOptions = "compose:ralt";
+
+      displayManager = {
+        lightdm.enable = true;
+        session = [
+          {
+            manage = "desktop";
+            name = "home-manager";
+            start = ''
+              ~/.xsession-hm &
+              waitPID=$!
+            '';
+          }
+        ];
+      };
+    };
+  };
 }

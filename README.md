@@ -1,16 +1,27 @@
 Configuration for nixos and home-manager.
 
-Setup
+# Intsall on a new computer
+
+* Set up networking https://nixos.org/manual/nixos/stable/index.html#sec-installation-booting-networking
+* Clone this repo
+* Paritioning
+  * run `nixos/zfs-setup.sh <disk>`
+  * move clone into `/mnt/persist`
+* run `nixos-generate-config --root /mnt` and check
+* run `nixos-install`
+* set root password
+* reboot into basic system
+* ... TBD (some variation on the `Old setup instructions` below)
+
+Old setup instructions
 -----
 ```
-$ ln /path/to/clone/nixos /etc/nixos
-$ nixos-rebuild switch
-$ ln /path/to/clone/home ~/.config/nixpkgs
-$ nix-channel --add https://github.com/rycee/home-manager/archive/master.tar.gz home-manager
+$ ln -s /path/to/clone/nixos /etc/nixos
+$ nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
 $ nix-channel --update
-$ nix-shell '<home-manager>' -A install
+$ nixos-rebuild switch
 ```
 
 TODO
 ----
-* Switch to using home-manager as a NixOS module
+* flakes

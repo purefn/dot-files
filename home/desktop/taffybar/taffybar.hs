@@ -106,6 +106,7 @@ logDebug = do
   -- enableLogger "System.Taffybar.WindowIcon" DEBUG
   -- enableLogger "System.Taffybar.Widget.Generic.PollingLabel" DEBUG
 
+main :: IO ()
 main = do
   homeDirectory <- getHomeDirectory
   let cpuGraph = pollingGraphNew cpuCfg 5 cpuCallback
@@ -146,8 +147,8 @@ main = do
       fullEndWidgets =
         map (>>= buildContentsBox)
               [ textClockNewWith defaultClockConfig { clockFormatString = "%a %b %_d %H:%M", clockUpdateStrategy = ConstantInterval 1 }
-              -- , textBatteryNew "$percentage$% ($time$)"
-              -- , batteryIconNew
+              , textBatteryNew "$percentage$% ($time$)"
+              , batteryIconNew
               , cpuGraph
               , memoryGraph
               , networkGraphNew netCfg Nothing

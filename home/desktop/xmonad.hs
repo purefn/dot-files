@@ -181,7 +181,7 @@ myManageHook = hooks where
   myIgnores = ["desktop","desktop_window"]
   myWebS    = ["Chromium","Firefox","Deluge"]
   myGfxS    = ["gimp-2.6", "Gimp-2.6", "Gimp", "gimp", "GIMP"]
-  myChatS   = ["Pidgin", "Xchat", "HipChat"]
+  myChatS   = ["Pidgin", "Xchat", "HipChat", "discord"]
   myMusicS  = ["Clementine", "Pithos", "Spotify"]
   myFloatCC = ["MPlayer", "File-roller", "zsnes", "Gcalctool", "Exo-helper-1"]
   myFloatCN = ["ePSXe - Enhanced PSX emulator", "Seleccione Archivo", "Config Video", "Testing plugin", "Config Sound", "Config Cdrom", "Config Bios", "Config Netplay", "Config Memcards", "About ePSXe", "Config Controller", "Config Gamepads", "Select one or more files to open", "Add media", "Choose a file", "Open Image", "File Operation Progress", "Firefox Preferences", "Preferences", "Search Engines", "Set up sync", "Passwords and Exceptions", "Autofill Options", "Rename File", "Copying files", "Moving files", "File Properties", "Replace", ""]
@@ -194,7 +194,7 @@ myManageHook = hooks where
 myKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   [ ((modMask .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)                       --Launch a terminal
-  , ((modMask, xK_p), shellPrompt myXPConfig)                                              --Launch Xmonad shell prompt
+  , ((modMask, xK_p), spawn "rofi -show run")                                                -- Launch rofi run prompt
   , ((modMask, xK_g), goToSelected $ myGSConfig myColorizer)                                 --Launch GridSelect
   , ((modMask, xK_c), kill)                                                                  --Close focused window
   , ((modMask, xK_space), sendMessage NextLayout)                                            --Rotate through the available layout algorithms
@@ -224,12 +224,17 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask, xK_m), withFocused minimizeWindow)                                            --Minimize window
   , ((modMask .|. shiftMask, xK_m), withLastMinimized maximizeWindowAndFocus)                --Restore window
   , ((modMask .|. shiftMask, xK_f), fullFloatFocused)                                        --Push window into full screen
-  , ((modMask, xK_s), spawn "xscreensaver-command -lock")                                   --Lock screen
+  , ((modMask, xK_s), spawn "betterlockscreen --lock --dim 95")                                   --Lock screen
   , ((modMask .|. shiftMask, xK_q), io exitSuccess)                               --Quit xmonad
   , ((modMask, xK_q), restart "xmonad" True)                                                 --Restart xmonad
   , ((modMask, xK_Left), prevWS)
   , ((modMask, xK_Right), nextWS)                                                            --Move to next Workspace
-  , ((0, xF86XK_ScreenSaver), spawn "xscreensaver-command -lock")                            --Lock screen
+  , ((0, xF86XK_ScreenSaver), spawn "betterlockscreen --lock --dim 95")                            --Lock screen
+  , ((0, xF86XK_MonBrightnessUp), spawn "xbacklight -inc 10")
+  , ((0, xF86XK_MonBrightnessDown), spawn "xbacklight -dec 10")
+  , ((0, xF86XK_AudioMute), spawn "adjust-volume toggle")
+  , ((0, xF86XK_AudioRaiseVolume), spawn "adjust-volume increase")
+  , ((0, xF86XK_AudioLowerVolume), spawn "adjust-volume decrease")
   ]
   ++
   [((m .|. modMask, k), windows $ f i)                                                       --Switch to n workspaces and send client to n workspaces

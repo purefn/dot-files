@@ -35,7 +35,6 @@
 
     packages = with pkgs; [
       # basics
-      dmenu
       fira-code
       fira-code-symbols
       gnome3.eog
@@ -48,11 +47,14 @@
       gnome3.zenity
       libnotify
 
+      gnome3.adwaita-icon-theme
+      papirus-icon-theme
       gnome-icon-theme
       hicolor-icon-theme
 
       # audio
-      # pamixer
+      adjust-volume
+      pamixer
       # paprefs
       # pasystray
       # pavucontrol
@@ -100,35 +102,46 @@
         inactive_tab_background = "#000";
       };
     };
+
+    rofi.enable = true;
   };
 
   services = {
+    betterlockscreen.enable = true;
     blueman-applet.enable = true;
-    cbatticon.enable = true;
     flameshot.enable = true;
     network-manager-applet.enable = true;
     pasystray.enable = true;
     status-notifier-watcher.enable = true;
-    xscreensaver.enable = true;
+    taffybar.enable = true;
+    volnoti.enable = true;
+
+    notify-osd.enable = true;
+    # dunst = {
+    #   enable = true;
+    #   iconTheme = {
+    #     name = "Adwaita";
+    #     package = pkgs.gnome3.adwaita-icon-theme;
+    #     size = "16x16";
+    #   };
+    #   settings = {
+    #     global = {
+    #       monitor = 0;
+    #       geometry = "600x50-50+65";
+    #       shrink = "yes";
+    #       transparency = 10;
+    #       padding = 16;
+    #       horizontal_padding = 16;
+    #       font = "JetBrainsMono Nerd Font 10";
+    #       line_height = 4;
+    #       format = ''<b>%s</b>\n%b'';
+    #     };
+    #   };
+    # };
 
     gnome-keyring = {
       enable = true;
       components = [ "pkcs11" "secrets" "ssh" ];
-    };
-
-    taffybar = {
-      enable = true;
-      package =
-        let
-          nixpkgs-2009 = pkgs.fetchgit {
-            url = "https://github.com/NixOS/nixpkgs";
-            rev = "e5deabe68b7f85467d2f8519efe1daabbd9a86b5";
-            sha256 = "16kf2k2d9kw61lrsdm9gfs3349i77vy1xd8hjxjk5accbql5569q";
-          };
-        in
-          (import nixpkgs-2009 {}).taffybar.override {
-            packages = ps: with ps; [ hostname ];
-          };
     };
 
     # picom = {
@@ -157,7 +170,7 @@
   xsession = {
     enable = true;
 
-    preferStatusNotifierItems = true;
+    preferStatusNotifierItems = false;
 
     scriptPath = ".xsession-hm";
 

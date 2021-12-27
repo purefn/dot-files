@@ -11,11 +11,6 @@
 
     locate.enable = true;
 
-    # ntp = {
-    #   enable = true;
-    #   servers = ["server.local" "0.pool.ntp.org" "1.pool.ntp.org" "2.pool.ntp.org" ];
-    # };
-
     openssh = {
       enable = true;
       forwardX11 = true;

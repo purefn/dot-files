@@ -1,8 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  environment.systemPackages = [ pkgs.gnome3.dconf ];
-
   fonts = {
     enableDefaultFonts = true;
     fontDir.enable = true;
@@ -19,6 +17,10 @@
     ];
   };
 
+  networking.networkmanager.enable = true;
+
+  programs.dconf.enable = true;
+
   security.pam.services = {
     gnome_keyring = {
       text = ''
@@ -34,8 +36,6 @@
     blueman.enable = true;
 
     gnome.gnome-keyring.enable = true;
-
-    networkmanager.enable = true;
 
     printing = {
       enable = true;

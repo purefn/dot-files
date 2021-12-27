@@ -1,11 +1,14 @@
+{-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 
+import Control.Exception
 import Data.Int
 import Data.Maybe
 import qualified Data.Text as T
 import Options.Applicative
 import Turtle hiding (option)
-import Libnotify
+
+import Debug.Trace
 
 data Command
   = Inc Int
@@ -20,8 +23,8 @@ stepOption = fmap (fromMaybe 5) . optional . option auto . mconcat $
   , help "Amount to change the volume, default is 5"
   ]
 
-pamixer :: [Text] -> Shell Text
-pamixer args = strict . inproc "pamixer" args $ empty
+pamixer :: [Text] -> Shell (ExitCode, Text)
+pamixer args = procStrict "pamixer" args $ empty
 
 pamixer' :: [Text] -> Shell ()
 pamixer' = void . pamixer
@@ -34,10 +37,17 @@ opts = subparser . mconcat $
   ]
 
 getVolume :: Shell Int32
-getVolume = read . T.unpack . T.strip <$> pamixer ["--get-volume"]
+getVolume = pamixer ["--get-volume"] >>= \case
+  (exitCode@(ExitFailure _), _) -> liftIO . throwIO $ exitCode
+  (_, output) -> pure . read . T.unpack . T.strip $ output
 
 getMuted :: Shell Bool
-getMuted = (== "true") . T.unpack . T.strip <$> pamixer ["--get-mute"]
+getMuted = pamixer ["--get-mute"] >>= \case
+  (ExitFailure 1, output) -> parseMute output
+  (exitCode@(ExitFailure _), _) -> liftIO . throwIO $ exitCode
+  (_, output) -> parseMute output
+  where
+    parseMute = pure . (== "true") . traceShowId . T.strip
 
 main :: IO ()
 main = sh $ do
@@ -45,22 +55,16 @@ main = sh $ do
 
   case command of
     Inc s -> pamixer' ["--unmute"] >> pamixer' ["--increase", T.pack .show $ s]
-    Dec s -> pamixer' ["--decrease", T.pack .show $ s]
+    Dec s -> pamixer' ["--decrease", T.pack . show $ s]
     Toggle -> pamixer' ["--toggle-mute"]
 
+
   vol <- getVolume
+  liftIO $ putStrLn ("gotvolume" <> show vol)
   muted <- getMuted
+  liftIO $ putStrLn ("gotmuted" <> show muted)
   let
-    vol' = if muted then 0 else vol
-    vicon = case vol' of
-      x | x == 0 -> "muted"
-      x | x < 33 -> "low"
-      x | x < 67 -> "medium"
-      _          -> "high"
-  liftIO . display_ . mconcat $
-    [ summary "Volume"
-    , icon ("audio-volume-" <> vicon)
-    , hint "value" vol'
-    , hint "x-canonical-private-synchronous" ("1" :: String)
-    ]
+    arg = if muted then "--mute" else T.pack . show $ vol
+  liftIO $ putStrLn ("running volnoti-show with " <> T.unpack arg)
+  void $ strict . inproc "volnoti-show" [arg] $ empty
 

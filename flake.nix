@@ -5,14 +5,18 @@
   };
 
   outputs = { self, nixpkgs, home-manager }: {
-    nixosConfigurations = {
-      ronin = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          home-manager.nixosModules.home-manager
-          ./ronin.nix
-        ];
+    nixosConfigurations =
+      let
+        f = cfg: nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            home-manager.nixosModules.home-manager
+            cfg
+          ];
+        };
+      in builtins.mapAttrs (_: f) {
+        ronin = ./ronin.nix;
+        daedalus = ./daedalus.nix;
       };
-    };
   };
 }

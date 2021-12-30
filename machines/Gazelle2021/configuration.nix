@@ -9,19 +9,15 @@ let
     exec -a "$0" "$@"
   '';
 in {
-  imports =
-    [
-      ./hardware-configuration.nix
-    ];
+  imports = [ ./hardware-configuration.nix ];
 
   boot = {
+    kernelPackages = pkgs.linuxPackages_latest;
+
     loader = {
-      # Use the systemd-boot EFI boot loader.
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
-
-    kernelPackages = pkgs.linuxPackages_latest;
   };
 
   environment.systemPackages = [ nvidia-offload ];

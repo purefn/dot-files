@@ -16,8 +16,6 @@
     zip
   ];
 
-  nixpkgs.overlays = [ (import ./overlay) ];
-
   programs = {
     bat.enable = true;
 

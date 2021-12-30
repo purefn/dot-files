@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 let
   nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
@@ -9,12 +9,19 @@ let
     exec -a "$0" "$@"
   '';
 in {
+  imports =
+    [
+      ./hardware-configuration.nix
+    ];
+
   boot = {
     loader = {
       # Use the systemd-boot EFI boot loader.
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
+
+    kernelPackages = pkgs.linuxPackages_latest;
   };
 
   environment.systemPackages = [ nvidia-offload ];
@@ -23,11 +30,10 @@ in {
     bluetooth.enable = true;
 
     nvidia = {
-      modesetting.enable = true;
+      # modesetting.enable = true;
       powerManagement.enable = true;
 
       prime = {
-        # sync.enable = true;
         offload.enable = true;
         nvidiaBusId = "PCI:1:0:0";
         intelBusId = "PCI:0:2:0";
@@ -41,22 +47,5 @@ in {
 
     system76.enableAll = true;
   };
-
-  services.xserver = {
-    screenSection = ''
-      Option "NoLogo" "TRUE"
-    '';
-
-    videoDrivers = [ "nvidia" ];
-  };
-
-  specialisation = {
-    external-display.configuration = {
-      system.nixos.tags = [ "external-display" ];
-      hardware.nvidia = {
-        prime.offload.enable = pkgs.lib.mkForce false;
-        powerManagement.enable = pkgs.lib.mkForce false;
-      };
-    };
-  };
 }
+

@@ -41,7 +41,7 @@
       ];
     in
       pkgs.lib.genAttrs (map (x: "/${x}") dirs) mount // {
-        "/etc/nixos" = mount "/dot-files/nixos";
+        "/etc/nixos" = mount "/dot-files";
       };
 
   services = {

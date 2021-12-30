@@ -1,6 +1,10 @@
 { pkgs, config, ... }:
 
 {
+  imports = [
+    ./desktop/default.nix
+  ];
+
   services = {
     logind.lidSwitchExternalPower = "ignore";
 

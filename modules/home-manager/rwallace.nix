@@ -7,14 +7,8 @@
     ./dev
     ./misc
     ./neovim
-    ./machine-specific
+    # ./machine-specific
   ];
-
-  nixpkgs = {
-    config = {
-      allowUnfree = true;
-    };
-  };
 
   home = {
     username = "rwallace";

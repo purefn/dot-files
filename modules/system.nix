@@ -1,7 +1,11 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ <home-manager/nixos> ];
+  imports = [
+    ./erase-your-darlings.nix
+    ./networking.nix
+    ./services.nix
+  ];
 
   nix = {
     autoOptimiseStore = true;
@@ -13,7 +17,7 @@
     buildCores = 0;
 
     extraOptions = ''
-      experimental-features = nix-command
+      experimental-features = nix-command flakes
     '';
 
     # Binary Cache for Haskell.nix
@@ -73,8 +77,6 @@
     home = "/home/rwallace";
     isNormalUser = true;
   };
-
-  home-manager.users.rwallace = import /persist/dot-files/home/home.nix;
 
   # users.extraUsers.nixBuild = {
   #   name = "nixBuild";

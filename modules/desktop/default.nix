@@ -1,6 +1,12 @@
 { config, pkgs, ... }:
 
 {
+  imports = [
+    ../audio.nix
+    ../home-manager/default.nix
+    ../system.nix
+  ];
+
   fonts = {
     enableDefaultFonts = true;
     fontDir.enable = true;
@@ -15,6 +21,12 @@
       fira-code
       fira-code-symbols
     ];
+  };
+
+  nixpkgs = {
+    config.MPlayer.pulseSupport = true;
+
+    overlays = [ (import ./overlay) ];
   };
 
   networking.networkmanager.enable = true;

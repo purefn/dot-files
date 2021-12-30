@@ -74,16 +74,16 @@
     ];
   };
 
-  nixpkgs = {
-    config = {
-      # might be better as a program module
-      MPlayer = {
-        pulseSupport = true;
-      };
-    };
+  # nixpkgs = {
+  #   config = {
+  #     # might be better as a program module
+  #     MPlayer = {
+  #       pulseSupport = true;
+  #     };
+  #   };
 
-    overlays = [ (import ./overlay) ];
-  };
+  #   overlays = [ (import ./overlay) ];
+  # };
 
   programs = {
     chromium.enable = true;
@@ -170,7 +170,7 @@
   xsession = {
     enable = true;
 
-    preferStatusNotifierItems = false;
+    preferStatusNotifierItems = true;
 
     scriptPath = ".xsession-hm";
 

@@ -5,7 +5,7 @@ Configuration for nixos and home-manager.
 * Set up networking https://nixos.org/manual/nixos/stable/index.html#sec-installation-booting-networking
 * Clone this repo
 * Paritioning
-  * run `nixos/zfs-setup.sh <disk>`
+  * run `zfs-setup.sh <disk>`
   * move clone into `/mnt/persist`
 * run `nixos-generate-config --root /mnt` and check
 * run `nixos-install`
@@ -16,7 +16,7 @@ Configuration for nixos and home-manager.
 Old setup instructions
 -----
 ```
-$ ln -s /path/to/clone/nixos /etc/nixos
+$ ln -s /path/to/clone/ etc/nixos
 $ nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
 $ nix-channel --update
 $ nixos-rebuild switch

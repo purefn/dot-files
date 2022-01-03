@@ -11,7 +11,7 @@
 
   disabledModules = [ "services/misc/mediatomb.nix" ];
 
-  imports = [ ./mediatomb.nix ];
+  imports = [ ../system.nix ./mediatomb.nix ];
 
   services = {
     jackett.enable = true;

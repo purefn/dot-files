@@ -1,0 +1,1 @@
+machines/Shuttle-XPC-Slim-DH110SE/configuration.nix

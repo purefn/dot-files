@@ -15,8 +15,9 @@
           ];
         };
       in builtins.mapAttrs (_: f) {
-        ronin = ./ronin.nix;
         daedalus = ./daedalus.nix;
+        ronin = ./ronin.nix;
+        seedbox = ./seedbox.nix;
       };
   };
 }

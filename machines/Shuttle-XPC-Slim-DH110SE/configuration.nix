@@ -8,7 +8,6 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ../../modules/networking.nix
       ../../modules/system.nix
       ../../modules/mediaserver/default.nix
     ];

@@ -1,12 +1,6 @@
 { pkgs, ...}:
 
 {
-  nix.nixPath = [
-    "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
-    "nixos-config=/persist/dot-files/nixos/configuration.nix"
-    "/nix/var/nix/profiles/per-user/root/channels"
-  ];
-
   boot = {
     supportedFilesystems = [ "zfs" ];
 

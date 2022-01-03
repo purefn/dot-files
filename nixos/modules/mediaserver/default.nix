@@ -6,8 +6,12 @@
   environment.systemPackages = with pkgs; [ libtorrent unrar ];
 
   nixpkgs.config.packageOverrides = pkgs: {
-    radarr = pkgs.callPackage ./radarr {};
+    # radarr = pkgs.callPackage ./radarr {};
   };
+
+  disabledModules = [ "services/misc/mediatomb.nix" ];
+
+  imports = [ ./mediatomb.nix ];
 
   services = {
     jackett.enable = true;
@@ -29,12 +33,15 @@
           hidden-files = false;
         }
       ];
+      layout = {
+        parentPath = true;
+      };
     };
 
     openssh.enable = true;
 
     openvpn.servers.pia = {
-      config = builtins.readFile ./vpn/pia/current-us_silicon_valley-aes-128-cbc-udp-dns.ovpn;
+      config = builtins.readFile ../vpn/pia/current-us_silicon_valley-aes-128-cbc-udp-dns.ovpn;
       up = "${pkgs.update-resolv-conf}/libexec/openvpn/update-resolv-conf";
       down = "${pkgs.update-resolv-conf}/libexec/openvpn/update-resolv-conf";
     };
@@ -56,8 +63,8 @@
     transmission = {
       enable = true;
       settings = {
-	download-dir = "/storage/torrents";
-	incomplete-dir-enabled = false;
+        download-dir = "/storage/torrents";
+        incomplete-dir-enabled = false;
         rpc-bind-address = "0.0.0.0";
         rpc-whitelist = "127.0.0.1,192.168.*.*";
         script-torrent-done-enabled = true;

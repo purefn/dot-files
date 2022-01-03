@@ -10,7 +10,7 @@
       ./hardware-configuration.nix
       ../../modules/networking.nix
       ../../modules/system.nix
-      ../../modules/mediaserver.nix
+      ../../modules/mediaserver/default.nix
     ];
 
   # Use the systemd-boot EFI boot loader.

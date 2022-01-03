@@ -58,6 +58,7 @@
     uid = 1000;
     createHome = true;
     home = "/home/rwallace";
+    isNormalUser = true;
     shell = "/run/current-system/sw/bin/bash";
   };
 
@@ -69,6 +70,7 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILb12SZhLSbRklbPmOE18Wm1+eIisqvOOc2LFnWmC7LY nixBuild"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBRFLScI1Q6ul6goyJuCd+/jASAexkJ4uz5W7qdBJ/e3 nixBuild"
     ];
+    isSystemUser = true;
   };
 
   programs.bash.enableCompletion = true;

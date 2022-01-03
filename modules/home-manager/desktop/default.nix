@@ -1,0 +1,185 @@
+{ config, pkgs, ... }:
+
+{
+  gtk = {
+    enable = true;
+
+    iconTheme = {
+      package = pkgs.papirus-icon-theme;
+      name = "Papirus";
+    };
+
+    theme = {
+      package = pkgs.gnome3.gnome-themes-extra;
+      name = "Adwaita";
+    };
+
+    gtk3.extraConfig = {
+      gtk-button-images = 1;
+      gtk-enable-event-sounds = 1;
+      gtk-enable-input-feedback-sounds = 1;
+      gtk-menu-images = 1;
+      gtk-toolbar-icon-size = "GTK_ICON_SIZE_LARGE_TOOLBAR";
+      gtk-toolbar-style = "GTK_TOOLBAR_BOTH";
+      gtk-xft-antialias = 1;
+      gtk-xft-hinting = 1;
+      gtk-xft-hintstyle = "hintslight";
+      gtk-xft-rgba = "rgb";
+    };
+  };
+
+  home = {
+    file = {
+      ".terminfo/x/xterm-kitty".source = "${pkgs.kitty}/lib/kitty/terminfo/x/xterm-kitty";
+    };
+
+    packages = with pkgs; [
+      # basics
+      fira-code
+      fira-code-symbols
+      gnome3.eog
+      gnome3.evince
+      gnome3.file-roller
+      gnome3.gnome_keyring
+      gnome3.networkmanagerapplet
+      gnome3.networkmanager_openconnect
+      gnome3.seahorse
+      gnome3.zenity
+      libnotify
+
+      gnome3.adwaita-icon-theme
+      papirus-icon-theme
+      gnome-icon-theme
+      hicolor-icon-theme
+
+      # audio
+      adjust-volume
+      pamixer
+      # paprefs
+      # pasystray
+      # pavucontrol
+
+      # apps
+      discord
+      gimp
+      handbrake
+      mplayer
+      # mumble
+      # pithos
+      # steam
+      transmission_remote_gtk
+      # linuxPackages.virtualbox
+      # vagrant
+      wireshark
+    ];
+  };
+
+  # nixpkgs = {
+  #   config = {
+  #     # might be better as a program module
+  #     MPlayer = {
+  #       pulseSupport = true;
+  #     };
+  #   };
+
+  #   overlays = [ (import ./overlay) ];
+  # };
+
+  programs = {
+    chromium.enable = true;
+    firefox.enable = true;
+
+    kitty = {
+      enable = true;
+
+      settings = {
+        cursor_blink_interval = 0;
+        tab_bar_edge = "top";
+        tab_bar_style = "separator";
+        tab_separator  = " ";
+        tab_title_template  = "<{title}>";
+        active_tab_background = "#f00";
+        inactive_tab_background = "#000";
+      };
+    };
+
+    rofi.enable = true;
+  };
+
+  services = {
+    betterlockscreen.enable = true;
+    blueman-applet.enable = true;
+    flameshot.enable = true;
+    network-manager-applet.enable = true;
+    pasystray.enable = true;
+    status-notifier-watcher.enable = true;
+    taffybar.enable = true;
+    volnoti.enable = true;
+
+    notify-osd.enable = true;
+    # dunst = {
+    #   enable = true;
+    #   iconTheme = {
+    #     name = "Adwaita";
+    #     package = pkgs.gnome3.adwaita-icon-theme;
+    #     size = "16x16";
+    #   };
+    #   settings = {
+    #     global = {
+    #       monitor = 0;
+    #       geometry = "600x50-50+65";
+    #       shrink = "yes";
+    #       transparency = 10;
+    #       padding = 16;
+    #       horizontal_padding = 16;
+    #       font = "JetBrainsMono Nerd Font 10";
+    #       line_height = 4;
+    #       format = ''<b>%s</b>\n%b'';
+    #     };
+    #   };
+    # };
+
+    gnome-keyring = {
+      enable = true;
+      components = [ "pkcs11" "secrets" "ssh" ];
+    };
+
+    # picom = {
+    #   enable = true;
+    #   blur = true;
+    # };
+  };
+
+  xdg.configFile = {
+    "taffybar" = {
+      source = ./taffybar;
+      onChange = ''
+        # Attempt to restart taffybar if X is running
+        if [[ -v DISPLAY ]]; then
+          pkillVerbose=""
+          if [[ -v VERBOSE ]]; then
+            pkillVerbose="-e"
+          fi
+          $DRY_RUN_CMD ${pkgs.procps}/bin/pkill -u $USER $pkillVerbose taffybar || true
+          unset pkillVerbose
+        fi
+      '';
+    };
+  };
+
+  xsession = {
+    enable = true;
+
+    preferStatusNotifierItems = true;
+
+    scriptPath = ".xsession-hm";
+
+    windowManager.xmonad = {
+      enable = true;
+
+      extraPackages = ps: [ ps.taffybar ];
+      enableContribAndExtras = true;
+      config = ./xmonad.hs;
+    };
+  };
+}

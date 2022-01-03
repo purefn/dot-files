@@ -1,6 +1,12 @@
 { config, pkgs, ... }:
 
 {
+  imports = [
+    ./erase-your-darlings.nix
+    ./networking.nix
+    ./services.nix
+  ];
+
   nix = {
     autoOptimiseStore = true;
 
@@ -9,6 +15,18 @@
 
     maxJobs = "auto";
     buildCores = 0;
+
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+
+    # Binary Cache for Haskell.nix
+    binaryCachePublicKeys = [
+      "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
+    ];
+    binaryCaches = [
+      "https://hydra.iohk.io"
+    ];
   };
 
   # Select internationalisation properties.
@@ -37,7 +55,6 @@
     etc.timezone.text = "US/Arizona";
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.extraUsers.rwallace = {
     name = "rwallace";
     group = "users";
@@ -59,21 +76,25 @@
     createHome = true;
     home = "/home/rwallace";
     isNormalUser = true;
-    shell = "/run/current-system/sw/bin/bash";
   };
 
-  users.extraUsers.nixBuild = {
-    name = "nixBuild";
-    useDefaultShell = true;
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJYrlyNp/qRA6EfmDvZ8x1SfvXCy/9+s7yUdEl7FTyCX nixBuild"
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILb12SZhLSbRklbPmOE18Wm1+eIisqvOOc2LFnWmC7LY nixBuild"
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBRFLScI1Q6ul6goyJuCd+/jASAexkJ4uz5W7qdBJ/e3 nixBuild"
-    ];
-    isSystemUser = true;
-  };
+  # users.extraUsers.nixBuild = {
+  #   name = "nixBuild";
+  #   useDefaultShell = true;
+  #   openssh.authorizedKeys.keys = [
+  #     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJYrlyNp/qRA6EfmDvZ8x1SfvXCy/9+s7yUdEl7FTyCX nixBuild"
+  #     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILb12SZhLSbRklbPmOE18Wm1+eIisqvOOc2LFnWmC7LY nixBuild"
+  #     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBRFLScI1Q6ul6goyJuCd+/jASAexkJ4uz5W7qdBJ/e3 nixBuild"
+  #   ];
+  #   isSystemUser = true;
+  # };
 
-  programs.bash.enableCompletion = true;
+  programs.bash = {
+    enableCompletion = true;
+    shellAliases = {
+      nixf = "nix --extra-experimental-features flakes";
+    };
+  };
 
   nixpkgs.config = {
     allowUnfree = true;

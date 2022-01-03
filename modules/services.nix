@@ -11,23 +11,19 @@
 
     locate.enable = true;
 
-    ntp = {
-      enable = true;
-      servers = ["server.local" "0.pool.ntp.org" "1.pool.ntp.org" "2.pool.ntp.org" ];
-    };
-
     openssh = {
       enable = true;
       forwardX11 = true;
     };
 
-    # tailscale.enable = true;
+    tailscale.enable = true;
   };
 
   virtualisation = {
     docker = {
       enable = true;
-      extraOptions = "--bip=172.17.42.1/16";
+      storageDriver = "zfs";
+      autoPrune.enable = true;
     };
   };
 }

@@ -41,7 +41,7 @@
     openssh.enable = true;
 
     openvpn.servers.pia = {
-      config = builtins.readFile ../vpn/pia/current-us_silicon_valley-aes-128-cbc-udp-dns.ovpn;
+      config = "config /persist/etc/openvpn/pia/us_california.ovpn";
       up = "${pkgs.update-resolv-conf}/libexec/openvpn/update-resolv-conf";
       down = "${pkgs.update-resolv-conf}/libexec/openvpn/update-resolv-conf";
     };

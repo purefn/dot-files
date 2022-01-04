@@ -18,6 +18,7 @@
         daedalus = ./daedalus.nix;
         ronin = ./ronin.nix;
         seedbox = ./seedbox.nix;
+        tealc = ./tealc.nix;
       };
   };
 }

@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./machines/tealc/configuration.nix
+    ./machines/VMware-guest/configuration.nix
     ./modules/desktop/default.nix
   ];
 

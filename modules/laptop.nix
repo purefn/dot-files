@@ -1,6 +1,8 @@
 { pkgs, config, ... }:
 
 {
+  imports = [ ./desktop/default.nix ];
+
   services = {
     logind.extraConfig = ''
       HandleLidSwitch=suspend

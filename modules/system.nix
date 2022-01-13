@@ -20,12 +20,13 @@
       experimental-features = nix-command flakes
     '';
 
-    # Binary Cache for Haskell.nix
     binaryCachePublicKeys = [
       "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
+      "tweag-buildkite-nix-cache:/PF4aNeY1o6A4t0UPq0LN/aAYsZ7TkJgNDVKLngNdF0="
     ];
     binaryCaches = [
       "https://hydra.iohk.io"
+      "https://storage.googleapis.com/tweag-nix-cache-buildkite"
     ];
   };
 

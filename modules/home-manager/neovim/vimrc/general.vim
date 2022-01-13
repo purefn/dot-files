@@ -1,5 +1,7 @@
 " General {{{
 
+set title
+
 " Sets how many lines of history VIM has to remember
 set history=700
 
@@ -33,6 +35,10 @@ nnoremap <BS> <C-w>h
 
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
+set scrolloff=7
+set sidescrolloff=7
+set cursorline
+set cursorcolumn
 
 " Turn on the WiLd menu
 set wildmenu
@@ -51,9 +57,6 @@ set list
 if &listchars ==# 'eol:$'
   set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
 endif
-
-" Height of the command bar
-set cmdheight=1
 
 " Configure backspace so it acts as it should act
 set backspace=eol,start,indent
@@ -161,8 +164,8 @@ set tabstop=2
 set lbr
 set tw=500
 
-set ai "Auto indent
-set si "Smart indent
+set autoindent
+set smartindent
 set wrap "Wrap lines
 
 " Copy and paste to os clipboard
@@ -174,14 +177,6 @@ nmap <leader>p "*p
 vmap <leader>p "*p
  " }}}
 
-" Visual mode related {{{
-
-" Visual mode pressing * or # searches for the current selection
-" Super useful! From an idea by Michael Naumann
-vnoremap <silent> * :call VisualSelection('f', ''')CR>
-vnoremap <silent> # :call VisualSelection('b', ''')<CR>
-
-" }}}
 
 " Moving around, tabs, windows and buffers {{{
 
@@ -246,74 +241,3 @@ set laststatus=2
 
 " }}}
 
-" Editing mappings {{{
-
-" Utility function to delete trailing white space
-func! DeleteTrailingWS()
-  exe "normal mz"
-  %s/\s\+$//ge
-  exe "normal `z"
-endfunc
-autocmd BufWrite * :call DeleteTrailingWS()
-
-" }}}
-
-" Spell checking {{{
-
-" Pressing ,ss will toggle and untoggle spell checking
-map <leader>ss :setlocal spell!<cr>
-
-" }}}
-
-" Helper functions {{{
-
-function! CmdLine(str)
-  exe "menu Foo.Bar :" . a:str
-  emenu Foo.Bar
-  unmenu Foo
-endfunction
-
-function! VisualSelection(direction, extra_filter) range
-  let l:saved_reg = @"
-    execute "normal! vgvy"
-
-      let l:pattern = escape(@", '\\/.*$^~[]')
-        let l:pattern = substitute(l:pattern, "\n$", "", "")
-
-  if a:direction == 'b'
-      execute "normal ?" . l:pattern . "^M"
-        elseif a:direction == 'gv'
-    call CmdLine("vimgrep " . '/'. l:pattern . '/' . ' **/*.' . a:extra_filter)
-      elseif a:direction == 'replace'
-          call CmdLine("%s" . '/'. l:pattern . '/')
-    elseif a:direction == 'f'
-        execute "normal /" . l:pattern . "^M"
-  endif
-
-  let @/ = l:pattern
-  let @" = l:saved_reg
-endfunction
-
-" }}}
-
-" Completion {{{
-set completeopt+=longest
-
-" }}}
-
-" LanguageClient-neovim {{{
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-map <leader>lk :call LanguageClient#textDocument_hover()<CR>
-map <leader>lg :call LanguageClient#textDocument_definition()<CR>
-map <leader>lr :call LanguageClient#textDocument_rename()<CR>
-map <leader>lf :call LanguageClient#textDocument_formatting()<CR>
-map <leader>lb :call LanguageClient#textDocument_references()<CR>
-map <leader>la :call LanguageClient#textDocument_codeAction()<CR>
-map <leader>ls :call LanguageClient#textDocument_documentSymbol()<CR>
-
-hi link ALEError Error
-hi Warning term=underline cterm=underline ctermfg=Yellow gui=undercurl guisp=Gold
-hi link ALEWarning Warning
-hi link ALEInfo SpellCap
-
-" }}}

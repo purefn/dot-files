@@ -4,7 +4,7 @@
   home.packages = with pkgs; [
     awscli
     aws-vault
-    bpytop
+    btop
     lsof
     parallel
     #powerline-fonts

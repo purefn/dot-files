@@ -6,6 +6,11 @@
     ./modules/desktop/default.nix
   ];
 
+  nix = {
+    maxJobs = pkgs.lib.mkForce 4;
+    buildCores = pkgs.lib.mkForce 1;
+  };
+
   networking = {
     hostId = "ec76af14";
     hostName = "tealc";

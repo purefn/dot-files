@@ -58,6 +58,8 @@
       br = "branch";
     };
 
+    delta.enable = true;
+
     extraConfig = {
       checkout = {
         defaultRemote = "origin";
@@ -79,7 +81,7 @@
       ".*.swn"
       ".*.swp"
       ".*.swo"
-      "portal-suite/**/shell.nix"
+      "/worktrees"
     ];
 
     # lfs.enable = true;

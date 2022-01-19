@@ -18,6 +18,11 @@ let
         filetypes = [ "hs" "lhs" "haskell" ];
         # settings.languageServerHaskell.formattingProvider = "fourmolu";
       };
+      terraform = {
+        command = "${pkgs.terraform-ls}/bin/terraform-ls";
+        args = [ "serve" ];
+        filetypes = [ "terraform" "tf" ];
+      };
     };
     explorer.icon.enableNerdfont = true;
     explorer.file.child.template =
@@ -328,6 +333,7 @@ in {
       vim-hoogle
       vim-markdown
       vim-nix
+      vim-terraform
       {
         plugin = wombat256-vim;
         config = ''

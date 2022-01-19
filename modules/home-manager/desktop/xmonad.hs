@@ -230,8 +230,6 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask, xK_Left), prevWS)
   , ((modMask, xK_Right), nextWS)                                                            --Move to next Workspace
   , ((0, xF86XK_ScreenSaver), spawn "betterlockscreen --lock --dim 95")                            --Lock screen
-  , ((0, xF86XK_MonBrightnessUp), spawn "xbacklight -inc 10")
-  , ((0, xF86XK_MonBrightnessDown), spawn "xbacklight -dec 10")
   , ((0, xF86XK_AudioMute), spawn "adjust-volume toggle")
   , ((0, xF86XK_AudioRaiseVolume), spawn "adjust-volume increase")
   , ((0, xF86XK_AudioLowerVolume), spawn "adjust-volume decrease")

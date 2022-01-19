@@ -22,6 +22,3 @@ $ nix-channel --update
 $ nixos-rebuild switch
 ```
 
-TODO
-----
-* flakes

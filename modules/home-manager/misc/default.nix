@@ -19,21 +19,20 @@
       '';
 
       matchBlocks = {
-        "tealc" = {
-          user = "rwallace";
-          hostname = "172.16.18.128";
-          proxyJump = "tealc-osx";
-        };
-
-        "tealc-osx" = {
-          user = "richard";
-          hostname = "192.168.1.97";
+        github-w = {
+          host = "github-w";
+          hostname = "github.com";
+          identityFile = "~/.ssh/id_ed25519_w";
+          identitiesOnly = true;
         };
       };
     };
   };
 
   services = {
-    gpg-agent.enable = true;
+    gpg-agent = {
+      enable = true;
+      enableSshSupport = true;
+    };
   };
 }

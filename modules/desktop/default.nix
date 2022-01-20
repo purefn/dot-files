@@ -13,13 +13,14 @@
     enableGhostscriptFonts = true;
     fontconfig = {
       defaultFonts = {
-        monospace = [ "Fira Code" "DejaVu Sans Mono" ];
+        monospace = [ "FiraCode Nerd Font" "DejaVu Sans Mono Nerd Font" ];
       };
     };
 
     fonts = with pkgs; [
-      fira-code
-      fira-code-symbols
+      (nerdfonts.override { fonts = [ "FiraCode" "DejaVuSansMono" ]; })
+      # fira-code
+      # fira-code-symbols
     ];
   };
 

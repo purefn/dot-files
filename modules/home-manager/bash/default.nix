@@ -24,10 +24,10 @@
 
       historyControl = [ "ignoredups" "ignorespace" ];
 
-      initExtra = ''
-        # TODO have this file generated automatically
-        . ${./shell_prompt.sh}
-      '';
+      # initExtra = ''
+      #   # TODO have this file generated automatically
+      #   . ${./shell_prompt.sh}
+      # '';
 
       shellAliases = {
         cat = "bat";
@@ -51,5 +51,14 @@
     };
 
     noti.enable = true;
+
+    starship = {
+      enable = true;
+      settings = {
+        java.disabled = true;
+        nodejs.disabled = true;
+        scala.disabled = true;
+      };
+    };
   };
 }

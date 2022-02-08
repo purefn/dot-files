@@ -40,9 +40,9 @@
       gnome3.eog
       gnome3.evince
       gnome3.file-roller
-      gnome3.gnome_keyring
-      gnome3.networkmanagerapplet
-      gnome3.networkmanager_openconnect
+      gnome3.gnome-keyring
+      networkmanagerapplet
+      networkmanager_openconnect
       gnome3.seahorse
       gnome3.zenity
       libnotify

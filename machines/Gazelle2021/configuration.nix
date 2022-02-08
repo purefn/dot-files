@@ -43,5 +43,8 @@ in {
 
     system76.enableAll = true;
   };
+
+  # for nixos containers
+  networking.nat.externalInterface = "wlp0s20f3";
 }
 

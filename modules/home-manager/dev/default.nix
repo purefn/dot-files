@@ -58,7 +58,10 @@
       br = "branch";
     };
 
-    delta.enable = true;
+    delta = {
+      enable = true;
+      options.side-by-side = true;
+    };
 
     extraConfig = {
       checkout = {
@@ -73,6 +76,12 @@
       rerere = {
         enabled = true;
         autoupdate = true;
+      };
+      "mergetool \"nvim\"" = {
+        cmd = "nvim -f -c \"Gdiffsplit!\" \"$MERGED\"";
+      };
+      merge = {
+        tool = "nvim";
       };
     };
 

@@ -10,7 +10,6 @@
   nix = {
     autoOptimiseStore = true;
 
-    distributedBuilds = false;
     trustedUsers = [ "nixBuild" "rwallace" ];
 
     maxJobs = "auto";

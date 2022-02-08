@@ -11,10 +11,12 @@
     actkbd = {
       enable = true;
       bindings = [
-        { keys = [ 224 ]; events = [ "key" ]; command = "${pkgs.light}/bin/light -A 10"; }
-        { keys = [ 225 ]; events = [ "key" ]; command = "${pkgs.light}/bin/light -U 10"; }
+        { keys = [ 224 ]; events = [ "key" ]; command = "${pkgs.light}/bin/light -U 10"; }
+        { keys = [ 225 ]; events = [ "key" ]; command = "${pkgs.light}/bin/light -A 10"; }
       ];
     };
+
+    cpupower-gui.enable = true;
 
     logind.lidSwitchExternalPower = "ignore";
 

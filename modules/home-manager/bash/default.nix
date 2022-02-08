@@ -32,6 +32,10 @@
       shellAliases = {
         cat = "bat";
       };
+
+      shellOptions = [
+        "direxpand"
+      ];
     };
 
     dircolors.enable = true;

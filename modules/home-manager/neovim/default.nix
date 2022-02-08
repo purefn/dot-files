@@ -8,7 +8,7 @@ let
     "codeLens.enable" = true;
     languageserver = {
       nix = {
-        command = "${pkgs.rnix-lsp}/bin/rnix-lsp";
+        command = "rnix-lsp";
         filetypes = [ "nix" ];
       };
       haskell = {
@@ -16,10 +16,12 @@ let
         args = [ "--lsp" "-d" "-l" "/tmp/LanguageServer.log" ];
         rootPatterns = [ ".hie-bios" "cabal.project" ];
         filetypes = [ "hs" "lhs" "haskell" ];
-        # settings.languageServerHaskell.formattingProvider = "fourmolu";
+        # make sure haskell-language-server is compiled with -fbrittany
+        # settings.languageServerHaskell.formattingProvider = "brittany";
+        initializationOptions.haskell.formattingProvider = "brittany";
       };
       terraform = {
-        command = "${pkgs.terraform-ls}/bin/terraform-ls";
+        command = "terraform-ls";
         args = [ "serve" ];
         filetypes = [ "terraform" "tf" ];
       };
@@ -31,6 +33,8 @@ let
 in {
   home.packages = with pkgs; [
     nodejs # for coc-nvim
+    terraform-ls
+    rnix-lsp
   ];
 
   programs.neovim = {

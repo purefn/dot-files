@@ -7,9 +7,8 @@
     cbatticon.enable = true;
   };
 
-  systemd.user.services.intusurg-ssh-tunnel = {
+  systemd.user.services.intusurg-socks5-proxy = {
     Service = {
-      Environment = "SSH_AUTH_SOCK=/run/user/1000/gnupg/S.gpg-agent.ssh";
       ExecStart="${pkgs.openssh}/bin/ssh -D 8889 -o ServerAliveInterval=60 -o ExitOnForwardFailure=yes -CN intusurg";
       Restart = "always";
       RestartSec = 5;

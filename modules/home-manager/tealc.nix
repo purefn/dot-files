@@ -1,1 +1,1 @@
-machine-profiles/ss-vm.nix
+machine-profiles/vm.nix

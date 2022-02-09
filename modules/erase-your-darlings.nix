@@ -1,4 +1,4 @@
-{ pkgs, ...}:
+{ config, pkgs, ...}:
 
 {
   boot = {
@@ -59,11 +59,18 @@
     };
   };
 
+  sops = {
+    secrets."passwords/root".neededForUsers = true;
+    secrets."passwords/rwallace".neededForUsers = true;
+  };
+
   users = {
     mutableUsers = false;
     users = {
-      root.initialHashedPassword = "$6$gdpMMTVeVitX0$jbXCRI/yWr6AzsL2K2VyPvNApb0xb8iipCkv2SPCALf3dz9vRjKlPRUFVWgd2OOA7ZJeRs8sFSNL0rd072fHG.";
-      rwallace.initialHashedPassword = "$6$caUyXsJ6$YqTfq2glYOMpbmONsO1iVXmmJjlOIDHNp9EATJeLApity2Bf6nAqrsoFmFS/Mb9qMLMyLNVEMMHVGJk4Zx4Bp.";
+      # root.initialHashedPassword = "$6$gdpMMTVeVitX0$jbXCRI/yWr6AzsL2K2VyPvNApb0xb8iipCkv2SPCALf3dz9vRjKlPRUFVWgd2OOA7ZJeRs8sFSNL0rd072fHG.";
+      # rwallace.initialHashedPassword = "$6$caUyXsJ6$YqTfq2glYOMpbmONsO1iVXmmJjlOIDHNp9EATJeLApity2Bf6nAqrsoFmFS/Mb9qMLMyLNVEMMHVGJk4Zx4Bp.";
+      root.passwordFile = config.sops.secrets."passwords/root".path;
+      rwallace.passwordFile = config.sops.secrets."passwords/rwallace".path;
     };
   };
 }

@@ -1,6 +1,12 @@
 { config, pkgs, ... }:
 
 {
+  programs = {
+    ssh = {
+      startAgent = true;
+      enableAskPassword = true;
+    };
+  };
   services = {
     # keybase.enable = true;
 
@@ -13,7 +19,6 @@
 
     openssh = {
       enable = true;
-      forwardX11 = true;
     };
 
     tailscale.enable = true;

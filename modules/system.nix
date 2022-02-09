@@ -5,6 +5,7 @@
     ./erase-your-darlings.nix
     ./networking.nix
     ./services.nix
+    ./sops
   ];
 
   nix = {
@@ -40,10 +41,9 @@
 
   environment = {
     systemPackages = with pkgs; [
+      age
       file
       gitFull
-      git-crypt
-      gnupg
       neovim
       pciutils
       unionfs-fuse

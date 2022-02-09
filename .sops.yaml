@@ -2,6 +2,7 @@ keys:
   - &u_purefn age1pgru95m33fze0a0mldracn08e8jer4mwujch9t8yax42evm69szq296j4n
   - &m_ronin age1uajv2qzzvv07742c540h59jf3k0dhdzwlzv0tqd2tstl5wq0d5sqj0zsn3
   - &m_tealc age14m2uxh4d2nnc37kp20ngpe8tyqzephjt3dl643m03mayx2x50grsjfkmnl
+  - &m_daedalus age1llyzelv026fzh3l8yarpap8ej4pcvxskerjy3g5s7egprskr8ats6vxn7m
 creation_rules:
   - path_regex: modules/sops/secrets.yaml
     key_groups:
@@ -9,4 +10,5 @@ creation_rules:
       - *u_purefn
       - *m_ronin
       - *m_tealc
+      - *m_daedalus
 

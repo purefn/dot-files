@@ -22,3 +22,10 @@ $ nix-channel --update
 $ nixos-rebuild switch
 ```
 
+sops notes
+----
+copy sops age key to `~/.config/sops/age/keys.txt`
+run `age-keygen -y ~/.config/sops/age/keys.txt`
+run `nix-shell -p ssh-to-age --run 'cat /persist/etc/ssh/ssh_host_ed25519_key.pub | ssh-to-age'`
+add output of ^ to `.sops.yaml` as `m_<hostname>`
+nix-shell -p sops --run 'sops updatekeys modules/sops/secrets.yaml '

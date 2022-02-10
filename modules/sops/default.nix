@@ -14,6 +14,7 @@
       "ssh/ed_w"
       "ssh/rsa"
       "ssh/c_deploy"
+      "ssh/config"
     ]);
   };
 }

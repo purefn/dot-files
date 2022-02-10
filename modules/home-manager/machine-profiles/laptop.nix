@@ -7,9 +7,9 @@
     cbatticon.enable = true;
   };
 
-  systemd.user.services.intusurg-socks5-proxy = {
+  systemd.user.services.socks5-proxy-gut = {
     Service = {
-      ExecStart="${pkgs.openssh}/bin/ssh -D 8889 -o ServerAliveInterval=60 -o ExitOnForwardFailure=yes -CN intusurg";
+      ExecStart="${pkgs.openssh}/bin/ssh -D 8889 -o ServerAliveInterval=60 -o ExitOnForwardFailure=yes -CN gut";
       Restart = "always";
       RestartSec = 5;
     };

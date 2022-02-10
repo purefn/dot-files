@@ -59,11 +59,6 @@
     };
   };
 
-  sops = {
-    secrets."passwords/root".neededForUsers = true;
-    secrets."passwords/rwallace".neededForUsers = true;
-  };
-
   users = {
     mutableUsers = false;
     users = {

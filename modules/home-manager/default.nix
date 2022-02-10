@@ -10,7 +10,7 @@
         ./bash
         ./desktop
         ./dev
-        ./misc
+        (import ./misc { nixos-config = config; })
         ./neovim
         (./. + "/${config.networking.hostName}.nix")
       ];

@@ -95,8 +95,4 @@
 
     # lfs.enable = true;
   };
-
-  services = {
-    lorri.enable = true;
-  };
 }

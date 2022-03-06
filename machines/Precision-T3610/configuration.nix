@@ -4,7 +4,7 @@
   imports = [ ./hardware-configuration.nix ];
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_5_4;
+    # kernelPackages = pkgs.linuxPackages_5_4;
 
     loader = {
       systemd-boot.enable = true;

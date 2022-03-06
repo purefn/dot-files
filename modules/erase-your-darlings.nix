@@ -2,6 +2,8 @@
 
 {
   boot = {
+    kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+
     supportedFilesystems = [ "zfs" ];
 
     # this wipes the root fs on reboot.

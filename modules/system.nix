@@ -9,25 +9,24 @@
   ];
 
   nix = {
-    autoOptimiseStore = true;
-
-    trustedUsers = [ "nixBuild" "rwallace" ];
-
-    maxJobs = "auto";
-    buildCores = 0;
+    settings = {
+      auto-optimise-store = true;
+      cores = 0;
+      max-jobs = "auto";
+      substituters = [
+        "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
+        "tweag-buildkite-nix-cache:/PF4aNeY1o6A4t0UPq0LN/aAYsZ7TkJgNDVKLngNdF0="
+      ];
+      trusted-public-keys = [
+        "https://hydra.iohk.io"
+        "https://storage.googleapis.com/tweag-nix-cache-buildkite"
+      ];
+      trusted-users = [ "nixBuild" "rwallace" ];
+    };
 
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
-
-    binaryCachePublicKeys = [
-      "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
-      "tweag-buildkite-nix-cache:/PF4aNeY1o6A4t0UPq0LN/aAYsZ7TkJgNDVKLngNdF0="
-    ];
-    binaryCaches = [
-      "https://hydra.iohk.io"
-      "https://storage.googleapis.com/tweag-nix-cache-buildkite"
-    ];
   };
 
   # Select internationalisation properties.

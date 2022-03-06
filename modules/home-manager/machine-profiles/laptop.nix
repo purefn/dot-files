@@ -16,4 +16,14 @@
 
     Install = { WantedBy = [ "default.target" ]; };
   };
+
+  systemd.user.services.socks5-proxy-tealc = {
+    Service = {
+      ExecStart="${pkgs.openssh}/bin/ssh -D 8080 -o ServerAliveInterval=60 -o ExitOnForwardFailure=yes -CN tealc";
+      Restart = "always";
+      RestartSec = 5;
+    };
+
+    Install = { WantedBy = [ "default.target" ]; };
+  };
 }

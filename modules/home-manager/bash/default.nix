@@ -5,6 +5,7 @@
     awscli
     aws-vault
     btop
+    jless
     lsof
     parallel
     #powerline-fonts

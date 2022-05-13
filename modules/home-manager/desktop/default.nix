@@ -42,7 +42,7 @@
       gnome3.file-roller
       gnome3.gnome-keyring
       networkmanagerapplet
-      networkmanager_openconnect
+      networkmanager-openconnect
       gnome3.seahorse
       gnome3.zenity
       libnotify
@@ -67,7 +67,7 @@
       # mumble
       # pithos
       # steam
-      transmission_remote_gtk
+      transmission-remote-gtk
       # linuxPackages.virtualbox
       # vagrant
       wireshark
@@ -176,7 +176,8 @@
 
     windowManager.xmonad = {
       enable = true;
-
+      # current version of taffybar, 3.3.0, doesn't compile with ghc 9
+      haskellPackages = pkgs.haskell.packages.ghc8107;
       extraPackages = ps: [ ps.taffybar ];
       enableContribAndExtras = true;
       config = ./xmonad.hs;

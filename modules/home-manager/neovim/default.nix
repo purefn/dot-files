@@ -30,6 +30,13 @@ let
     explorer.file.child.template =
       "[git | 2] [selection | clip | 1] [indent][icon | 1] [diagnosticError & 1][diagnosticWarning & 1][filename omitCenter 1][modified][readonly] [linkIcon & 1][link growRight 1 omitCenter 5][size]";
   };
+
+  preamble =
+    let vimrcs = pkgs.lib.sourceByRegex ./vimrc [ ".*\.vim$" ];
+      cfgs = builtins.attrNames (builtins.readDir (vimrcs).outPath);
+      exeSrc = a: "execute 'source ${vimrcs.outPath}/${a}'";
+    in
+      pkgs.lib.concatMapStringsSep "\n" exeSrc cfgs + "\n\n";
 in {
   home.packages = with pkgs; [
     nodejs # for coc-nvim
@@ -73,6 +80,7 @@ in {
       {
         plugin = coc-highlight;
         config = ''
+          ${preamble}
           nmap <space>e :CocCommand explorer --no-toggle<CR>
         '';
       }
@@ -357,14 +365,6 @@ in {
         '';
       }
     ];
-
-    extraConfig =
-      let
-        vimrcs = pkgs.lib.sourceByRegex ./vimrc [ ".*\.vim$" ];
-        cfgs = builtins.attrNames (builtins.readDir (vimrcs).outPath);
-        exeSrc = a: "execute 'source ${vimrcs.outPath}/${a}'";
-      in
-        pkgs.lib.concatMapStringsSep "\n" exeSrc cfgs + "\n\n";
   };
 
   xdg.configFile."nvim/coc-settings.json".text = builtins.toJSON cocSettings;

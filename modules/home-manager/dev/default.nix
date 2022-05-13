@@ -58,9 +58,12 @@
       br = "branch";
     };
 
-    delta = {
+    # delta = {
+    #   enable = true;
+    #   options.side-by-side = true;
+    # };
+    difftastic = {
       enable = true;
-      options.side-by-side = true;
     };
 
     extraConfig = {
@@ -85,12 +88,30 @@
       };
     };
 
+    includes = [
+      {
+        condition = "gitdir:~/tweag/**";
+        contents = {
+          user = {
+            email = "richard.wallace@tweag.io";
+          };
+        };
+      }
+      {
+        condition = "gitdir:~/intusurg/**";
+        contents = {
+          user = {
+            email = "richard.wallace@intusurg.com";
+          };
+        };
+      }
+    ];
+
     ignores = [
       "*~"
       ".*.swn"
       ".*.swp"
       ".*.swo"
-      "/worktrees"
     ];
 
     # lfs.enable = true;

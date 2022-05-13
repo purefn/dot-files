@@ -20,6 +20,8 @@ in {
 
   environment.systemPackages = [ nvidia-offload ];
 
+  services.xserver.videoDrivers = [ "nvidia" ];
+
   hardware = {
     bluetooth.enable = true;
 

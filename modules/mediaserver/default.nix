@@ -3,7 +3,7 @@
 {
   powerManagement.enable = false;
 
-  environment.systemPackages = with pkgs; [ libtorrent unrar ];
+  environment.systemPackages = with pkgs; [ unrar ];
 
   nixpkgs.config.packageOverrides = pkgs: {
     # radarr = pkgs.callPackage ./radarr {};

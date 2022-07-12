@@ -9,6 +9,7 @@
     secrets = {
       "passwords/root".neededForUsers = true;
       "passwords/rwallace".neededForUsers = true;
+      "vpn/pia" = {};
     } // pkgs.lib.listToAttrs (map (name: { inherit name; value = { owner = "rwallace"; }; }) [
       "ssh/ed"
       "ssh/rsa"

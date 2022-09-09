@@ -18,7 +18,7 @@
       # haskell dev
       # all-hies
       cabal-install
-      nix-ghci
+      (pkgs.callPackage ./overlay/nix-ghci {})
       # haskell-ide-engine
       haskellPackages.cabal2nix
       haskellPackages.cabal-fmt
@@ -42,6 +42,7 @@
     ];
   };
 
+  # TODO doesn't seem to have an effect. why?
   nixpkgs.overlays = [ (import ./overlay) ];
 
   programs.git = {
@@ -58,12 +59,9 @@
       br = "branch";
     };
 
-    # delta = {
-    #   enable = true;
-    #   options.side-by-side = true;
-    # };
-    difftastic = {
+    delta = {
       enable = true;
+      # options.side-by-side = true;
     };
 
     extraConfig = {
@@ -73,24 +71,27 @@
       core = {
         editor = "nvim";
       };
+      merge = {
+        tool = "nvimdiff";
+      };
+      "mergetool \"nvimdiff\"" = {
+        cmd = "nvim -d \"$LOCAL\" \"$MERGED\" \"$BASE\" \"$REMOTE\" -c \"wincmd w\" -c \"wincmd J\"";
+      };
       pull = {
         rebase = false;
+      };
+      push = {
+        autoSetupRemote = true;
       };
       rerere = {
         enabled = true;
         autoupdate = true;
       };
-      "mergetool \"nvim\"" = {
-        cmd = "nvim -f -c \"Gdiffsplit!\" \"$MERGED\"";
-      };
-      merge = {
-        tool = "nvim";
-      };
     };
 
     includes = [
       {
-        condition = "gitdir:~/tweag/**";
+        condition = "gitdir:~/s/tweag/**";
         contents = {
           user = {
             email = "richard.wallace@tweag.io";
@@ -98,7 +99,7 @@
         };
       }
       {
-        condition = "gitdir:~/intusurg/**";
+        condition = "gitdir:~/s/intusurg/**";
         contents = {
           user = {
             email = "richard.wallace@intusurg.com";

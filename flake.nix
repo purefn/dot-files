@@ -20,6 +20,14 @@
             home-manager.nixosModules.home-manager
             sops-nix.nixosModules.sops
             cfg
+
+            {
+              environment.etc."channels/nixpkgs".source = nixpkgs.outPath;
+              nix = {
+                registry.nixpkgs.flake = nixpkgs;
+                nixPath = [ "nixpkgs=/etc/channels/nixpkgs" ];
+              };
+            }
           ];
         };
       in builtins.mapAttrs (_: f) {

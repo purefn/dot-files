@@ -55,6 +55,11 @@
       enableAliases = true;
     };
 
+    mcfly = {
+      enable = true;
+      keyScheme = "vim";
+    };
+
     noti.enable = true;
 
     starship = {

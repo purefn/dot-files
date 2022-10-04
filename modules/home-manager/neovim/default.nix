@@ -37,6 +37,8 @@ let
       exeSrc = a: "execute 'source ${vimrcs.outPath}/${a}'";
     in
       pkgs.lib.concatMapStringsSep "\n" exeSrc cfgs + "\n\n";
+
+  p_ = plugin: { inherit plugin; config = ""; };
 in {
   home.packages = with pkgs; [
     nodejs # for coc-nvim
@@ -51,7 +53,7 @@ in {
     vimAlias = true;
     vimdiffAlias = true;
 
-    plugins = with pkgs.vimPlugins; map (p: p // { config = p.config or ""; }) [
+    plugins = with pkgs.vimPlugins; [
       # TODO add these?
       # * mundo
       # * nerdtree
@@ -95,8 +97,8 @@ in {
       #     nmap <silent> gc :CocCommand git.showCommit<CR>
       #   '';
       # }
-      coc-json
-      coc-html
+      (p_ coc-json)
+      (p_ coc-html)
       # LSP support, see `cocSettings` above for lang config
       {
         plugin = coc-nvim;
@@ -254,12 +256,12 @@ in {
           nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
         '';
       }
-      coc-yaml
+      (p_ coc-yaml)
 
-      dhall-vim
+      (p_ dhall-vim)
 
       # git commands
-      fugitive
+      (p_ fugitive)
 
       {
         plugin = haskell-vim;
@@ -304,7 +306,7 @@ in {
       #     hi link ALEInfo SpellCap
       #   '';
       # }
-      purescript-vim
+      (p_ purescript-vim)
       # {
       #   plugin = supertab;
       #   config = ''
@@ -334,11 +336,11 @@ in {
           let g:airline#extensions#nvimlsp#enabled = 0
         '';
       }
-      vim-airline-themes
-      vim-hoogle
-      vim-markdown
-      vim-nix
-      vim-terraform
+      (p_ vim-airline-themes)
+      (p_ vim-hoogle)
+      (p_ vim-markdown)
+      (p_ vim-nix)
+      (p_ vim-terraform)
       {
         plugin = wombat256-vim;
         config = ''

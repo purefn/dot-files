@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
 
 {
+  imports = [ ./kitty.nix ];
+
   gtk = {
     enable = true;
 
@@ -29,10 +31,6 @@
   };
 
   home = {
-    file = {
-      ".terminfo/x/xterm-kitty".source = "${pkgs.kitty}/lib/kitty/terminfo/x/xterm-kitty";
-    };
-
     packages = with pkgs; [
       # basics
       fira-code
@@ -88,20 +86,6 @@
   programs = {
     chromium.enable = true;
     firefox.enable = true;
-
-    kitty = {
-      enable = true;
-
-      settings = {
-        cursor_blink_interval = 0;
-        tab_bar_edge = "top";
-        tab_bar_style = "separator";
-        tab_separator  = " ";
-        tab_title_template  = "<{title}>";
-        active_tab_background = "#f00";
-        inactive_tab_background = "#000";
-      };
-    };
 
     rofi.enable = true;
   };

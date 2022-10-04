@@ -2,14 +2,15 @@
 
 {
   home.packages = with pkgs; [
-    awscli
+    awscli2
     aws-vault
+    bashInteractive
     btop
     jless
     lsof
     parallel
     #powerline-fonts
-    psmisc
+    # psmisc TODO include depending on if darwin
     ripgrep
     s3cmd
     tree

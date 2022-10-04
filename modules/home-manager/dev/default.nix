@@ -12,7 +12,7 @@
       ctags
       # darcs
       gnumake
-      ngrok
+      # ngrok
       binutils-unwrapped
 
       # haskell dev
@@ -88,25 +88,6 @@
         autoupdate = true;
       };
     };
-
-    includes = [
-      {
-        condition = "gitdir:~/s/tweag/**";
-        contents = {
-          user = {
-            email = "richard.wallace@tweag.io";
-          };
-        };
-      }
-      {
-        condition = "gitdir:~/s/intusurg/**";
-        contents = {
-          user = {
-            email = "richard.wallace@intusurg.com";
-          };
-        };
-      }
-    ];
 
     ignores = [
       "*~"

@@ -1,10 +1,12 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -22,6 +24,7 @@
             cfg
 
             {
+              home.sessionVariables.NIX_PATH = "nixpkgs=${nixpkgs.outPath}";
               environment.etc."channels/nixpkgs".source = nixpkgs.outPath;
               nix = {
                 registry.nixpkgs.flake = nixpkgs;

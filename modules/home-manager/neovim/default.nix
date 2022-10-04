@@ -51,7 +51,7 @@ in {
     vimAlias = true;
     vimdiffAlias = true;
 
-    plugins = with pkgs.vimPlugins; [
+    plugins = with pkgs.vimPlugins; map (p: p // { config = p.config or ""; }) [
       # TODO add these?
       # * mundo
       # * nerdtree

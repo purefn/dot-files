@@ -100,7 +100,7 @@ in {
       (p_ coc-json)
       (p_ coc-html)
       # LSP support, see `cocSettings` above for lang config
-      {
+      (let older = pkgs.lib.versionOlder coc-nvim.version "2022-09-23"; in {
         plugin = coc-nvim;
         # config taken from coc.nvim readme
         config = ''
@@ -122,17 +122,16 @@ in {
           " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
           " other plugin before putting this into your config.
           inoremap <silent><expr> <TAB>
-                \ coc#pum#visible() ? coc#pum#next(1) :
-                \ CheckBackspace() ? "\<Tab>" :
+                \ ${if older then ''pumvisible() ? "\<C-n>"'' else "coc#pum#visible() ? coc#pum#next(1)"} :
+                \ ${if older then ''"<SID>check_back_space() ? "\<TAB>"'' else ''CheckBackspace() ? "\<Tab>"''} :
                 \ coc#refresh()
-          inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+          inoremap <expr><S-TAB> ${if older then ''pumvisible() ? "\<C-p>"'' else "coc#pum#visible() ? coc#pum#prev(1)"} : "\<C-h>"
 
           " Make <CR> to accept selected completion item or notify coc.nvim to format
           " <C-g>u breaks current undo, please make your own choice.
-          inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-                                        \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+          ${pkgs.lib.optionalStr (!older) ''inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"''}
 
-          function! CheckBackspace() abort
+          ${if older then "function! s:check_back_space() abort" else "function! CheckBackspace() abort"}
             let col = col('.') - 1
             return !col || getline('.')[col - 1]  =~# '\s'
           endfunction
@@ -156,13 +155,23 @@ in {
           nmap <silent> gr <Plug>(coc-references)
 
           " Use K to show documentation in preview window.
-          nnoremap <silent> K :call ShowDocumentation()<CR>
+          nnoremap <silent> K :call ${if older then "<SID>show_documentation" else "ShowDocumentation"}()<CR>
 
           function! ShowDocumentation()
             if CocAction('hasProvider', 'hover')
               call CocActionAsync('doHover')
             else
               call feedkeys('K', 'in')
+            endif
+          endfunction
+
+          function! s:show_documentation()
+            if (index(['vim','help'], &filetype) >= 0)
+              execute 'h '.expand('<cword>')
+            elseif (coc#rpc#ready())
+                call CocActionAsync('doHover')
+            else
+              execute '!' . &keywordprg . " " . expand('<cword>')
             endif
           endfunction
 
@@ -224,7 +233,7 @@ in {
           xmap <silent> <C-s> <Plug>(coc-range-select)
 
           " Add `:Format` command to format current buffer.
-          command! -nargs=0 Format :call CocActionAsync('format')
+          command! -nargs=0 Format :call CocAction${pkgs.lib.optionalStr (!older) "Async"}('format')
 
           " Add `:Fold` command to fold current buffer.
           command! -nargs=? Fold :call     CocAction('fold', <f-args>)
@@ -255,7 +264,7 @@ in {
           " Resume latest coc list.
           nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
         '';
-      }
+      })
       (p_ coc-yaml)
 
       (p_ dhall-vim)

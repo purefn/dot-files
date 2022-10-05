@@ -129,7 +129,7 @@ in {
 
           " Make <CR> to accept selected completion item or notify coc.nvim to format
           " <C-g>u breaks current undo, please make your own choice.
-          ${pkgs.lib.optionalStr (!older) ''inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"''}
+          ${pkgs.lib.optionalString (!older) ''inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"''}
 
           ${if older then "function! s:check_back_space() abort" else "function! CheckBackspace() abort"}
             let col = col('.') - 1
@@ -233,7 +233,7 @@ in {
           xmap <silent> <C-s> <Plug>(coc-range-select)
 
           " Add `:Format` command to format current buffer.
-          command! -nargs=0 Format :call CocAction${pkgs.lib.optionalStr (!older) "Async"}('format')
+          command! -nargs=0 Format :call CocAction${pkgs.lib.optionalString (!older) "Async"}('format')
 
           " Add `:Fold` command to fold current buffer.
           command! -nargs=? Fold :call     CocAction('fold', <f-args>)

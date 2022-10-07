@@ -14,6 +14,23 @@
   };
 
   outputs = { self, nixpkgs, home-manager, sops-nix }: {
+    apps.x86_64-linux =
+      let
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      in {
+        update = {
+          type = "app";
+          program =
+            let
+              update = pkgs.writeShellScript "update" ''
+                set -e
+                ${pkgs.nix}/bin/nix flake update
+                ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch --flake ${./.} --use-remote-sudo
+              '';
+            in
+              "${update}";
+        };
+    };
     nixosConfigurations =
       let
         f = cfg: nixpkgs.lib.nixosSystem {

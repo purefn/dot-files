@@ -12,7 +12,7 @@
     };
 
     theme = {
-      package = pkgs.gnome3.gnome-themes-extra;
+      package = pkgs.gnome.gnome-themes-extra;
       name = "Adwaita";
     };
 
@@ -35,17 +35,17 @@
       # basics
       fira-code
       fira-code-symbols
-      gnome3.eog
-      gnome3.evince
-      gnome3.file-roller
-      gnome3.gnome-keyring
+      gnome.eog
+      gnome.evince
+      gnome.file-roller
+      gnome.gnome-keyring
       networkmanagerapplet
       networkmanager-openconnect
-      gnome3.seahorse
-      gnome3.zenity
+      gnome.seahorse
+      gnome.zenity
       libnotify
 
-      gnome3.adwaita-icon-theme
+      gnome.adwaita-icon-theme
       papirus-icon-theme
       gnome-icon-theme
       hicolor-icon-theme
@@ -105,7 +105,7 @@
     #   enable = true;
     #   iconTheme = {
     #     name = "Adwaita";
-    #     package = pkgs.gnome3.adwaita-icon-theme;
+    #     package = pkgs.gnome.adwaita-icon-theme;
     #     size = "16x16";
     #   };
     #   settings = {

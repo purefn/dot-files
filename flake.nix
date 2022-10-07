@@ -24,7 +24,7 @@
             cfg
 
             {
-              home.sessionVariables.NIX_PATH = "nixpkgs=${nixpkgs.outPath}";
+              home-manager.users.rwallace.home.sessionVariables.NIX_PATH = "nixpkgs=${nixpkgs.outPath}";
               environment.etc."channels/nixpkgs".source = nixpkgs.outPath;
               nix = {
                 registry.nixpkgs.flake = nixpkgs;

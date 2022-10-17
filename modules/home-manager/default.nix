@@ -8,7 +8,6 @@
     users.rwallace = {
       imports = [
         ./bash
-        ./desktop
         ./dev
         (import ./misc { nixos-config = config; })
         ./neovim
@@ -18,7 +17,8 @@
       home = {
         username = "rwallace";
         homeDirectory = "/home/rwallace";
-        stateVersion = "22.11";
+        sessionVariables.NIX_PATH = config.nix.nixPath;
+        stateVersion = "22.05";
       };
 
       programs.home-manager.enable = true;

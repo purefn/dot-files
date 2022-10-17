@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports =
@@ -23,4 +23,6 @@
     firewall.enable = false;
     # firewall.allowedTCPPorts = [ 22 80 9091 50500 ];
   };
+
+  virtualisation.docker.enable = lib.mkForce false;
 }

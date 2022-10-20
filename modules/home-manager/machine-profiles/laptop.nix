@@ -1,7 +1,7 @@
 # left empty, the defaults are for a laptop
 
 { pkgs, config, ... }: {
-  import = [ ../desktop ];
+  imports = [ ../desktop ];
   services = {
     # haven't been able to get the icon showing the taffybar, but the
     # notification messages are still useful

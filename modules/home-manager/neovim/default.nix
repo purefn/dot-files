@@ -105,7 +105,7 @@ in {
         # config taken from coc.nvim readme
         config =
           let
-            older = pkgs.lib.versionOlder coc-nvim.version "2022-09-23";
+            older = pkgs.lib.versionOlder coc-nvim.version "2022-09-07";
             compat = {
               tab = if older
                 then ''pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : coc#refresh()''

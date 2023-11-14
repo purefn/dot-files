@@ -49,11 +49,13 @@ in {
   programs.neovim = {
     enable = true;
 
+    defaultEditor = true;
+
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
 
-    plugins = with pkgs.vimPlugins; [
+   plugins = with pkgs.vimPlugins; [
       # TODO add these?
       # * mundo
       # * nerdtree
@@ -106,24 +108,22 @@ in {
         config =
           let
             older = pkgs.lib.versionOlder coc-nvim.version "2022-09-07";
-            compat = {
-              tab = if older
-                then ''pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : coc#refresh()''
-                else ''coc#pum#visible() ? coc#pum#next(1) : CheckBackspace() ? "\<Tab>" : coc#refresh()'';
-              s-tab = if older
-                then ''pumvisible() ? "\<C-p>" : "\<C-h>"''
-                else ''coc#pum#visible() ? coc#pum#prev(1)"} : "\<C-h>"'';
-              cr = if older
-                then ''pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"''
-                else ''coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"'';
-              checkBackspaceFuncDecl = if older
-                then "function! s:check_back_space() abort"
-                else "function! CheckBackspace() abort";
-              showDocumentation = if older
-                then "<SID>show_documentation()<CR>"
-                else "ShowDocumentation()<CR>";
-              formatCocAction = "CocAction" + pkgs.lib.optionalString (!older) "Async";
-            };
+            compat = if older
+              then {
+                tab = ''pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : coc#refresh()'';
+                s-tab = ''pumvisible() ? "\<C-p>" : "\<C-h>"'';
+                cr = ''pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"'';
+                checkBackspaceFuncDecl = "function! s:check_back_space() abort";
+                showDocumentation = "<SID>show_documentation()<CR>";
+                formatCocAction = "CocAction";
+              } else {
+                tab = ''coc#pum#visible() ? coc#pum#next(1) : CheckBackspace() ? "\<Tab>" : coc#refresh()'';
+                s-tab = ''coc#pum#visible() ? coc#pum#prev(1)"} : "\<C-h>"'';
+                cr = ''coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"'';
+                checkBackspaceFuncDecl = "function! CheckBackspace() abort";
+                showDocumentation = "ShowDocumentation()<CR>";
+                formatCocAction = "CocActionAsync";
+              };
           in ''
             " Some servers have issues with backup files, see #649.
             set nobackup

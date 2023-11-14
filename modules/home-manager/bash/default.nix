@@ -10,12 +10,15 @@
     lsof
     parallel
     #powerline-fonts
-    # psmisc TODO include depending on if darwin
     ripgrep
     s3cmd
     tree
     unzip
+    watch
+    watchexec
     zip
+  ] ++ pkgs.lib.optionals (!pkgs.stdenv.isDarwin) [
+    psmisc
   ];
 
   programs = {

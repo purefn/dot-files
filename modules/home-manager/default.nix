@@ -17,7 +17,7 @@
       home = {
         username = "rwallace";
         homeDirectory = "/home/rwallace";
-        sessionVariables.NIX_PATH = config.nix.nixPath;
+        # sessionVariables.NIX_PATH = config.nix.nixPath;
         stateVersion = "22.05";
       };
 

@@ -7,10 +7,10 @@ let
     "diagnostic.virtualTextCurrentLineOnly" = false;
     "codeLens.enable" = true;
     languageserver = {
-      nix = {
-        command = "rnix-lsp";
-        filetypes = [ "nix" ];
-      };
+      # nix = {
+      #   command = "rnix-lsp";
+      #   filetypes = [ "nix" ];
+      # };
       haskell = {
         command = "haskell-language-server";
         args = [ "--lsp" "-d" "-l" "/tmp/LanguageServer.log" ];
@@ -43,7 +43,7 @@ in {
   home.packages = with pkgs; [
     nodejs # for coc-nvim
     terraform-ls
-    rnix-lsp
+    # rnix-lsp
   ];
 
   programs.neovim = {

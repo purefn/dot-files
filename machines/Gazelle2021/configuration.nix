@@ -26,6 +26,7 @@ in {
     bluetooth.enable = true;
 
     nvidia = {
+      open = true;
       powerManagement.enable = true;
 
       prime = {

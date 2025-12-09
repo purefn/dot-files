@@ -11,14 +11,13 @@
         ./dev
         (import ./misc { nixos-config = config; })
         ./neovim
-        (./. + "/${config.networking.hostName}.nix")
       ];
 
       home = {
         username = "rwallace";
         homeDirectory = "/home/rwallace";
         # sessionVariables.NIX_PATH = config.nix.nixPath;
-        stateVersion = "22.05";
+        stateVersion = "25.11";
       };
 
       programs.home-manager.enable = true;

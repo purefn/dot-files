@@ -47,7 +47,7 @@
 
   programs.git = {
     enable = true;
-    package = pkgs.gitAndTools.gitFull;
+    # package = pkgs.gitAndTools.gitFull;
 
     userName = "Richard Wallace";
     userEmail = "rwallace@thewallacepack.net";

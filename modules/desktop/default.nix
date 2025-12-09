@@ -7,6 +7,10 @@
     ../system.nix
   ];
 
+  home-manager.users.rwallace.imports = [
+    ./home-manager/default.nix
+  ];
+
   fonts = {
     enableDefaultFonts = true;
     fontDir.enable = true;
@@ -17,62 +21,79 @@
       };
     };
 
-    fonts = with pkgs; [
-      (nerdfonts.override { fonts = [ "FiraCode" "DejaVuSansMono" ]; })
-      # fira-code
-      # fira-code-symbols
-    ];
+    packages =
+      with pkgs.nerd-fonts; [ fira-code dejavu-sans-mono ];
   };
 
   nixpkgs = {
-    config.MPlayer.pulseSupport = true;
+    # config.MPlayer.pulseSupport = true;
 
-    overlays = [ (import ./overlay) ];
+    # overlays = [ (import ./overlay) ];
   };
 
   networking.networkmanager.enable = true;
 
-  programs.dconf.enable = true;
+  programs = {
+    dconf.enable = true;
 
-  security.pam.services = {
-    gnome_keyring = {
-      text = ''
-        auth     optional    ${pkgs.gnome.gnome-keyring}/lib/security/pam_gnome_keyring.so
-        session  optional    ${pkgs.gnome.gnome-keyring}/lib/security/pam_gnome_keyring.so auto_start
+    hyprland.enable = true;
+  };
 
-        password  optional    ${pkgs.gnome.gnome-keyring}/lib/security/pam_gnome_keyring.so
-      '';
+
+  security = {
+    pam.services = {
+      gdm-password.enableGnomeKeyring = true;
     };
+
+    polkit.enable = true;
+
+    # gnome_keyring = {
+    #   text = ''
+    #     auth     optional    ${pkgs.gnome-keyring}/lib/security/pam_gnome_keyring.so
+    #     session  optional    ${pkgs.gnome-keyring}/lib/security/pam_gnome_keyring.so auto_start
+    #
+    #     password  optional    ${pkgs.gnome-keyring}/lib/security/pam_gnome_keyring.so
+    #   '';
+    # };
   };
 
   services = {
-    blueman.enable = true;
+    # blueman.enable = true;
 
     gnome.gnome-keyring.enable = true;
 
-    printing = {
-      enable = true;
-      drivers = [ pkgs.gutenprint pkgs.hplipWithPlugin ];
-    };
+    gvfs.enable = true;
+
+    power-profiles-daemon.enable = true;
+
+    # printing = {
+    #   enable = true;
+    #   drivers = [ pkgs.gutenprint pkgs.hplipWithPlugin ];
+    # };
 
     xserver = {
       enable = true;
-      layout = "us";
-      xkbOptions = "compose:ralt";
-
+    #   layout = "us";
+    #   xkbOptions = "compose:ralt";
+    #
       displayManager = {
-        lightdm.enable = true;
-        session = [
-          {
-            manage = "desktop";
-            name = "home-manager";
-            start = ''
-              ~/.xsession-hm &
-              waitPID=$!
-            '';
-          }
-        ];
+        gdm = {
+          enable = true;
+          wayland = true;
+        };
       };
+    #     lightdm.enable = true;
+    #     session = [
+    #       {
+    #         manage = "desktop";
+    #         name = "home-manager";
+    #         start = ''
+    #           ~/.xsession-hm &
+    #           waitPID=$!
+    #         '';
+    #       }
+    #     ];
+    #   };
     };
   };
 }

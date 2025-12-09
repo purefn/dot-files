@@ -3,7 +3,7 @@
 {
   programs = {
     ssh = {
-      startAgent = true;
+      # startAgent = true;
       enableAskPassword = true;
     };
   };
@@ -12,7 +12,6 @@
     locate = {
       enable = true;
       locate = pkgs.plocate;
-      localuser = null;
     };
 
     openssh = {

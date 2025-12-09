@@ -54,10 +54,7 @@
 
     lesspipe.enable = true;
 
-    lsd = {
-      enable = true;
-      enableAliases = true;
-    };
+    lsd.enable = true;
 
     mcfly = {
       enable = true;

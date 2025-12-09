@@ -13,7 +13,8 @@
       enable = true;
 
       font = {
-        package = pkgs.nerdfonts.override { fonts = [ "FiraCode" "DejaVuSansMono" ]; };
+        # package = pkgs.nerdfonts.override { fonts = [ "FiraCode" "DejaVuSansMono" ]; };
+        package = pkgs.nerd-fonts.fira-code;
         name = "FiraCode Nerd Font";
       };
 

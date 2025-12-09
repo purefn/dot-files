@@ -12,7 +12,7 @@
     };
 
     theme = {
-      package = pkgs.gnome.gnome-themes-extra;
+      package = pkgs.gnome-themes-extra;
       name = "Adwaita";
     };
 
@@ -35,24 +35,25 @@
       # basics
       fira-code
       fira-code-symbols
-      gnome.eog
-      gnome.evince
-      gnome.file-roller
-      gnome.gnome-keyring
+      eog
+      evince
+      file-roller
+      gnome-keyring
+      kitty
       networkmanagerapplet
       networkmanager-openconnect
-      gnome.seahorse
-      gnome.zenity
+      seahorse
+      zenity
       libnotify
 
-      gnome.adwaita-icon-theme
+      adwaita-icon-theme
       papirus-icon-theme
       gnome-icon-theme
       hicolor-icon-theme
 
       # audio
-      adjust-volume
-      pamixer
+      # adjust-volume
+      # pamixer
       # paprefs
       # pasystray
       # pavucontrol
@@ -88,19 +89,21 @@
     firefox.enable = true;
 
     rofi.enable = true;
+
+    waybar.enable = true;
   };
 
   services = {
-    betterlockscreen.enable = true;
-    blueman-applet.enable = true;
-    flameshot.enable = true;
-    network-manager-applet.enable = true;
-    pasystray.enable = true;
-    status-notifier-watcher.enable = true;
-    taffybar.enable = true;
-    volnoti.enable = true;
+    # betterlockscreen.enable = true;
+    # blueman-applet.enable = true;
+    # flameshot.enable = true;
+    # network-manager-applet.enable = true;
+    # pasystray.enable = true;
+    # status-notifier-watcher.enable = true;
+    # taffybar.enable = true;
+    # volnoti.enable = true;
 
-    notify-osd.enable = true;
+    # notify-osd.enable = true;
     # dunst = {
     #   enable = true;
     #   iconTheme = {
@@ -134,37 +137,39 @@
     # };
   };
 
-  xdg.configFile = {
-    "taffybar" = {
-      source = ./taffybar;
-      onChange = ''
-        # Attempt to restart taffybar if X is running
-        if [[ -v DISPLAY ]]; then
-          pkillVerbose=""
-          if [[ -v VERBOSE ]]; then
-            pkillVerbose="-e"
-          fi
-          $DRY_RUN_CMD ${pkgs.procps}/bin/pkill -u $USER $pkillVerbose taffybar || true
-          unset pkillVerbose
-        fi
-      '';
-    };
-  };
+  # xdg.configFile = {
+  #   "taffybar" = {
+  #     source = ./taffybar;
+  #     onChange = ''
+  #       # Attempt to restart taffybar if X is running
+  #       if [[ -v DISPLAY ]]; then
+  #         pkillVerbose=""
+  #         if [[ -v VERBOSE ]]; then
+  #           pkillVerbose="-e"
+  #         fi
+  #         $DRY_RUN_CMD ${pkgs.procps}/bin/pkill -u $USER $pkillVerbose taffybar || true
+  #         unset pkillVerbose
+  #       fi
+  #     '';
+  #   };
+  # };
 
-  xsession = {
-    enable = true;
+  wayland.windowManager.hyprland.enable = true;
 
-    preferStatusNotifierItems = true;
+  # xsession = {
+    # enable = true;
 
-    scriptPath = ".xsession-hm";
+    # preferStatusNotifierItems = true;
 
-    windowManager.xmonad = {
-      enable = true;
-      # current version of taffybar, 3.3.0, doesn't compile with ghc 9
-      haskellPackages = pkgs.haskell.packages.ghc8107;
-      extraPackages = ps: [ ps.taffybar ];
-      enableContribAndExtras = true;
-      config = ./xmonad.hs;
-    };
-  };
+    # scriptPath = ".xsession-hm";
+
+    # windowManager.xmonad = {
+    #  enable = true;
+    #  # current version of taffybar, 3.3.0, doesn't compile with ghc 9
+    #  haskellPackages = pkgs.haskell.packages.ghc8107;
+    #  extraPackages = ps: [ ps.taffybar ];
+    #  enableContribAndExtras = true;
+    #  config = ./xmonad.hs;
+    #};
+  # };
 }

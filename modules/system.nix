@@ -14,7 +14,7 @@
       cores = 0;
       max-jobs = "auto";
       substituters = [
-        "https://hydra.iohk.io"
+        "https://cache.iog.io"
       ];
       trusted-public-keys = [
         "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="

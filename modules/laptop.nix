@@ -6,9 +6,14 @@
     ./desktop/default.nix
   ];
 
+  # TODO apply to all users
+  home-manager.users.rwallace.home.packages = [ pkgs.lm_sensors ];
+
+  security.pam.services.hyprlock = {};
+
   # programs.light.enable = true;
   #
-  # services = {
+  services = {
   #   actkbd = {
   #     enable = true;
   #     bindings = [
@@ -21,7 +26,7 @@
   #
   #   logind.lidSwitchExternalPower = "ignore";
   #
-  #   upower.enable = true;
+    upower.enable = true;
   #
   #   thermald.enable = true;
   #
@@ -34,5 +39,5 @@
   #       tapping = true;
   #     };
   #   };
-  # };
+  };
 }

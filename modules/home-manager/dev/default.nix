@@ -9,6 +9,7 @@
     packages = with pkgs; [
       # general dev
       cachix
+      claude-code
       ctags
       # darcs
       gnumake

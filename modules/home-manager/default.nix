@@ -1,4 +1,4 @@
-{ config, ...}:
+{ inputs, config, ...}:
 
 {
   home-manager = {
@@ -10,7 +10,8 @@
         ./bash
         ./dev
         (import ./misc { nixos-config = config; })
-        ./neovim
+        inputs.nvf-config.homeManagerModules.nvf
+        inputs.nvf-config.homeManagerModules.nvf-config
       ];
 
       home = {

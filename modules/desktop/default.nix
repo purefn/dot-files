@@ -8,6 +8,7 @@
   ];
 
   home-manager.users.rwallace.imports = [
+    # add desktop specific home-manager config
     ./home-manager/default.nix
   ];
 
@@ -38,7 +39,6 @@
 
     hyprland.enable = true;
   };
-
 
   security = {
     pam.services = {

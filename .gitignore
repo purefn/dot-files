@@ -1,3 +1,6 @@
 /nixos/configuration.nix
 /result
 *.swp
+
+# Claude Code settings
+.claude/

@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ./machines/Gazelle2021/configuration.nix ];
+  imports = [ ./configuration.nix ];
   profiles.laptop.enable = true;
 
   systemd.services.nix-daemon.environment.TMPDIR = "/nix/tmp";

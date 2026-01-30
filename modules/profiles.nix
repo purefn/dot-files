@@ -2,10 +2,10 @@
 
 {
   imports = [
-    ./profiles/basic.nix
-    ./profiles/desktop.nix
-    ./profiles/laptop.nix
-    ./profiles/mediaserver.nix
+    ./profiles/basic
+    ./profiles/desktop
+    ./profiles/laptop
+    ./profiles/mediaserver
   ];
 
   options.profiles = {

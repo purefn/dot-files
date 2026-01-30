@@ -38,15 +38,23 @@
     };
     nixosConfigurations =
       let
-        f = cfg: nixpkgs.lib.nixosSystem {
+        # Helper function to build a NixOS system configuration
+        # Takes a machine config path and returns a complete system
+        mkSystem = machineConfig: nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [
+            # External modules
             home-manager.nixosModules.home-manager
             sops-nix.nixosModules.sops
-            ./modules/profiles.nix
-            cfg
 
+            # Profile system (basic, desktop, laptop, mediaserver)
+            ./modules/profiles.nix
+
+            # Machine-specific configuration
+            machineConfig
+
+            # Make nixpkgs available via nix channels and registry
             {
               environment.etc."channels/nixpkgs".source = nixpkgs.outPath;
               nix = {
@@ -56,9 +64,12 @@
             }
           ];
         };
-      in builtins.mapAttrs (_: f) {
-        ronin = ./ronin.nix;
-        seedbox = ./seedbox.nix;
+      in {
+        # Laptop: System76 Gazelle with NVIDIA/Intel hybrid GPU
+        ronin = mkSystem ./machines/ronin;
+
+        # Media server: Shuttle XPC with Transmission, Sonarr, Radarr
+        seedbox = mkSystem ./machines/seedbox;
       };
   };
 }

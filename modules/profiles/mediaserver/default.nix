@@ -2,7 +2,7 @@
 
 {
   # Media server-specific imports
-  imports = [ ../mediaserver/mediatomb.nix ];
+  imports = [ ./mediatomb.nix ];
   disabledModules = [ "services/misc/mediatomb.nix" ];
 
   config = lib.mkIf config.profiles.mediaserver.enable {
@@ -66,6 +66,7 @@
 
       transmission = {
         enable = true;
+        package = pkgs.transmission_4;
         settings = {
           download-dir = "/storage/torrents";
           incomplete-dir-enabled = false;

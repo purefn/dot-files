@@ -1,13 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  imports = [
-    ./erase-your-darlings.nix
-    ./networking.nix
-    ./services.nix
-    ./sops
-  ];
-
   nix = {
     settings = {
       auto-optimise-store = true;

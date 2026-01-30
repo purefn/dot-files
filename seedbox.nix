@@ -1,11 +1,8 @@
 { config, pkgs, lib, ... }:
 
 {
-  imports =
-    [
-      ./machines/Shuttle-XPC-Slim-DH110SE/configuration.nix
-      ./modules/mediaserver/default.nix
-    ];
+  imports = [ ./machines/Shuttle-XPC-Slim-DH110SE/configuration.nix ];
+  profiles.mediaserver.enable = true;
 
   boot.tmpOnTmpfs = true;
 

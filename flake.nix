@@ -44,6 +44,7 @@
           modules = [
             home-manager.nixosModules.home-manager
             sops-nix.nixosModules.sops
+            ./modules/profiles.nix
             cfg
 
             {

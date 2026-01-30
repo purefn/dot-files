@@ -11,7 +11,7 @@
           # Base configs - always included
           ../home-manager/bash
           ../home-manager/dev
-          (import ../home-manager/misc { nixos-config = config; })
+          (import ../home-manager/ssh { nixos-config = config; })
           inputs.nvf-config.homeManagerModules.nvf
           inputs.nvf-config.homeManagerModules.nvf-config
         ]

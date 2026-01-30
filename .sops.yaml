@@ -2,7 +2,7 @@
 #
 # This configures which age keys can decrypt the secrets file.
 # The SOPS module that uses these secrets is located at:
-#   modules/profiles/basic/sops/
+#   profiles/basic/nixos/sops/
 #
 # Age keys are defined for:
 #   - u_purefn: User key
@@ -14,7 +14,7 @@ keys:
   - &m_daedalus age1llyzelv026fzh3l8yarpap8ej4pcvxskerjy3g5s7egprskr8ats6vxn7m
   - &m_seedbox age1d3fjqkht9024xuwxserkqf0ecvv7vpwdq9mehywg63qp46363uhq3jnfnc
 creation_rules:
-  - path_regex: modules/profiles/basic/sops/secrets.yaml
+  - path_regex: profiles/basic/nixos/sops/secrets.yaml
     key_groups:
     - age:
       - *u_purefn

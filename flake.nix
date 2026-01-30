@@ -49,7 +49,7 @@
             sops-nix.nixosModules.sops
 
             # Profile system (basic, desktop, laptop, mediaserver)
-            ./modules/profiles.nix
+            ./profiles
 
             # Machine-specific configuration
             machineConfig

@@ -67,8 +67,8 @@
     home = "/home/rwallace";
     isNormalUser = true;
     openssh.authorizedKeys.keyFiles = [
-      ../../home-manager/misc/ssh/id_rsa.pub
-      ../../home-manager/misc/ssh/id_ed25519.pub
+      ../home-manager/misc/ssh/id_rsa.pub
+      ../home-manager/misc/ssh/id_ed25519.pub
     ];
   };
 

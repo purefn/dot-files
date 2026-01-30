@@ -9,15 +9,15 @@
       users.rwallace = {
         imports = [
           # Base configs - always included
-          ../../home-manager/bash
-          ../../home-manager/dev
-          (import ../../home-manager/misc { nixos-config = config; })
+          ../home-manager/bash
+          ../home-manager/dev
+          (import ../home-manager/misc { nixos-config = config; })
           inputs.nvf-config.homeManagerModules.nvf
           inputs.nvf-config.homeManagerModules.nvf-config
         ]
         # Automatically apply profile-specific home-manager configs
-        ++ lib.optional config.profiles.desktop.enable ../../home-manager/profiles/desktop
-        ++ lib.optional config.profiles.laptop.enable ../../home-manager/profiles/laptop;
+        ++ lib.optional config.profiles.desktop.enable ../../desktop/home-manager
+        ++ lib.optional config.profiles.laptop.enable ../../laptop/home-manager;
 
         home = {
           username = "rwallace";

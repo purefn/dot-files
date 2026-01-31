@@ -29,11 +29,6 @@
 
       historyControl = [ "ignoredups" "ignorespace" ];
 
-      # initExtra = ''
-      #   # TODO have this file generated automatically
-      #   . ${./shell_prompt.sh}
-      # '';
-
       shellAliases = {
         cat = "bat";
       };

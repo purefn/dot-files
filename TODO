@@ -1,5 +1,7 @@
 * erase-your-darlings, sops, and home-manager are always loaded in basic profile. can they be in the conditional config?
 
-* move home-manager modules into the profiles. maybe have profiles broken down into {profile}/nixos and {profile}/home-manager
+* profiles/basic/nixos/home-manager.nix imports should be elsewhere
 
-* move profiles.nix to profiles/default.nix
+* users should be easier to add and be centrally located
+
+* move mediatomb.nix and the import and disabling into the nixos subdir

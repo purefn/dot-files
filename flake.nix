@@ -16,9 +16,14 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    direnv-instant = {
+      url = "github:Mic92/direnv-instant";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, sops-nix, ... }: {
+  outputs = inputs@{ self, nixpkgs, home-manager, sops-nix, direnv-instant, ... }: {
     apps.x86_64-linux =
       let
         pkgs = nixpkgs.legacyPackages.x86_64-linux;

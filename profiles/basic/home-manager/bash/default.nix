@@ -42,7 +42,11 @@
 
     direnv = {
       enable = true;
-      nix-direnv.enable = true;
+      # nix-direnv.enable = true;
+    };
+    direnv-instant = {
+      enable = true;
+      settings.debug_log = "/tmp/direnv-instant.log";
     };
 
     jq.enable = true;

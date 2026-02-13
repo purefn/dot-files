@@ -14,6 +14,7 @@
           (import ../home-manager/ssh { nixos-config = config; })
           inputs.nvf-config.homeManagerModules.nvf
           inputs.nvf-config.homeManagerModules.nvf-config
+          inputs.direnv-instant.homeModules.direnv-instant
         ]
         # Automatically apply profile-specific home-manager configs
         ++ lib.optional config.profiles.desktop.enable ../../desktop/home-manager

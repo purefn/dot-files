@@ -62,7 +62,8 @@
 
   programs = {
     chromium.enable = true;
-    firefox.enable = true;
+    firefox.configPath = ".mozilla/firefox";
+    # firefox.enable = true;
 
     rofi.enable = true;
 

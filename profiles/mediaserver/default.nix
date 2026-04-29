@@ -13,10 +13,6 @@
 
     environment.systemPackages = with pkgs; [ unrar ];
 
-    nixpkgs.config.packageOverrides = pkgs: {
-      # radarr = pkgs.callPackage ../mediaserver/radarr {};
-    };
-
     services = {
       jackett.enable = true;
 

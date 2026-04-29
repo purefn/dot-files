@@ -84,7 +84,7 @@
   # };
 
   programs.bash = {
-    enableCompletion = true;
+    completion.enable = true;
     shellAliases = {
       nixf = "nix --extra-experimental-features flakes";
     };
@@ -92,5 +92,6 @@
 
   nixpkgs.config = {
     allowUnfree = true;
+    android_sdk.accept_license = true;
   };
 }

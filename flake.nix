@@ -1,9 +1,10 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/master";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -18,8 +19,18 @@
     };
 
     direnv-instant = {
-      url = "github:Mic92/direnv-instant";
+      url = "github:Mic92/direnv-instant/fb9079adcef8b8ef97f91a1385be7ab5e3ff2b18";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    htmx-skill = {
+      url = "github:mintarasss/htmx-skill";
+      flake = false;
+    };
+
+    anthropics-skills = {
+      url = "github:anthropics/skills";
+      flake = false;
     };
   };
 
@@ -30,6 +41,7 @@
       in {
         update = {
           type = "app";
+          meta.description = "Update flake inputs and rebuild the active NixOS system";
           program =
             let
               update = pkgs.writeShellScript "update" ''

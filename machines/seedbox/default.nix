@@ -4,13 +4,13 @@
   imports = [ ./configuration.nix ];
   profiles.mediaserver.enable = true;
 
-  boot.tmpOnTmpfs = true;
+  boot.tmp.useTmpfs = true;
 
   networking = {
     hostId = "1f9bf057";
     hostName = "seedbox";
     interfaces = {
-      enp0s31f6.ip4 = [ { address = "192.168.1.10"; prefixLength = 24; } ];
+      enp0s31f6.ipv4.addresses = [ { address = "192.168.1.10"; prefixLength = 24; } ];
 
       enp3s0.useDHCP = true;
     };

@@ -36,9 +36,9 @@ in {
       };
     };
 
-    opengl = {
+    graphics = {
       enable = true;
-      driSupport32Bit = true;
+      enable32Bit = true;
     };
 
     system76.enableAll = true;

@@ -12,7 +12,7 @@
     hypridle = {
       enable = true;
       settings = {
-        listeners = [
+        listener = [
           {
             timeout = 300;                                # 5 minutes
             on-timeout = "hyprlock";                      # lock screen
@@ -31,7 +31,7 @@
   wayland.windowManager.hyprland = {
     settings = {
         bind = [
-          "$mainMod, L, exec, hyprlock"
+          "$mainMod, escape, exec, hyprlock"
         ];
       };
     };

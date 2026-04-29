@@ -24,14 +24,14 @@
   programs = {
     ssh = {
       enable = true;
+      enableDefaultConfig = false;
 
-      compression = true;
+      matchBlocks."*" = {
+        compression = true;
+        forwardX11 = true;
+      };
 
       includes = [ "${config.lib.file.mkOutOfStoreSymlink nixos-config.sops.secrets."ssh/config".path}" ];
-
-      extraConfig = ''
-        ForwardX11 = yes
-      '';
     };
   };
 }

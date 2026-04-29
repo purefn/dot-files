@@ -6,7 +6,7 @@
     profiles.basic.enable = true;
 
     fonts = {
-      enableDefaultFonts = true;
+      enableDefaultPackages = true;
       fontDir.enable = true;
       enableGhostscriptFonts = true;
       fontconfig = {
@@ -53,6 +53,11 @@
     services = {
       # blueman.enable = true;
 
+      displayManager.gdm = {
+        enable = true;
+        wayland = true;
+      };
+
       gnome.gnome-keyring.enable = true;
 
       gvfs.enable = true;
@@ -68,25 +73,6 @@
         enable = true;
       #   layout = "us";
       #   xkbOptions = "compose:ralt";
-      #
-        displayManager = {
-          gdm = {
-            enable = true;
-            wayland = true;
-          };
-        };
-      #     lightdm.enable = true;
-      #     session = [
-      #       {
-      #         manage = "desktop";
-      #         name = "home-manager";
-      #         start = ''
-      #           ~/.xsession-hm &
-      #           waitPID=$!
-      #         '';
-      #       }
-      #     ];
-      #   };
       };
     };
   };

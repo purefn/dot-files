@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{config, pkgs, ...}:
 
 {
   gtk = {
@@ -13,6 +13,8 @@
       package = pkgs.gnome-themes-extra;
       name = "Adwaita";
     };
+
+    gtk4.theme = config.gtk.theme;
 
     gtk3.extraConfig = {
       gtk-button-images = 1;

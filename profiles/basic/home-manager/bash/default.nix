@@ -3,12 +3,12 @@
 let
   # Wrap direnv-instant to use coreutils cat instead of shell alias
   # The bash hook uses `cat` which conflicts with our bat alias
-  direnv-instant-wrapped = inputs.direnv-instant.packages.${pkgs.system}.default.overrideAttrs (old: {
-    postPatch = (old.postPatch or "") + ''
-      substituteInPlace hooks/bash.sh \
-        --replace-fail 'cat "' '${pkgs.coreutils}/bin/cat "'
-    '';
-  });
+  # direnv-instant-wrapped = inputs.direnv-instant.packages.${pkgs.system}.default.overrideAttrs (old: {
+  #   postPatch = (old.postPatch or "") + ''
+  #     substituteInPlace hooks/bash.sh \
+  #       --replace-fail 'cat "' '${pkgs.coreutils}/bin/cat "'
+  #   '';
+  # });
 in
 {
   home.packages = with pkgs; [
@@ -56,7 +56,7 @@ in
     };
     direnv-instant = {
       enable = true;
-      package = direnv-instant-wrapped;
+      package = inputs.direnv-instant.packages.${pkgs.system}.default;
       settings.debug_log = "/tmp/direnv-instant.log";
     };
 

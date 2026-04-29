@@ -2,8 +2,6 @@
 
 {
   boot = {
-    kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
-
     supportedFilesystems = [ "zfs" ];
 
     # this wipes the root fs on reboot.
@@ -28,6 +26,7 @@
     let
       mount = x: {
         device = "/persist${x}";
+        fsType = "none";
         options = [ "bind" ];
       };
       dirs = [
@@ -39,6 +38,10 @@
       pkgs.lib.genAttrs (map (x: "/${x}") dirs) mount // {
         "/etc/nixos" = mount "/dot-files";
       };
+
+  system.activationScripts.zfsAcltype = ''
+    ${config.boot.zfs.package}/bin/zfs set acltype=posixacl rpool/safe/home
+  '';
 
   services = {
     openssh = {
@@ -64,8 +67,8 @@
   users = {
     mutableUsers = false;
     users = {
-      root.passwordFile = config.sops.secrets."passwords/root".path;
-      rwallace.passwordFile = config.sops.secrets."passwords/rwallace".path;
+      root.hashedPasswordFile = config.sops.secrets."passwords/root".path;
+      rwallace.hashedPasswordFile = config.sops.secrets."passwords/rwallace".path;
     };
   };
 }

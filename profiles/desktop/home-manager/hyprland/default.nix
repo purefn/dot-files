@@ -5,7 +5,6 @@
     ./launcher.nix
     ./screenshots.nix
     ./lock-idle.nix
-    ./notifications.nix
     ./wallpaper.nix
   ];
 
@@ -156,8 +155,8 @@
       ];
 
       windowrule = [
-        "suppressevent maximize, class:.*"
-        "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
+        "suppress_event maximize, match:class .*"
+        "no_focus on, match:class ^$, match:title ^$, match:xwayland 1, match:float 1, match:fullscreen 0, match:pin 0"
       ];
     };
   };

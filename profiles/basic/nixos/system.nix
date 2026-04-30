@@ -94,4 +94,16 @@
     allowUnfree = true;
     android_sdk.accept_license = true;
   };
+
+  # nvf and many of its plugins (codewindow, etc.) depend on the legacy
+  # nvim-treesitter API (ts_utils, configs, incremental_selection). The
+  # default nvim-treesitter in nixpkgs is now the upstream rewrite, which
+  # ships none of those modules. Pin to the legacy build until nvf migrates.
+  nixpkgs.overlays = [
+    (final: prev: {
+      vimPlugins = prev.vimPlugins // {
+        nvim-treesitter = prev.vimPlugins.nvim-treesitter-legacy;
+      };
+    })
+  ];
 }

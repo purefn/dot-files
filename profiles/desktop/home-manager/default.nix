@@ -73,7 +73,6 @@
   services = {
     # betterlockscreen.enable = true;
     # blueman-applet.enable = true;
-    # flameshot.enable = true;
     # network-manager-applet.enable = true;
     # pasystray.enable = true;
     # status-notifier-watcher.enable = true;

@@ -13,6 +13,7 @@ keys:
   - &m_tealc age14m2uxh4d2nnc37kp20ngpe8tyqzephjt3dl643m03mayx2x50grsjfkmnl
   - &m_daedalus age1llyzelv026fzh3l8yarpap8ej4pcvxskerjy3g5s7egprskr8ats6vxn7m
   - &m_seedbox age1d3fjqkht9024xuwxserkqf0ecvv7vpwdq9mehywg63qp46363uhq3jnfnc
+  - &m_darwin age1y6a3qqzyf7lmvhfxxtcg3tj68ftu5kuw0yhfk67tml32yy6d73zqxlkee0
 creation_rules:
   - path_regex: profiles/basic/nixos/sops/secrets.yaml
     key_groups:
@@ -22,4 +23,5 @@ creation_rules:
       - *m_tealc
       - *m_daedalus
       - *m_seedbox
+      - *m_darwin
 

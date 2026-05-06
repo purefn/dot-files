@@ -12,4 +12,9 @@
     scroll_factor = 0.4;
     disable_while_typing = true;
   };
+
+  # Compensate for the hyprland scroll_factor in kitty so terminal scrolling
+  # doesn't crawl. touch_scroll_multiplier only affects touchpad scrolling,
+  # not the mouse wheel, so this is a no-op on machines without a touchpad.
+  programs.kitty.settings.touch_scroll_multiplier = 2.5;
 }

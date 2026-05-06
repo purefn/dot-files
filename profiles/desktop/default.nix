@@ -1,8 +1,11 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, platform, ... }:
 
 {
-  # Import NixOS configuration
-  imports = [
+  imports = lib.optionals (platform == "nixos") [
     ./nixos
   ];
+
+  config = lib.mkIf config.profiles.desktop.enable {
+    profiles.basic.enable = true;
+  };
 }

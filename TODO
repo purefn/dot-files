@@ -1,3 +1,5 @@
+* need to to include different ways of installing. currently only really supports installing on nixos. we should support installing on darwin-nix as well, and maybe a standalone home-manager config would be useful as well. 
+
 * erase-your-darlings, sops, and home-manager are always loaded in basic profile. can they be in the conditional config?
 
 * profiles/basic/nixos/home-manager.nix imports should be elsewhere

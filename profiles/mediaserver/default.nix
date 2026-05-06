@@ -1,9 +1,9 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, platform, ... }:
 
 {
-  # Media server-specific imports
-  imports = [ ./mediatomb.nix ];
-  disabledModules = [ "services/misc/mediatomb.nix" ];
+  # Media server-specific imports (NixOS only)
+  imports = lib.optionals (platform == "nixos") [ ./mediatomb.nix ];
+  disabledModules = lib.optionals (platform == "nixos") [ "services/misc/mediatomb.nix" ];
 
   config = lib.mkIf config.profiles.mediaserver.enable {
     # Media server includes basic

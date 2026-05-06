@@ -102,7 +102,8 @@ in
       # k8s
       kubectl
 
-      # android
+    ] ++ pkgs.lib.optionals pkgs.stdenv.isLinux [
+      # android (linux only)
       android-emulator
       androidEnv.androidsdk
     ];

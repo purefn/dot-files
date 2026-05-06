@@ -1,10 +1,11 @@
-{ lib, ... }:
+{ lib, platform, ... }:
 
 {
   imports = [
     ./basic
     ./desktop
     ./laptop
+  ] ++ lib.optionals (platform == "nixos") [
     ./mediaserver
   ];
 

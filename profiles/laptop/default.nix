@@ -1,8 +1,7 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, platform, ... }:
 
 {
-  # Import NixOS configuration
-  imports = [
+  imports = lib.optionals (platform == "nixos") [
     ./nixos
   ];
 }

@@ -2,9 +2,6 @@
 
 {
   config = lib.mkIf config.profiles.desktop.enable {
-    # Desktop includes basic
-    profiles.basic.enable = true;
-
     fonts = {
       enableDefaultPackages = true;
       fontDir.enable = true;

@@ -243,18 +243,14 @@
         "nvf": "nvf"
       },
       "locked": {
-        "lastModified": 1778070942,
-        "narHash": "sha256-Ptfnu4nXlppRWZ9qyCzTP90MltPfTgI0w4ceIh92854=",
-        "owner": "purefn",
-        "repo": "nvf-config",
-        "rev": "57eae559f432798dee718a2b5aa7a5881bcdee02",
-        "type": "github"
+        "path": "./nvf-config",
+        "type": "path"
       },
       "original": {
-        "owner": "purefn",
-        "repo": "nvf-config",
-        "type": "github"
-      }
+        "path": "./nvf-config",
+        "type": "path"
+      },
+      "parent": []
     },
     "root": {
       "inputs": {

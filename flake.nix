@@ -14,7 +14,7 @@
     };
 
     nvf-config = {
-      url = "github:purefn/nvf-config";
+      url = "path:./nvf-config";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

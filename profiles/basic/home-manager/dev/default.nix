@@ -101,12 +101,32 @@ in
 
       # k8s
       kubectl
+      kubernetes-helm
+      helmsman
+      terragrunt
 
     ] ++ pkgs.lib.optionals pkgs.stdenv.isLinux [
       # android (linux only)
       android-emulator
       androidEnv.androidsdk
     ];
+  };
+
+  services.podman = {
+    enable = true;
+    # The home-manager activation script runs with a locked-down PATH that
+    # excludes /usr/bin and ~/.nix-profile/bin, so `podman machine init` on
+    # darwin can't find ssh-keygen. Wrap podman to put openssh on its PATH.
+    package = pkgs.symlinkJoin {
+      name = "podman-with-openssh";
+      paths = [ pkgs.podman ];
+      nativeBuildInputs = [ pkgs.makeWrapper ];
+      postBuild = ''
+        wrapProgram $out/bin/podman \
+          --prefix PATH : ${pkgs.lib.makeBinPath [ pkgs.openssh ]}
+      '';
+      meta.mainProgram = "podman";
+    };
   };
 
   programs = {

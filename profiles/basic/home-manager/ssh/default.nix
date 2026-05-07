@@ -8,6 +8,7 @@ in
   home = {
     packages = with pkgs; [
       nix-prefetch-git
+      openssh
     ] ++ lib.optionals (!pkgs.stdenv.isDarwin) [
       sshfs-fuse
     ];

@@ -37,6 +37,7 @@ in {
       html.enable = true;
       markdown.enable = true;
       nix.enable = true;
+      scala.enable = true;
       sql.enable = true;
     };
 

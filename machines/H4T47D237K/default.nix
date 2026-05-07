@@ -6,8 +6,29 @@
 
   users.primaryUser = "rwallace1";
 
-  home-manager.users.${config.users.primaryUser}.programs.git.settings.user.email =
-    lib.mkForce "rwallace1@caesars.com";
+  home-manager.users.${config.users.primaryUser} = {
+    programs.git.settings.user.email = lib.mkForce "rwallace1@caesars.com";
+
+    programs.ssh.matchBlocks = {
+      "gitlab.com" = {
+        extraOptions = {
+          PreferredAuthentications = "publickey";
+          UseKeychain = "yes";
+          AddKeysToAgent = "yes";
+        };
+      };
+      "github.com" = {
+        hostname = "ssh.github.com";
+        port = 443;
+        user = "git";
+        extraOptions = {
+          PreferredAuthentications = "publickey";
+          UseKeychain = "yes";
+          AddKeysToAgent = "yes";
+        };
+      };
+    };
+  };
 
   networking.hostName = "H4T47D237K";
 

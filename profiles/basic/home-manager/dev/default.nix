@@ -21,6 +21,24 @@ let
     ];
   };
 
+  # On darwin the kiro-cli binary is a thin dispatcher that tries to spawn
+  # `kiro-cli-chat` via a path lookup hardcoded around `/Applications/Kiro
+  # CLI.app/...` and fails on a Nix install. Replace the dispatcher with a
+  # one-line wrapper that just exec's kiro-cli-chat — same subcommand surface,
+  # no broken /Applications check.
+  kiro-cli = if pkgs.stdenv.isDarwin
+    then pkgs.kiro-cli.overrideAttrs (old: {
+      postInstall = (old.postInstall or "") + ''
+        rm -f "$out/bin/kiro-cli"
+        cat > "$out/bin/kiro-cli" <<WRAPPER_EOF
+        #!/bin/sh
+        exec "$out/bin/kiro-cli-chat" "\$@"
+        WRAPPER_EOF
+        chmod +x "$out/bin/kiro-cli"
+      '';
+    })
+    else pkgs.kiro-cli;
+
   android-emulator = pkgs.writeShellScriptBin "android-emulator" ''
     export ANDROID_SDK_ROOT="${androidEnv.androidsdk}/libexec/android-sdk"
 
@@ -104,6 +122,9 @@ in
       kubernetes-helm
       helmsman
       terragrunt
+
+      # ai
+      kiro-cli
 
     ] ++ pkgs.lib.optionals pkgs.stdenv.isLinux [
       # android (linux only)

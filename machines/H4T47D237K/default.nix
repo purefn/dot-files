@@ -1,10 +1,13 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   profiles.basic.enable = true;
   profiles.desktop.enable = true;
 
   users.primaryUser = "rwallace1";
+
+  home-manager.users.${config.users.primaryUser}.programs.git.settings.user.email =
+    lib.mkForce "rwallace1@caesars.com";
 
   networking.hostName = "H4T47D237K";
 

@@ -38,6 +38,25 @@ in
         compression = true;
         forwardX11 = true;
       };
+
+      matchBlocks."gitlab.com" = {
+        extraOptions = {
+          PreferredAuthentications = "publickey";
+          UseKeychain = "yes";
+          AddKeysToAgent = "yes";
+        };
+      };
+
+      matchBlocks."github.com" = {
+        hostname = "ssh.github.com";
+        port = 443;
+        user = "git";
+        extraOptions = {
+          PreferredAuthentications = "publickey";
+          UseKeychain = "yes";
+          AddKeysToAgent = "yes";
+        };
+      };
     }
     (lib.mkIf hasSops {
       includes = [ "${config.lib.file.mkOutOfStoreSymlink systemConfig.sops.secrets."ssh/config".path}" ];
